@@ -1,4 +1,4 @@
-package alex.carbon_tracker;
+package alex.carbon_tracker.UI;
 
 /**
  * Created by Sachin on 2017-03-01.
