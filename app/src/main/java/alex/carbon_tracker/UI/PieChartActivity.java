@@ -1,4 +1,4 @@
-package alex.carbon_tracker.Model;
+package alex.carbon_tracker.UI;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +17,10 @@ import java.util.List;
 import alex.carbon_tracker.R;
 
 public class PieChartActivity extends AppCompatActivity {
-    float rainfall[]= {9,7,6,4,2};
-    String month[] = {"Jan","Feb","Mar","April","June"};
+    Intent i = this.getIntent();
+
+    private int tripDistance[]= {1,2,3};
+   private String tripName[] = {"a","b","c"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +31,10 @@ public class PieChartActivity extends AppCompatActivity {
 
     private void setupPieChart() {
         List<PieEntry> pieEntries = new ArrayList<>();
-        for(int i = 0;i<rainfall.length;i++){
-            pieEntries.add(new PieEntry(rainfall[i],month[i]));
+        for(int i = 0; i< tripDistance.length; i++){
+            pieEntries.add(new PieEntry(tripDistance[i], tripName[i]));
         }
-        PieDataSet dataSet = new PieDataSet(pieEntries,"Months");
+        PieDataSet dataSet = new PieDataSet(pieEntries,"Cars");
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         PieData data = new PieData(dataSet);
         PieChart chart = (PieChart) findViewById(R.id.pieChart);
