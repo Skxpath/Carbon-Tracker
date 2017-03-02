@@ -1,4 +1,4 @@
-package alex.carbon_tracker.Model;
+package alex.carbon_tracker.UI;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package alex.carbon_tracker.UI;
+package alex.carbon_tracker.Model;
 
 import java.util.ArrayList;
 import java.util.List;
