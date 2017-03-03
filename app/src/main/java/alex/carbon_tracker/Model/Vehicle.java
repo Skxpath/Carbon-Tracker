@@ -1,35 +1,54 @@
 package alex.carbon_tracker.Model;
 
-/**
- * Created by Sachin on 2017-03-01.
- */
-
 public class Vehicle {
-    private String nickname;
     private String make;
     private String model;
     private int year;
-    public Vehicle(String nickname,String make,String model,int year){
-        this.make= make;
-        this.model = model;
-        this.nickname = nickname;
-        this.year = year;
+    private double carbonEmission;
 
+    public Vehicle() {
+    }
+
+
+    public String getMake() {
+        return make;
+    }
+
+    public String getModel() {
+        return model;
     }
 
     public int getYear() {
         return year;
     }
 
-    public String getMake() {
-        return make;
+    public double getCarbonEmission() {
+        return carbonEmission;
     }
 
-    public String getNickname() {
-        return nickname;
+    public void setMake(String make) {
+        this.make = make;
     }
 
-    public String getModel() {
-        return model;
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setCarbonEmission(double carbonEmission) {
+        this.carbonEmission = carbonEmission;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", year=" + year +
+                ", carbonEmission=" + carbonEmission +
+                '}';
     }
 }

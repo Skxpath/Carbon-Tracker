@@ -1,8 +1,5 @@
 package alex.carbon_tracker.Model;
 
-/**
- * Created by Sachin on 2017-03-01.
- */
 public class CarbonTrackerModel {
     private static CarbonTrackerModel ourInstance = new CarbonTrackerModel();
 
@@ -18,5 +15,17 @@ public class CarbonTrackerModel {
         journeyManager = new JourneyManager();
         routeManager = new RouteManager();
         vehicleManager = new VehicleManager();
+    }
+
+    public RouteManager getRouteManager() {
+        return routeManager;
+    }
+
+    public JourneyManager getJourneyManager() {
+        return journeyManager;
+    }
+
+    public VehicleManager getVehicleManager() {
+        return vehicleManager;
     }
 }
