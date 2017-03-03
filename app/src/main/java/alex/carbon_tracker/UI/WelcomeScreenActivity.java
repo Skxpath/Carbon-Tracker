@@ -3,6 +3,8 @@ package alex.carbon_tracker.UI;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -34,6 +36,14 @@ public class WelcomeScreenActivity extends AppCompatActivity {
             @Override
             public void onAnimationRepeat(Animation animation) {
 
+            }
+        });
+        welcomeImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ppop","Clicked!!!!");
+                startActivity(new Intent(WelcomeScreenActivity.this, MainActivity.class));
+                finish();
             }
         });
     }
