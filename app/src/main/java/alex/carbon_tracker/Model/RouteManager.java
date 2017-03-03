@@ -5,6 +5,9 @@ import java.util.List;
 
 /**
  * Created by Sachin on 2017-03-01.
+ * <p>
+ * RouteManager class which manages the different
+ * Routes instantiated and also stores them in an ArrayList.
  */
 
 public class RouteManager {
@@ -13,10 +16,12 @@ public class RouteManager {
     public Route getRoute(int index) {
         return routeList.get(index);
     }
-    public void addRoute(Route route){
+
+    public void addRoute(Route route) {
         routeList.add(route);
     }
-    public void deleteRoute(int index){
+
+    public void deleteRoute(int index) {
         routeList.remove(index);
     }
 }

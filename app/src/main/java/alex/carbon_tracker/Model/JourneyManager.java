@@ -5,6 +5,9 @@ import java.util.List;
 
 /**
  * Created by Sachin on 2017-03-01.
+ * <p>
+ * JourneyManager class to manage the different
+ * Journeys present in the program.
  */
 
 public class JourneyManager {

@@ -5,6 +5,9 @@ import java.util.List;
 
 /**
  * Created by Sachin on 2017-03-01.
+ * <p>
+ * VehicleManager class which manages created Vehicles
+ * and stores them in an ArrayList.
  */
 
 public class VehicleManager {
@@ -13,10 +16,12 @@ public class VehicleManager {
     public Vehicle getVehicle(int index) {
         return vehicleList.get(index);
     }
-    public void delete(int index){
+
+    public void delete(int index) {
         vehicleList.remove(index);
     }
-    public void add(Vehicle vehicle){
+
+    public void add(Vehicle vehicle) {
         vehicleList.add(vehicle);
     }
 
