@@ -2,6 +2,10 @@ package alex.carbon_tracker.Model;
 
 /**
  * Created by Sachin on 2017-03-01.
+ * <p>
+ * Carbon Tracker Model class which acts as a facade class for the
+ * rest of the project. This class connects together JourneyManager,
+ * RouteManager, and VehicleManager.
  */
 public class CarbonTrackerModel {
     private static CarbonTrackerModel ourInstance = new CarbonTrackerModel();
