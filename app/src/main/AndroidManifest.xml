@@ -23,7 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.MenuActivity" />
         <activity android:name=".UI.PieChartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -19,8 +19,8 @@ import alex.carbon_tracker.R;
 public class PieChartActivity extends AppCompatActivity {
     Intent i = this.getIntent();
 
-    private int tripDistance[]= {1,2,3};
-   private String tripName[] = {"a","b","c"};
+    private int tripDistance[] = {1, 2, 3};
+    private String tripName[] = {"a", "b", "c"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +31,10 @@ public class PieChartActivity extends AppCompatActivity {
 
     private void setupPieChart() {
         List<PieEntry> pieEntries = new ArrayList<>();
-        for(int i = 0; i< tripDistance.length; i++){
+        for (int i = 0; i < tripDistance.length; i++) {
             pieEntries.add(new PieEntry(tripDistance[i], tripName[i]));
         }
-        PieDataSet dataSet = new PieDataSet(pieEntries,"Cars");
+        PieDataSet dataSet = new PieDataSet(pieEntries, "Cars");
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         PieData data = new PieData(dataSet);
         PieChart chart = (PieChart) findViewById(R.id.pieChart);
