@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = MenuActivity.makeIntent(MainActivity.this);
+                Intent intent = PieChartActivity.makeIntent(MainActivity.this);
                 startActivity(intent);
             }
         });
