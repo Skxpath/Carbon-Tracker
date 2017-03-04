@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_car"
     android:layout_width="match_parent"
@@ -9,42 +10,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="alex.carbon_tracker.UI.AddCarActivity">
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="64dp"
-        android:id="@+id/carMakeDropMenu"
-        android:dropDownWidth="match_parent" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/carMakeDropMenu"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="46dp"
-        android:id="@+id/carModelDropDownMenu" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/carModelDropDownMenu"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="54dp"
-        android:id="@+id/carYearDropDown" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:ems="10"
-        android:layout_below="@+id/carYearDropDown"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="67dp"
-        android:id="@+id/editText"
-        android:hint="Car Nick Name" />
 
     <Button
         android:text="OK"
@@ -56,13 +21,57 @@
         android:layout_marginBottom="22dp"
         android:id="@+id/addCarOkButton" />
 
-    <TextView
-        android:text="ADD CAR ACTIVITY"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:hint="Car Nick Name"
+        android:layout_above="@+id/addCarOkButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
-        android:id="@+id/textView4" />
+        android:layout_marginBottom="26dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/carYearDropDown"
+        android:layout_above="@+id/editText"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="40dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/carModelDropDownMenu"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/carMakeDropMenu"
+        android:dropDownWidth="match_parent"
+        android:layout_above="@+id/carModelDropDownMenu"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="58dp" />
+
+    <TextView
+        android:text="Add a Car:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_alignBottom="@+id/carMakeDropMenu"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/carbontrackerlogo5"
+        android:id="@+id/imageView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="17dp" />
 
 </RelativeLayout>

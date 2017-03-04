@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -10,24 +11,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="alex.carbon_tracker.UI.MainActivity">
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/journeyListView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-    </ListView>
-
-    <TextView
-        android:text="MAIN MENU"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
-        android:id="@+id/textView"
-        android:textSize="36sp"
+        app:srcCompat="@mipmap/carbontrackerlogo5"
+        android:id="@+id/imageView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:text="ADD JOURNEY"
@@ -35,8 +25,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/AddJouenwyButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="36dp" />
+        android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/journeyListView"
+        android:layout_below="@+id/imageView"
+        android:layout_toStartOf="@+id/AddJouenwyButton"
+        android:layout_marginTop="37dp">
+
+    </ListView>
 
 </RelativeLayout>
