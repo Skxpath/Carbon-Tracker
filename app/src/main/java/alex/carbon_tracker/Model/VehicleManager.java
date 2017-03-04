@@ -25,7 +25,7 @@ public class VehicleManager {
         return vehicleList.get(index);
     }
 
-    public void add(Vehicle vehicle){
+    public void add(Vehicle vehicle) {
         vehicleList.add(vehicle);
     }
 }
