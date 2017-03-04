@@ -4,11 +4,14 @@ public class Vehicle {
     private String make;
     private String model;
     private int year;
-    private double carbonEmission;
+    private int cityDrive;
+    private int highwayDrive;
+    private double displacement;
+    private String fuelType;
+    private String transmission;
 
     public Vehicle() {
     }
-
 
     public String getMake() {
         return make;
@@ -22,8 +25,24 @@ public class Vehicle {
         return year;
     }
 
-    public double getCarbonEmission() {
-        return carbonEmission;
+    public int getCityDrive() {
+        return cityDrive;
+    }
+
+    public int getHighwayDrive() {
+        return highwayDrive;
+    }
+
+    public double getDisplacement() {
+        return displacement;
+    }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public String getTransmission() {
+        return transmission;
     }
 
     public void setMake(String make) {
@@ -38,17 +57,37 @@ public class Vehicle {
         this.year = year;
     }
 
-    public void setCarbonEmission(double carbonEmission) {
-        this.carbonEmission = carbonEmission;
+    public void setCityDrive(int cityDrive) {
+        this.cityDrive = cityDrive;
+    }
+
+    public void setHighwayDrive(int highwayDrive) {
+        this.highwayDrive = highwayDrive;
+    }
+
+    public void setDisplacement(double displacement) {
+        this.displacement = displacement;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public void setTransmission(String transmission) {
+        this.transmission = transmission;
     }
 
     @Override
     public String toString() {
         return "Vehicle{" +
-                ", make='" + make + '\'' +
+                "make='" + make + '\'' +
                 ", model='" + model + '\'' +
                 ", year=" + year +
-                ", carbonEmission=" + carbonEmission +
+                ", cityDrive=" + cityDrive +
+                ", highwayDrive=" + highwayDrive +
+                ", displacement=" + displacement +
+                ", fuelType='" + fuelType + '\'' +
+                ", transmission='" + transmission + '\'' +
                 '}';
     }
 }

@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
+import alex.carbon_tracker.Model.CSVReader;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.Model.VehicleManager;
@@ -23,67 +24,16 @@ public class MainActivity extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private VehicleManager vehicleManager = carbonTrackerModel.getVehicleManager();
-    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         setupMenuButton();
 
-        startNewThreadForReadingData();
+        vehicleManager.writeDataToList(this, R.raw.vehicles);
     }
-
-    private void startNewThreadForReadingData() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                readVehicleData();
-            }
-        }).start();
-    }
-
-    // Base on info from: http//stackoverflow.com/a/19976110
-    private void readVehicleData() {
-        InputStream is = getResources().openRawResource(R.raw.vehicles);
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(is, Charset.forName("UTF-8"))
-        );
-        String line = "";
-        try {
-            // Step over headers
-            reader.readLine();
-            while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                // Read the data
-                storeTokensToVehicleManager(tokens);
-            }
-        } catch (IOException e) {
-            Log.wtf("MenuActivity", "Error reading data file on line " + line, e);
-            e.printStackTrace();
-        }
-    }
-
-    private void storeTokensToVehicleManager(String[] tokens) {
-        Vehicle vehicle = new Vehicle();
-        vehicle.setMake(tokens[0]);
-        vehicle.setModel(tokens[1]);
-        if (tokens[2].length() > 0) {
-            vehicle.setYear(Integer.parseInt(tokens[2]));
-        } else {
-            vehicle.setYear(0);
-        }
-        if (tokens.length >= 3 && tokens[3].length() > 0) {
-            vehicle.setCarbonEmission(Double.parseDouble(tokens[3]));
-        } else {
-            vehicle.setCarbonEmission(0);
-        }
-        vehicleManager.add(vehicle);
-        //Log.d("MenuActivity", "Just created: " + vehicle.toString());
-    }
-
 
     private void setupMenuButton() {
         Button btn = (Button) findViewById(R.id.mainMenuButton);
