@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
 import alex.carbon_tracker.R;
 
 public class CSVReader {
-// Todo: Try tp make this an interface
+
     public void startNewThreadForReadingData(final Context context,
                                              final int resource,
                                              final VehicleManager vehicleManager) {
