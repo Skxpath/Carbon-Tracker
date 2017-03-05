@@ -23,7 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.MenuActivity" />
         <activity android:name=".UI.PieChartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +33,7 @@
         <activity android:name=".UI.SelectTransportationMode" />
         <activity android:name=".UI.AddCarActivity" />
         <activity android:name=".UI.SelectRouteActivity" />
-        <activity android:name=".UI.AddRouteActivity"></activity>
+        <activity android:name=".UI.AddRouteActivity" />
     </application>
 
 </manifest>
