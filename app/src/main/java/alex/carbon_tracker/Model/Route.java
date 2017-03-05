@@ -16,6 +16,14 @@ public class Route {
         this.highwayDistance = highwayDistance;
     }
 
+    public void setCityDistance(int cityDistance) {
+        this.cityDistance = cityDistance;
+    }
+
+    public void setHighwayDistance(int highwayDistance) {
+        this.highwayDistance = highwayDistance;
+    }
+
     public int getCityDistance() {
         return cityDistance;
     }
