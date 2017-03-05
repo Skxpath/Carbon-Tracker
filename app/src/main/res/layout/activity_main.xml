@@ -11,14 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="alex.carbon_tracker.UI.MainActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/carbontrackerlogo5"
-        android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
-
     <Button
         android:text="ADD JOURNEY"
         android:layout_width="wrap_content"
@@ -33,8 +25,18 @@
         android:id="@+id/journeyListView"
         android:layout_below="@+id/imageView"
         android:layout_toStartOf="@+id/AddJouenwyButton"
-        android:layout_marginTop="37dp">
+        android:layout_marginTop="37dp"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/AddJouenwyButton">
 
     </ListView>
+
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        app:srcCompat="@mipmap/carbontrackerlogo5"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

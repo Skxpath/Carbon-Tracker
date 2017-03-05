@@ -6,13 +6,18 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.Journey;
+import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.R;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void journeyListView() {
-        String[] journwyList = {"journey 1","journwy 2","journey 3"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.jouney_list,journwyList);
+        // Todo: change to real String[]
+        String[] journeyList = {"journey 1","journwy 2","journey 3"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.jouney_list, journeyList);
         ListView list =(ListView) findViewById(R.id.journeyListView);
         list.setAdapter(adapter);
     }
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);

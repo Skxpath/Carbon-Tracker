@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.List;
+
+import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.JourneyManager;
+import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.R;
 
 public class SelectTransportationMode extends AppCompatActivity {
@@ -27,11 +33,10 @@ public class SelectTransportationMode extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = AddCarActivity.makeIntent(SelectTransportationMode.this);
                 startActivity(intent);
-                finish();
             }
         });
-
     }
+
     // shows a list view of all the current cars
     private void carListView() {
         //dummy data
