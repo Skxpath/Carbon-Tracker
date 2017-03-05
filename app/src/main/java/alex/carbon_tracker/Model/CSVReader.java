@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.HashSet;
 
 import alex.carbon_tracker.R;
 
@@ -31,13 +32,14 @@ public class CSVReader {
                 new InputStreamReader(is, Charset.forName("UTF-8"))
         );
         String line = "";
+        HashSet hashSet = new HashSet();
         try {
             // Step over headers
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                 // Read the data
-                storeTokensToVehicleManager(tokens, vehicleManager);
+                storeTokensToVehicleManager(tokens, vehicleManager, hashSet);
             }
         } catch (IOException e) {
             Log.wtf("MenuActivity", "Error reading data file on line " + line, e);
@@ -45,7 +47,7 @@ public class CSVReader {
         }
     }
 
-    private void storeTokensToVehicleManager(String[] tokens, VehicleManager vehicleManager) {
+    private void storeTokensToVehicleManager(String[] tokens, VehicleManager vehicleManager, HashSet hashSet) {
         Vehicle vehicle = new Vehicle();
         vehicle.setMake(tokens[0]);
         vehicle.setModel(tokens[1]);
@@ -80,7 +82,9 @@ public class CSVReader {
             vehicle.setTransmission(tokens[7]);
         }
 
-        vehicleManager.add(vehicle);
+        if (hashSet.add(vehicle)) {
+            vehicleManager.add(vehicle);
+        }
         Log.d("MenuActivity", "Just created: " + vehicle.toString());
     }
 }
