@@ -3,7 +3,9 @@ package alex.carbon_tracker.Model;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Sachin on 2017-03-01.
@@ -28,4 +30,5 @@ public class VehicleManager {
     public void add(Vehicle vehicle) {
         vehicleList.add(vehicle);
     }
+
 }

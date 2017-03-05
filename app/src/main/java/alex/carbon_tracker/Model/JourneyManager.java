@@ -1,7 +1,9 @@
 package alex.carbon_tracker.Model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Sachin on 2017-03-01.
@@ -24,6 +26,5 @@ public class JourneyManager {
     public void delete(int index) {
         journeyList.remove(index);
     }
-
 
 }
