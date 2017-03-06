@@ -24,12 +24,12 @@ public class CarbonTrackerModel {
         vehicleManager = new VehicleManager();
     }
 
-    public RouteManager getRouteManager() {
-        return routeManager;
-    }
-
     public JourneyManager getJourneyManager() {
         return journeyManager;
+    }
+
+    public RouteManager getRouteManager() {
+        return routeManager;
     }
 
     public VehicleManager getVehicleManager() {
