@@ -30,12 +30,16 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="ADD NEW ROUTE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/addRouteButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@android:drawable/ic_menu_add"
+        android:layout_below="@+id/routeListView"
+        android:minWidth="48dip" />
 
     <ListView
         android:layout_width="500dp"

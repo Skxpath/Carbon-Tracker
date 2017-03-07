@@ -12,14 +12,14 @@
     tools:context="alex.carbon_tracker.UI.AddCarActivity">
 
     <Button
-        android:text="OK"
+        android:text="Submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="22dp"
-        android:id="@+id/addCarOkButton" />
+        android:layout_marginBottom="20dp"
+        android:id="@+id/addCarOkButton"
+        android:layout_marginRight="20dp" />
 
     <ImageView
         android:layout_width="400dp"

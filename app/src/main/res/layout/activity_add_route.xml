@@ -31,15 +31,6 @@
         android:layout_height="40dp"
         android:gravity="center_vertical" />
 
-    <Button
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/ads"
-        android:layout_marginBottom="17dp"
-        android:id="@+id/submitBtn" />
-
     <ImageView
         android:layout_width="400dp"
         android:layout_height="100dp"
@@ -80,4 +71,16 @@
         android:textSize="18sp"
         android:layout_below="@+id/ads"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/submitBtn"
+        android:allowUndo="false"
+        android:elevation="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp" />
 </RelativeLayout>
