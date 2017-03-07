@@ -1,5 +1,5 @@
 package alex.carbon_tracker.UI;
-
+// do not do anything with this activt
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

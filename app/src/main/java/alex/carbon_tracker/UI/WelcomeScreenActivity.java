@@ -9,14 +9,18 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.VehicleManager;
 import alex.carbon_tracker.R;
 
 public class WelcomeScreenActivity extends AppCompatActivity {
-
+    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+    private VehicleManager vehicleManager = carbonTrackerModel.getVehicleManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
+        vehicleManager.writeDataToList(this, R.raw.vehicles);
         ImageView welcomeImg = (ImageView) findViewById(R.id.welcomeImage);
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.welcome_anim);
         welcomeImg.startAnimation(myFadeInAnimation);

@@ -10,9 +10,20 @@ package alex.carbon_tracker.Model;
 public class CarbonTrackerModel {
     private static CarbonTrackerModel ourInstance = new CarbonTrackerModel();
 
-    private JourneyManager journeyManager;
-    private RouteManager routeManager;
-    private VehicleManager vehicleManager;
+    private static JourneyManager journeyManager;
+    private static RouteManager routeManager;
+    private static VehicleManager vehicleManager;
+
+    public  void addJourney(Vehicle vehicle, Route route){
+        Journey journey = new Journey(vehicle,route);
+        journeyManager.add(journey);
+    }
+
+    public  void addRoute(int cityDistance, int highwayDistance){
+        Route route = new Route(cityDistance,highwayDistance);
+        routeManager.addRoute(route);
+    }
+
 
     public static CarbonTrackerModel getInstance() {
         return ourInstance;
