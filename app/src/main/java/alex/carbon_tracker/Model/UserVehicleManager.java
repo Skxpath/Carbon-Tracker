@@ -1,0 +1,35 @@
+package alex.carbon_tracker.Model;
+
+import android.content.Context;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+/**
+ * Created by Sachin on 2017-03-06.
+ */
+
+public class UserVehicleManager {
+    private List<UserVehicle> vehicleList = new ArrayList<>();
+
+
+    public int getSize() {
+        return vehicleList.size();
+    }
+
+    public UserVehicle getUserVehicle(int index) {
+        return vehicleList.get(index);
+    }
+
+    public void add(UserVehicle userVehicle) {
+        vehicleList.add(userVehicle);
+    }
+
+    public void delete(int index){
+        vehicleList.remove(index);
+    }
+}
+
+
