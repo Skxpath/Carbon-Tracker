@@ -31,13 +31,18 @@ public class PieChartActivity extends AppCompatActivity {
 
     private void setupPieChart() {
         List<PieEntry> pieEntries = new ArrayList<>();
+
         for (int i = 0; i < tripDistance.length; i++) {
             pieEntries.add(new PieEntry(tripDistance[i], tripName[i]));
         }
+
         PieDataSet dataSet = new PieDataSet(pieEntries, "Cars");
+
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+
         PieData data = new PieData(dataSet);
         PieChart chart = (PieChart) findViewById(R.id.pieChart);
+
         chart.setData(data);
         chart.animateY(1000);
         chart.invalidate();

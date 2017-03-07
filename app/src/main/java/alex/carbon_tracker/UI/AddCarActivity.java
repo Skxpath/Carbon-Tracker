@@ -35,7 +35,6 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
         setupCarMakeDropDown();
-        setupCarNickName();
         setupOkButton();
         setupCarMakeDropDown();
     }
@@ -68,6 +67,7 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             if (newVehicle.getMake().equals(carMake)
                     && newVehicle.getModel().equals(carModel)
                     && (newVehicle.getYear()) == (carYear)) {
+                setupCarNickName();
                 UserVehicle newUserVehicle = new UserVehicle(carMake, carModel, carYear, carNickname);
                 carbonTrackerModel.getUserVehicleManager().add(newUserVehicle);
                 Log.i("ben", "seems to be working properly");
