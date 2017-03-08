@@ -43,6 +43,20 @@ public class UserVehicleManager {
         vehicleList.remove(index);
     }
 
+    public String[] getUserVehicleDescriptions() {
+        String[] descriptions = new String[getSize()];
+        for (int i = 0; i < getSize(); i++) {
+            UserVehicle userVehicle = getUserVehicle(i);
+            descriptions[i] = String.format("Nickname: %s\nMake: %s\nModel: %s\nYear: %d",
+                    userVehicle.getNickname(),
+                    userVehicle.getMake(),
+                    userVehicle.getModel(),
+                    userVehicle.getYear());
+        }
+        return descriptions;
+
+    }
+
 }
 
 

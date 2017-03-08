@@ -19,7 +19,6 @@ import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
-import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.R;
 
 public class SelectRouteActivity extends AppCompatActivity {
@@ -27,7 +26,7 @@ public class SelectRouteActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_ADD_ROUTE = 101;
     public static final int REQUEST_CODE_EDIT_ROUTE = 102;
 
-    public static final String ROUTE_INDEX = "routeIndex";
+    public static final String SelectTransportationMode = "routeIndex";
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private RouteManager routeManager = carbonTrackerModel.getRouteManager();
@@ -99,7 +98,6 @@ public class SelectRouteActivity extends AppCompatActivity {
                 Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions);
                 journeyManager.add(journey);
 
-
                 finish();
             }
         });
@@ -111,7 +109,7 @@ public class SelectRouteActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = AddRouteActivity.makeIntent(SelectRouteActivity.this);
-                intent.putExtra(ROUTE_INDEX, position);
+                intent.putExtra(SelectTransportationMode, position);
                 startActivityForResult(intent, REQUEST_CODE_EDIT_ROUTE);
                 return true;
             }
