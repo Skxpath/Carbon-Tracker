@@ -21,20 +21,36 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/textView10"
-        android:layout_centerHorizontal="false"
-        android:layout_marginTop="66dp"
-        android:id="@+id/carbonTableLayout"
-        >
+        android:layout_alignParentStart="true"
+        android:id="@+id/labels">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </TableLayout>
 
-    <TableRow
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textView10"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:id="@+id/carbonLabels" />
+        android:id="@+id/carbonTableLayout"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/labels"
+        android:layout_above="@+id/graphButton">
+
+    </TableLayout>
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/graphButton" />
+
 </RelativeLayout>
