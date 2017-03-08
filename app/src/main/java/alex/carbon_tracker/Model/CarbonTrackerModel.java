@@ -13,6 +13,7 @@ public class CarbonTrackerModel {
     private static JourneyManager journeyManager;
     private static RouteManager routeManager;
     private static VehicleManager vehicleManager;
+    private static UserVehicleManager userVehicleManager;
 
     public  void addJourney(Vehicle vehicle, Route route){
      /*   Journey journey = new Journey(vehicle,route);
@@ -24,6 +25,9 @@ public class CarbonTrackerModel {
         routeManager.addRoute(route);*/
     }
 
+    public static UserVehicleManager getUserVehicleManager() {
+        return userVehicleManager;
+    }
 
     public static CarbonTrackerModel getInstance() {
         return ourInstance;
@@ -33,6 +37,7 @@ public class CarbonTrackerModel {
         journeyManager = new JourneyManager();
         routeManager = new RouteManager();
         vehicleManager = new VehicleManager();
+        userVehicleManager = new UserVehicleManager();
     }
 
     public JourneyManager getJourneyManager() {
