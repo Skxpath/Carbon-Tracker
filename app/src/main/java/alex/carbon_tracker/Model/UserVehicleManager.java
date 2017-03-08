@@ -13,7 +13,19 @@ import java.util.List;
 
 public class UserVehicleManager {
     private List<UserVehicle> vehicleList = new ArrayList<>();
+    private UserVehicle currentVehicle;
 
+    public UserVehicle getCurrentVehicle() {
+        return currentVehicle;
+    }
+
+    public void setCurrentVehicle(UserVehicle currentVehicle) {
+        this.currentVehicle = currentVehicle;
+    }
+
+    public List<UserVehicle> getVehicleList() {
+        return vehicleList;
+    }
 
     public int getSize() {
         return vehicleList.size();
@@ -30,6 +42,7 @@ public class UserVehicleManager {
     public void delete(int index){
         vehicleList.remove(index);
     }
+
 }
 
 

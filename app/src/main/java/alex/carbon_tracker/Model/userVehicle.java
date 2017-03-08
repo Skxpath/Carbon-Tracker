@@ -24,4 +24,9 @@ public class UserVehicle extends Vehicle {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    @Override
+    public String toString(){
+        return nickname;
+    }
 }
