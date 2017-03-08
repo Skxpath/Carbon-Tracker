@@ -12,25 +12,24 @@
     tools:context="alex.carbon_tracker.UI.MainActivity">
 
     <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/AddJouenwyButton"
+        android:id="@+id/AddJourneyButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
-        android:background="@android:drawable/ic_menu_add"
-        android:minWidth="48dip" />
+        android:minWidth="48dip"
+        android:layout_width="wrap_content"
+        android:text="Add Journey" />
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/journeyListView"
         android:layout_below="@+id/imageView"
-        android:layout_toStartOf="@+id/AddJouenwyButton"
+        android:layout_toStartOf="@+id/AddJourneyButton"
         android:layout_marginTop="37dp"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/AddJouenwyButton">
+        android:layout_height="300dp">
 
     </ListView>
 
@@ -46,10 +45,20 @@
         android:text="Go To Graphs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/journeyListView"
-        android:layout_alignParentStart="true"
         android:id="@+id/mainMenuButton"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_alignBaseline="@+id/AddJourneyButton"
+        android:layout_alignBottom="@+id/AddJourneyButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="21dp" />
+
+    <TextView
+        android:text="All Journeys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/darker_gray"
+    android:background="@android:color/white"
     android:id="@+id/activity_add_car"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,16 +11,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="alex.carbon_tracker.UI.AddCarActivity">
-
-    <Button
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp"
-        android:id="@+id/addCarOkButton"
-        android:layout_marginRight="20dp" />
 
     <ImageView
         android:layout_width="400dp"
@@ -61,7 +51,7 @@
         android:text="Vehicle Nickname:"
         android:layout_width="150dp"
         android:layout_height="25dp"
-        android:layout_alignTop="@+id/carNickName"
+        android:layout_alignTop="@+id/carNicknameEditText"
         android:layout_alignParentStart="true"
         android:id="@+id/textView9"
         android:elevation="0dp"
@@ -70,7 +60,7 @@
     <EditText
         android:inputType="text"
         android:ems="10"
-        android:id="@+id/carNickName"
+        android:id="@+id/carNicknameEditText"
         android:layout_marginBottom="49dp"
         android:textSize="14sp"
         android:layout_width="200dp"
@@ -88,7 +78,7 @@
         android:id="@+id/textView4"
         android:layout_below="@+id/imageView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="20dp" />
 
     <Spinner
         android:id="@+id/carMakeDropMenu"
@@ -113,5 +103,25 @@
         android:layout_below="@+id/carModelDropDownMenu"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp" />
+
+    <Button
+        android:text="Submit"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:id="@+id/addCarOkButton"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp" />
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/carNicknameEditText"
+        android:layout_toStartOf="@+id/carNicknameEditText"
+        android:id="@+id/relativeLayoutForCarDelete"
+        android:layout_marginEnd="13dp">
+
+    </RelativeLayout>
 
 </RelativeLayout>

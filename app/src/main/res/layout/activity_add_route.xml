@@ -18,7 +18,7 @@
         android:id="@+id/ads"
         android:layout_below="@+id/imageView5"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:text="City Distance:"
@@ -38,16 +38,6 @@
         android:id="@+id/imageView5"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/highwayDistanceEditText"
-        android:layout_marginTop="24dp"
-        android:layout_below="@+id/cityDistanceEditText"
-        android:layout_alignStart="@+id/cityDistanceEditText" />
 
     <TextView
         android:text="Highway Distance:"
@@ -70,13 +60,26 @@
         android:layout_below="@+id/ads"
         android:layout_alignParentEnd="true" />
 
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/highwayDistanceEditText"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/cityDistanceEditText"
+        android:layout_alignStart="@+id/cityDistanceEditText" />
+
+
     <Button
         android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/submitBtn"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="100dp"
+        android:layout_height="48dp" />
 
     <TextView
         android:text="Route Name:"
@@ -97,4 +100,15 @@
         android:layout_alignTop="@+id/textView10"
         android:layout_alignParentEnd="true"
         android:id="@+id/routeNameEditText" />
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_alignTop="@+id/submitBtn"
+        android:layout_toStartOf="@+id/ads"
+        android:layout_marginEnd="13dp"
+        android:id="@+id/relativeLayoutButton">
+
+    </RelativeLayout>
+
 </RelativeLayout>

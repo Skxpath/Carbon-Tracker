@@ -3,29 +3,15 @@ package alex.carbon_tracker.UI;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.util.List;
-
-import alex.carbon_tracker.Model.CSVReader;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.Model.VehicleManager;
-import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.Journey;
-import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupAddJourneyButton() {
-        Button btn = (Button) findViewById(R.id.AddJouenwyButton);
+        Button btn = (Button) findViewById(R.id.AddJourneyButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void journeyListView() {
-        // Todo: change to real String[]
         String[] journeyList = carbonTrackerModel.getJourneyManager().getJourneyDescriptions();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.jouney_list, journeyList);
         ListView list =(ListView) findViewById(R.id.journeyListView);
