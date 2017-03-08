@@ -1,6 +1,5 @@
 package alex.carbon_tracker.UI;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TableRow;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,8 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.Route;
-import alex.carbon_tracker.Model.UserVehicle;
+import alex.carbon_tracker.Model.NotUserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.Model.VehicleManager;
@@ -69,7 +65,7 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             Bundle extras = intent.getExtras();
             index = (int) extras.get(SelectTransportationMode.CAR_INDEX);
 
-            UserVehicle userVehicle = userVehicleManager.getUserVehicle(index);
+            NotUserVehicle userVehicle = userVehicleManager.getUserVehicle(index);
             make = userVehicle.getMake();
             model = userVehicle.getModel();
             year = userVehicle.getYear();
@@ -150,8 +146,8 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
                     && (newVehicle.getYear()) == (carYear)) {
                 setupCarNickName();
 
-                UserVehicle newUserVehicle = new UserVehicle(carMake, carModel, carYear, carNickname, newVehicle.getCityDrive(), newVehicle.getHighwayDrive());
-                carbonTrackerModel.getUserVehicleManager().add(newUserVehicle);
+                NotUserVehicle newNotUserVehicle = new NotUserVehicle(carMake, carModel, carYear, carNickname, newVehicle.getCityDrive(), newVehicle.getHighwayDrive());
+                carbonTrackerModel.getUserVehicleManager().add(newNotUserVehicle);
                 break;
             }
         }

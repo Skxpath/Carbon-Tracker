@@ -7,10 +7,10 @@ import android.util.Log;
  * comments
  */
 
-public class UserVehicle extends Vehicle {
+public class NotUserVehicle extends Vehicle {
     private String nickname;
 
-    public UserVehicle(String make, String model, int year, String nickname, int cityDrive, int highwayDrive) {
+    public NotUserVehicle(String make, String model, int year, String nickname, int cityDrive, int highwayDrive) {
         setMake(make);
         setModel(model);
         setYear(year);

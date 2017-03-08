@@ -17,7 +17,7 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
-import alex.carbon_tracker.Model.UserVehicle;
+import alex.carbon_tracker.Model.NotUserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
@@ -83,7 +83,7 @@ public class SelectRouteActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 routeManager.setCurrentRoute(routeManager.getRoute(i));
 
-                UserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
+                NotUserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
                 Route userCurrentRoute = routeManager.getCurrentRoute();
 
                 double gasType = userCurrentVehicle.getFuelTypeNumber();
