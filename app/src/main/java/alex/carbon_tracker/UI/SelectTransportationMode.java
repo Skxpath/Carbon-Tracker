@@ -9,9 +9,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
