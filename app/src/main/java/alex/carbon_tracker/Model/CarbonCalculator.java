@@ -11,7 +11,7 @@ public class CarbonCalculator {
     //gasType = the amount of co2 produced per gallon of the specific gas type.
     //gives you total carbon emitted
 
-    public double calculate(double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway) {
+    public static double calculate(double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway) {
 
         double distanceTravelledMilesCity = distanceTravelledCity * KILOMETER_TO_MILES;
         double distanceTravelledMilesHighway = distanceTravelledHighway * KILOMETER_TO_MILES;
@@ -22,7 +22,7 @@ public class CarbonCalculator {
         return CO2ProducedCity + CO2ProducedHighway;
     }
 
-    private double calculateCarbonEmitted(double gasType, double distanceTravelled, int milesPerGallon) {
+    private static double calculateCarbonEmitted(double gasType, double distanceTravelled, int milesPerGallon) {
         return (distanceTravelled / milesPerGallon) * gasType;
     }
 

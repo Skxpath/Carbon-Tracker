@@ -12,7 +12,7 @@ public class Journey {
     private UserVehicle vehicle;
     private Route route;
     private Date date;
-    private float carbonEmitted = 0;
+    private double carbonEmitted = 0;
 
     @Override
     public String toString(){
@@ -20,9 +20,10 @@ public class Journey {
         journeyName = route.toString()+ " - " + vehicle.toString();
         return journeyName;
     }
-    public Journey(UserVehicle vehicle, Route route) {
+    public Journey (UserVehicle vehicle, Route route, double carbonEmitted) {
         this.vehicle = vehicle;
         this.route = route;
+        this.carbonEmitted = carbonEmitted;
     }
 
     public Route getRoute() {
@@ -37,7 +38,7 @@ public class Journey {
         return date;
     }
 
-    public float getCarbonEmitted() {
+    public double getCarbonEmitted() {
         return carbonEmitted;
     }
 

@@ -25,7 +25,7 @@ public class CarbonTrackerModel {
         routeManager.addRoute(route);*/
     }
 
-    public static UserVehicleManager getUserVehicleManager() {
+    public UserVehicleManager getUserVehicleManager() {
         return userVehicleManager;
     }
 
