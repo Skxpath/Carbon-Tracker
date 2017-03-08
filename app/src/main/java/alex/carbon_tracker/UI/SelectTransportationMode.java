@@ -63,4 +63,12 @@ public class SelectTransportationMode extends AppCompatActivity {
     public static Intent makeIntent(Context context) {
         return new Intent(context, SelectTransportationMode.class);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupAddCarButton();
+        carListView();
+        selectCar();
+    }
 }

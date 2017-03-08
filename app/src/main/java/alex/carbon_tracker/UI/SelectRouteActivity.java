@@ -60,22 +60,13 @@ public class SelectRouteActivity extends AppCompatActivity {
         ListView list =(ListView) findViewById(R.id.routeListView);
         list.setAdapter(adapter);
     }
-/*
-    private void setupOnItemLongClickListenerToEdit() {
-        ListView list = (ListView) findViewById(R.id.routeListView);
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = AddRouteActivity.makeIntent(SelectRouteActivity.this);
-                intent.putExtra(ROUTE_INDEX, position);
-                startActivity(intent);
-                populateListView();
-                return true;
-            }
-        });
-    }
-*/
     public static Intent makeIntent(Context context) {
         return new Intent(context, SelectRouteActivity.class);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populateListView();
     }
 }

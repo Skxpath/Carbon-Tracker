@@ -49,10 +49,8 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Save carMake information
-                //start route activity
                 addCarToTheModel();
-                Intent intent = SelectRouteActivity.makeIntent(AddCarActivity.this);
+                Intent intent = SelectTransportationMode.makeIntent(AddCarActivity.this);
                 startActivity(intent);
                 finish();
             }
@@ -70,15 +68,9 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
                 setupCarNickName();
                 UserVehicle newUserVehicle = new UserVehicle(carMake, carModel, carYear, carNickname);
                 carbonTrackerModel.getUserVehicleManager().add(newUserVehicle);
-                Log.i("ben", "seems to be working properly");
-                Log.i("carMake = ", carMake);
-                Log.i("carModel = ", carModel);
-                Log.i("carYear = ", carYear + "");
-                Log.i("carNickname = ", carNickname);
                 break;
             }
         }
-        Log.i("ben", "does not seem to be working properly");
     }
 
 
