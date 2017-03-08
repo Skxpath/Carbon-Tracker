@@ -15,13 +15,13 @@ public class CarbonTrackerModel {
     private static VehicleManager vehicleManager;
 
     public  void addJourney(Vehicle vehicle, Route route){
-        Journey journey = new Journey(vehicle,route);
-        journeyManager.add(journey);
+     /*   Journey journey = new Journey(vehicle,route);
+        journeyManager.add(journey);*/
     }
 
     public  void addRoute(int cityDistance, int highwayDistance){
-        Route route = new Route(cityDistance,highwayDistance);
-        routeManager.addRoute(route);
+       /* Route route = new Route(cityDistance,highwayDistance);
+        routeManager.addRoute(route);*/
     }
 
 
