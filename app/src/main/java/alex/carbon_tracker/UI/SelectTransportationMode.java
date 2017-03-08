@@ -13,7 +13,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.NotUserVehicle;
+import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
@@ -44,8 +44,8 @@ public class SelectTransportationMode extends AppCompatActivity {
 
     // shows a list view of all the current cars
     private void carListView() {
-        List<NotUserVehicle> carList = CarbonTrackerModel.getInstance().getUserVehicleManager().getVehicleList();
-        ArrayAdapter<NotUserVehicle> adapter = new ArrayAdapter<NotUserVehicle>(this, R.layout.jouney_list, carList);
+        List<UserVehicle> carList = CarbonTrackerModel.getInstance().getUserVehicleManager().getVehicleList();
+        ArrayAdapter<UserVehicle> adapter = new ArrayAdapter<UserVehicle>(this, R.layout.jouney_list, carList);
         ListView list = (ListView) findViewById(R.id.carListView);
         list.setAdapter(adapter);
     }

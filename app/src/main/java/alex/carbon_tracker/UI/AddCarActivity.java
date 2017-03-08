@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.NotUserVehicle;
+import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.R;
 
@@ -64,8 +64,8 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
                     && (newVehicle.getYear()) == (carYear)) {
                 setupCarNickName();
 
-                NotUserVehicle newNotUserVehicle = new NotUserVehicle(carMake, carModel, carYear, carNickname, newVehicle.getCityDrive(), newVehicle.getHighwayDrive());
-                carbonTrackerModel.getUserVehicleManager().add(newNotUserVehicle);
+                UserVehicle newUserVehicle = new UserVehicle(carMake, carModel, carYear, carNickname, newVehicle.getCityDrive(), newVehicle.getHighwayDrive());
+                carbonTrackerModel.getUserVehicleManager().add(newUserVehicle);
                 break;
             }
         }

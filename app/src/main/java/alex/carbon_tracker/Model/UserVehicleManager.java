@@ -8,18 +8,18 @@ import java.util.List;
  */
 
 public class UserVehicleManager {
-    private List<NotUserVehicle> vehicleList = new ArrayList<>();
-    private NotUserVehicle currentVehicle;
+    private List<UserVehicle> vehicleList = new ArrayList<>();
+    private UserVehicle currentVehicle;
 
-    public NotUserVehicle getCurrentVehicle() {
+    public UserVehicle getCurrentVehicle() {
         return currentVehicle;
     }
 
-    public void setCurrentVehicle(NotUserVehicle currentVehicle) {
+    public void setCurrentVehicle(UserVehicle currentVehicle) {
         this.currentVehicle = currentVehicle;
     }
 
-    public List<NotUserVehicle> getVehicleList() {
+    public List<UserVehicle> getVehicleList() {
         return vehicleList;
     }
 
@@ -27,12 +27,12 @@ public class UserVehicleManager {
         return vehicleList.size();
     }
 
-    public NotUserVehicle getUserVehicle(int index) {
+    public UserVehicle getUserVehicle(int index) {
         return vehicleList.get(index);
     }
 
-    public void add(NotUserVehicle notUserVehicle) {
-        vehicleList.add(notUserVehicle);
+    public void add(UserVehicle userVehicle) {
+        vehicleList.add(userVehicle);
     }
 
     public void delete(int index){
