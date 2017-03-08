@@ -34,9 +34,6 @@ public class SelectRouteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_route);
-        routeManager.addRoute(new Route(100, 122));
-        routeManager.addRoute(new Route(40, 112322));
-        routeManager.addRoute(new Route(1512100, 2));
         setupAddRouteButton();
         //setupOnItemLongClickListenerToEdit();
         populateListView();
