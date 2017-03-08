@@ -10,11 +10,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.RelativeLayout;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
@@ -47,6 +47,7 @@ public class AddRouteActivity extends AppCompatActivity {
         utilizeIntentExtras(intent);
 
         setupSubmitBtn();
+       // setupDeleteButton(intent);
     }
 
     private void setupSubmitBtn() {
@@ -73,10 +74,10 @@ public class AddRouteActivity extends AppCompatActivity {
     }
 
     private void utilizeIntentExtras(Intent intent) {
-        if (intent.hasExtra(SelectRouteActivity.ROUTE_INDEX)) {
+        if (intent.hasExtra(SelectRouteActivity.SelectTransportationMode)) {
             isEditingRoute = true;
             Bundle extras = intent.getExtras();
-            index = (int) extras.get(SelectRouteActivity.ROUTE_INDEX);
+            index = (int) extras.get(SelectRouteActivity.SelectTransportationMode);
             Route route = routeManager.getRoute(index);
             cityDistance = route.getCityDistance();
             highwayDistance = route.getHighwayDistance();
@@ -89,12 +90,38 @@ public class AddRouteActivity extends AppCompatActivity {
             }
         }
     }
+/*
+    private void setupDeleteButton(Intent intent) {
+        if (intent.hasExtra(SelectRouteActivity.SelectTransportationMode)) {
+            isEditingRoute = true;
+            Button button = new Button(this);
+            button.setLayoutParams(new TableRow.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    1.0f));
 
+            button.setText("Delete");
+            button.setPadding(0, 0, 0, 0);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    gridButtonClicked();
+                }
+                private void gridButtonClicked() {
+                    routeManager.deleteRoute(index);
+                    Intent intent = new Intent();
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                }
+            });
 
+            RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.relativeLayoutButton);
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            relativeLayout.addView(button, layoutParams);
+        }
+    }
+*/
     private void addRoute() {
-        boolean isCityDistValid = validateParameters(R.id.cityDistanceEditText);
-        boolean isHighwayDistValid = validateParameters(R.id.highwayDistanceEditText);
-        //if (isCityDistValid && isHighwayDistValid) {
         EditText cityDistEditText = (EditText) findViewById(R.id.cityDistanceEditText);
         cityDistance = Integer.parseInt(cityDistEditText.getText().toString());
         EditText highwayDistEditText = (EditText) findViewById(R.id.highwayDistanceEditText);
@@ -103,33 +130,15 @@ public class AddRouteActivity extends AppCompatActivity {
 
         Route route = new Route(cityDistance, highwayDistance, routeName);
         routeManager.addRoute(route);
-        /*} else {
-            if (!isCityDistValid) {
-                Toast.makeText(AddRouteActivity.this, ERROR_CITY_MSG, Toast.LENGTH_SHORT).show();
-            }
-            if (!isHighwayDistValid) {
-                Toast.makeText(AddRouteActivity.this, ERROR_HIGHWAY_MSG, Toast.LENGTH_SHORT).show();
-            }
-        }*/
     }
 
     private void editRoute() {
-        boolean isCityDistValid = validateParameters(R.id.cityDistanceEditText);
-        boolean isHighwayDistValid = validateParameters(R.id.highwayDistanceEditText);
-        //if (isCityDistValid && isHighwayDistValid) {
         int newCityDistance = Integer.parseInt(getEditTextAsString(R.id.cityDistanceEditText));
         int newHighwayDistance = Integer.parseInt(getEditTextAsString(R.id.highwayDistanceEditText));
         routeName = getEditTextAsString(R.id.routeNameEditText);
+
         Route route = new Route(newCityDistance, newHighwayDistance, routeName);
         routeManager.editRoute(route, index);
-        /*} else {
-            if (!isCityDistValid) {
-                Toast.makeText(AddRouteActivity.this, ERROR_CITY_MSG, Toast.LENGTH_SHORT).show();
-            }
-            if (!isHighwayDistValid) {
-                Toast.makeText(AddRouteActivity.this, ERROR_HIGHWAY_MSG, Toast.LENGTH_SHORT).show();
-            }
-        }*/
     }
 
     private boolean validateParameters(int id) {
