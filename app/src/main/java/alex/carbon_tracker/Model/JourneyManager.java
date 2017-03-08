@@ -31,4 +31,16 @@ public class JourneyManager {
         journeyList.remove(index);
     }
 
+    public String[] getJourneyDescriptions() {
+        String[] descriptions = new String[journeyList.size()];
+        for (int i = 0; i < journeyList.size(); i++) {
+            Journey journey = getJourney(i);
+            descriptions[i] = String.format("Journey No.%d\nRoute Nickname: %s\nVehicle Nickname:%s",
+                    i+1,
+                    journey.getRoute().getNickname(),
+                    journey.getUserVehicle().getNickname());
+        }
+        return descriptions;
+    }
+
 }

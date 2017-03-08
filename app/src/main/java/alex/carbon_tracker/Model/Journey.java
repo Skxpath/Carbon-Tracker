@@ -20,6 +20,7 @@ public class Journey {
         journeyName = route.toString()+ " - " + vehicle.toString();
         return journeyName;
     }
+
     public Journey (UserVehicle vehicle, Route route, double carbonEmitted) {
         this.vehicle = vehicle;
         this.route = route;
@@ -30,7 +31,7 @@ public class Journey {
         return route;
     }
 
-    public Vehicle getVehicle() {
+    public UserVehicle getUserVehicle() {
         return vehicle;
     }
 

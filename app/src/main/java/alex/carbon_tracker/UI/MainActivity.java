@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
     }
     private void journeyListView() {
         // Todo: change to real String[]
-        List<Journey> journeyList = carbonTrackerModel.getJourneyManager().getJourneyList();
-        ArrayAdapter<Journey> adapter = new ArrayAdapter<Journey>(this, R.layout.jouney_list, journeyList);
+        String[] journeyList = carbonTrackerModel.getJourneyManager().getJourneyDescriptions();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.jouney_list, journeyList);
         ListView list =(ListView) findViewById(R.id.journeyListView);
         list.setAdapter(adapter);
     }
