@@ -50,8 +50,6 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 addCarToTheModel();
-                Intent intent = SelectTransportationMode.makeIntent(AddCarActivity.this);
-                startActivity(intent);
                 finish();
             }
         });
