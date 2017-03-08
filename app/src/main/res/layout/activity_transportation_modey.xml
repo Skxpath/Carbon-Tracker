@@ -23,14 +23,15 @@
     </ListView>
 
     <Button
-        android:text="ADD CAR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/AddCarButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:background="@android:drawable/ic_menu_add"
+        android:minWidth="48dip" />
 
     <ImageView
         android:layout_width="400dp"

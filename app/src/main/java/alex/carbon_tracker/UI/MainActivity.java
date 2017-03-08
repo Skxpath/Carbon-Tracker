@@ -40,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
         setupMenuButton();
 
-        vehicleManager.writeDataToList(this, R.raw.vehicles);
+
+      //  vehicleManager.createVehicleMakeList();
+
         journeyListView();
         setupAddJourneyButton();
     }
