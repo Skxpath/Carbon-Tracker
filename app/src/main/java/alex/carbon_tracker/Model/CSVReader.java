@@ -85,8 +85,6 @@ public class CSVReader {
         if (hashSet.add(vehicle)) {
             vehicleManager.add(vehicle);
         }
-
-        //vehicleManager.createVehicleMakeList();
         //Log.d("MenuActivity", "Just created: " + vehicle.toString());
     }
 }

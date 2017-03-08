@@ -10,10 +10,12 @@ package alex.carbon_tracker.Model;
 public class Route {
     private int cityDistance;
     private int highwayDistance;
+    private String nickname;
 
-    public Route(int cityDistance, int highwayDistance) {
+    public Route(int cityDistance, int highwayDistance, String nickname) {
         this.cityDistance = cityDistance;
         this.highwayDistance = highwayDistance;
+        this.nickname = nickname;
     }
 
     public void setCityDistance(int cityDistance) {
@@ -24,6 +26,10 @@ public class Route {
         this.highwayDistance = highwayDistance;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
     public int getCityDistance() {
         return cityDistance;
     }
@@ -31,4 +37,9 @@ public class Route {
     public int getHighwayDistance() {
         return highwayDistance;
     }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
 }
