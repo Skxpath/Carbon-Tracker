@@ -8,18 +8,18 @@ import java.util.List;
  */
 
 public class UserVehicleManager {
-    private List<NotUserVehicle> vehicleList = new ArrayList<>();
-    private NotUserVehicle currentVehicle;
+    private List<UserVehicle> vehicleList = new ArrayList<>();
+    private UserVehicle currentVehicle;
 
-    public NotUserVehicle getCurrentVehicle() {
+    public UserVehicle getCurrentVehicle() {
         return currentVehicle;
     }
 
-    public void setCurrentVehicle(NotUserVehicle currentVehicle) {
+    public void setCurrentVehicle(UserVehicle currentVehicle) {
         this.currentVehicle = currentVehicle;
     }
 
-    public List<NotUserVehicle> getVehicleList() {
+    public List<UserVehicle> getVehicleList() {
         return vehicleList;
     }
 
@@ -27,12 +27,12 @@ public class UserVehicleManager {
         return vehicleList.size();
     }
 
-    public NotUserVehicle getUserVehicle(int index) {
+    public UserVehicle getUserVehicle(int index) {
         return vehicleList.get(index);
     }
 
-    public void add(NotUserVehicle notUserVehicle) {
-        vehicleList.add(notUserVehicle);
+    public void add(UserVehicle userVehicle) {
+        vehicleList.add(userVehicle);
     }
 
     public void delete(int index){
@@ -42,12 +42,12 @@ public class UserVehicleManager {
     public String[] getUserVehicleDescriptions() {
         String[] descriptions = new String[getSize()];
         for (int i = 0; i < getSize(); i++) {
-            NotUserVehicle notUserVehicle = getUserVehicle(i);
+            UserVehicle userVehicle = getUserVehicle(i);
             descriptions[i] = String.format("Nickname: %s\nMake: %s\nModel: %s\nYear: %d",
-                    notUserVehicle.getNickname(),
-                    notUserVehicle.getMake(),
-                    notUserVehicle.getModel(),
-                    notUserVehicle.getYear());
+                    userVehicle.getNickname(),
+                    userVehicle.getMake(),
+                    userVehicle.getModel(),
+                    userVehicle.getYear());
         }
         return descriptions;
 
