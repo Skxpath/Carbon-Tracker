@@ -39,7 +39,7 @@
         android:layout_marginRight="20dp"
         android:minWidth="48dip"
         android:minHeight="48dp"
-        tools:text="Add Route" />
+        android:text="Add Route" />
 
     <ListView
         android:layout_width="500dp"
