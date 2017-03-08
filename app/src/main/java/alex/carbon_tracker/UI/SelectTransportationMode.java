@@ -4,21 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.JourneyManager;
-import alex.carbon_tracker.Model.UserVehicle;
+import alex.carbon_tracker.Model.NotUserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
-import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.R;
 
 public class SelectTransportationMode extends AppCompatActivity {
@@ -48,8 +44,8 @@ public class SelectTransportationMode extends AppCompatActivity {
 
     // shows a list view of all the current cars
     private void carListView() {
-        List<UserVehicle> carList = CarbonTrackerModel.getInstance().getUserVehicleManager().getVehicleList();
-        ArrayAdapter<UserVehicle> adapter = new ArrayAdapter<UserVehicle>(this, R.layout.jouney_list, carList);
+        List<NotUserVehicle> carList = CarbonTrackerModel.getInstance().getUserVehicleManager().getVehicleList();
+        ArrayAdapter<NotUserVehicle> adapter = new ArrayAdapter<NotUserVehicle>(this, R.layout.jouney_list, carList);
         ListView list = (ListView) findViewById(R.id.carListView);
         list.setAdapter(adapter);
     }

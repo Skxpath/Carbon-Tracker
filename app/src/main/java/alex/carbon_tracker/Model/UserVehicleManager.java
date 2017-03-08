@@ -1,10 +1,6 @@
 package alex.carbon_tracker.Model;
 
-import android.content.Context;
-import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -12,18 +8,18 @@ import java.util.List;
  */
 
 public class UserVehicleManager {
-    private List<UserVehicle> vehicleList = new ArrayList<>();
-    private UserVehicle currentVehicle;
+    private List<NotUserVehicle> vehicleList = new ArrayList<>();
+    private NotUserVehicle currentVehicle;
 
-    public UserVehicle getCurrentVehicle() {
+    public NotUserVehicle getCurrentVehicle() {
         return currentVehicle;
     }
 
-    public void setCurrentVehicle(UserVehicle currentVehicle) {
+    public void setCurrentVehicle(NotUserVehicle currentVehicle) {
         this.currentVehicle = currentVehicle;
     }
 
-    public List<UserVehicle> getVehicleList() {
+    public List<NotUserVehicle> getVehicleList() {
         return vehicleList;
     }
 
@@ -31,12 +27,12 @@ public class UserVehicleManager {
         return vehicleList.size();
     }
 
-    public UserVehicle getUserVehicle(int index) {
+    public NotUserVehicle getUserVehicle(int index) {
         return vehicleList.get(index);
     }
 
-    public void add(UserVehicle userVehicle) {
-        vehicleList.add(userVehicle);
+    public void add(NotUserVehicle notUserVehicle) {
+        vehicleList.add(notUserVehicle);
     }
 
     public void delete(int index){

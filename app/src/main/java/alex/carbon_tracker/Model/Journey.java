@@ -9,7 +9,7 @@ import java.util.Date;
  * make Journey instances.
  */
 public class Journey {
-    private UserVehicle vehicle;
+    private NotUserVehicle vehicle;
     private Route route;
     private Date date;
     private double carbonEmitted = 0;
@@ -21,7 +21,7 @@ public class Journey {
         return journeyName;
     }
 
-    public Journey (UserVehicle vehicle, Route route, double carbonEmitted) {
+    public Journey (NotUserVehicle vehicle, Route route, double carbonEmitted) {
         this.vehicle = vehicle;
         this.route = route;
         this.carbonEmitted = carbonEmitted;
@@ -31,7 +31,7 @@ public class Journey {
         return route;
     }
 
-    public UserVehicle getUserVehicle() {
+    public NotUserVehicle getUserVehicle() {
         return vehicle;
     }
 

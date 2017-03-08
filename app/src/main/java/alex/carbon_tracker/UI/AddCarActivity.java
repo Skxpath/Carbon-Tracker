@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.UserVehicle;
+import alex.carbon_tracker.Model.NotUserVehicle;
 import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.R;
 
@@ -65,8 +64,8 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
                     && (newVehicle.getYear()) == (carYear)) {
                 setupCarNickName();
 
-                UserVehicle newUserVehicle = new UserVehicle(carMake, carModel, carYear, carNickname, newVehicle.getCityDrive(), newVehicle.getHighwayDrive());
-                carbonTrackerModel.getUserVehicleManager().add(newUserVehicle);
+                NotUserVehicle newNotUserVehicle = new NotUserVehicle(carMake, carModel, carYear, carNickname, newVehicle.getCityDrive(), newVehicle.getHighwayDrive());
+                carbonTrackerModel.getUserVehicleManager().add(newNotUserVehicle);
                 break;
             }
         }
