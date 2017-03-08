@@ -19,7 +19,7 @@ public class RouteManager {
 
     public void editRoute(Route route, int indexOfRouteEditing) {
         validateIndexWithException(indexOfRouteEditing);
-        routeList.remove(indexOfRouteEditing);
+        deleteRoute(indexOfRouteEditing);
         routeList.add(indexOfRouteEditing, route);
     }
 
@@ -39,8 +39,10 @@ public class RouteManager {
         String[] descriptions = new String[routeListSize()];
         for (int i = 0; i < routeListSize(); i++) {
             Route route = getRoute(i);
-            descriptions[i] = String.format("City Distance: %,10d km\n Highway Distance: %,10d km", route.getCityDistance(), route.getHighwayDistance());
-            System.out.println(descriptions[i]);
+            descriptions[i] = String.format("Nickname: %s\nCity Distance: %,10d km\nHighway Distance: %,10d km",
+                    route.getNickname(),
+                    route.getCityDistance(),
+                    route.getHighwayDistance());
         }
         return descriptions;
     }

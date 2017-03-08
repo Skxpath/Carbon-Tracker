@@ -5,13 +5,16 @@ package alex.carbon_tracker.UI;
 */
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
@@ -29,6 +32,7 @@ public class AddRouteActivity extends AppCompatActivity {
 
     private static int cityDistance = 0;
     private static int highwayDistance = 0;
+    private static String routeName = "";
     private static int index = 0;
 
     private static boolean isEditingRoute = false;
@@ -40,11 +44,31 @@ public class AddRouteActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        //utilizeIntentExtras(intent);
+        utilizeIntentExtras(intent);
 
         setupSubmitBtn();
     }
-/*
+
+    private void setupSubmitBtn() {
+        Button submitBtn = (Button) findViewById(R.id.submitBtn);
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isEditingRoute) {
+                    Log.d("AddRouteActivity", "Editing Route");
+                    editRoute();
+                } else {
+                    Log.d("AddRouteActivity", "Adding Route");
+                    addRoute();
+                }
+
+                Intent intent = new Intent();
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            }
+        });
+    }
+
     private void utilizeIntentExtras(Intent intent) {
         if (intent.hasExtra(SelectRouteActivity.ROUTE_INDEX)) {
             isEditingRoute = true;
@@ -53,66 +77,56 @@ public class AddRouteActivity extends AppCompatActivity {
             Route route = routeManager.getRoute(index);
             cityDistance = route.getCityDistance();
             highwayDistance = route.getHighwayDistance();
+            routeName = route.getNickname();
+
             if (!(cityDistance == 0 && highwayDistance == 0)) {
                 setNumbToEditText(R.id.cityDistanceEditText, cityDistance);
                 setNumbToEditText(R.id.highwayDistanceEditText, highwayDistance);
+                setStringToEditText(R.id.routeNameEditText, routeName);
             }
         }
     }
-*/
-    private void setupSubmitBtn() {
-        Button submitBtn = (Button) findViewById(R.id.submitBtn);
 
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                EditText cityDistEditText = (EditText) findViewById(R.id.cityDistanceEditText);
-                cityDistance = Integer.parseInt(cityDistEditText.getText().toString());
-                EditText highwayDistEditText = (EditText) findViewById(R.id.highwayDistanceEditText);
-                highwayDistance = Integer.parseInt(highwayDistEditText.getText().toString());
-                Route route = new Route(cityDistance, highwayDistance);
-                routeManager.addRoute(route);
-
-                finish();
-            }
-        });
-    }
 
     private void addRoute() {
         boolean isCityDistValid = validateParameters(R.id.cityDistanceEditText);
         boolean isHighwayDistValid = validateParameters(R.id.highwayDistanceEditText);
-        if (isCityDistValid && isHighwayDistValid) {
-            EditText cityDistEditText = (EditText) findViewById(R.id.cityDistanceEditText);
-            cityDistance = Integer.parseInt(cityDistEditText.getText().toString());
-            EditText highwayDistEditText = (EditText) findViewById(R.id.highwayDistanceEditText);
-            highwayDistance = Integer.parseInt(highwayDistEditText.getText().toString());
-            Route route = new Route(cityDistance, highwayDistance);
-            routeManager.addRoute(route);
-        } else {
+        //if (isCityDistValid && isHighwayDistValid) {
+        EditText cityDistEditText = (EditText) findViewById(R.id.cityDistanceEditText);
+        cityDistance = Integer.parseInt(cityDistEditText.getText().toString());
+        EditText highwayDistEditText = (EditText) findViewById(R.id.highwayDistanceEditText);
+        highwayDistance = Integer.parseInt(highwayDistEditText.getText().toString());
+        routeName = getEditTextAsString(R.id.routeNameEditText);
+
+        Route route = new Route(cityDistance, highwayDistance, routeName);
+        routeManager.addRoute(route);
+        /*} else {
             if (!isCityDistValid) {
                 Toast.makeText(AddRouteActivity.this, ERROR_CITY_MSG, Toast.LENGTH_SHORT).show();
             }
             if (!isHighwayDistValid) {
                 Toast.makeText(AddRouteActivity.this, ERROR_HIGHWAY_MSG, Toast.LENGTH_SHORT).show();
             }
-        }
+        }*/
     }
 
     private void editRoute() {
         boolean isCityDistValid = validateParameters(R.id.cityDistanceEditText);
         boolean isHighwayDistValid = validateParameters(R.id.highwayDistanceEditText);
-        if (isCityDistValid && isHighwayDistValid) {
-            Route route = new Route(cityDistance, highwayDistance);
-            routeManager.editRoute(route, index);
-        } else {
+        //if (isCityDistValid && isHighwayDistValid) {
+        int newCityDistance = Integer.parseInt(getEditTextAsString(R.id.cityDistanceEditText));
+        int newHighwayDistance = Integer.parseInt(getEditTextAsString(R.id.highwayDistanceEditText));
+        routeName = getEditTextAsString(R.id.routeNameEditText);
+        Route route = new Route(newCityDistance, newHighwayDistance, routeName);
+        routeManager.editRoute(route, index);
+        /*} else {
             if (!isCityDistValid) {
                 Toast.makeText(AddRouteActivity.this, ERROR_CITY_MSG, Toast.LENGTH_SHORT).show();
             }
             if (!isHighwayDistValid) {
                 Toast.makeText(AddRouteActivity.this, ERROR_HIGHWAY_MSG, Toast.LENGTH_SHORT).show();
             }
-        }
+        }*/
     }
 
     private boolean validateParameters(int id) {
@@ -133,8 +147,13 @@ public class AddRouteActivity extends AppCompatActivity {
 
     private void setNumbToEditText(int id, int value) {
         EditText editText = (EditText) findViewById(id);
-        String valueAsString = Integer.toString(value);
-        editText.setText(valueAsString);
+        String finalValue = Integer.toString(value);
+        editText.setText(finalValue);
+    }
+
+    private void setStringToEditText(int id, String value) {
+        EditText editText = (EditText) findViewById(id);
+        editText.setText(value);
     }
 
     private String getEditTextAsString(int id) {
@@ -146,3 +165,6 @@ public class AddRouteActivity extends AppCompatActivity {
         return new Intent(context, AddRouteActivity.class);
     }
 }
+
+
+// Given make, model, year, traverse through
