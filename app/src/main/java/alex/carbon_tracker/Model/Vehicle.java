@@ -8,7 +8,12 @@ public class Vehicle {
     private int highwayDrive;
     private double displacement;
     private String fuelType;
+    private double fuelTypeNumber;
     private String transmission;
+
+    public static final double ELECTRICITY = 0;
+    public static final double DIESEL = 10.16;
+    public static final double GASOLINE = 8.89;
 
     public Vehicle() {
     }
@@ -41,6 +46,8 @@ public class Vehicle {
         return fuelType;
     }
 
+    public double getFuelTypeNumber() { return fuelTypeNumber; }
+
     public String getTransmission() {
         return transmission;
     }
@@ -71,6 +78,10 @@ public class Vehicle {
 
     public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
+    }
+
+    public void setFuelTypeNumber(double fuelTypeNumber) {
+        this.fuelTypeNumber = fuelTypeNumber;
     }
 
     public void setTransmission(String transmission) {

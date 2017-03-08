@@ -17,11 +17,15 @@ import java.util.List;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.UserVehicle;
+import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.R;
 
 public class SelectTransportationMode extends AppCompatActivity {
- CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+
+    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+    private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,7 @@ public class SelectTransportationMode extends AppCompatActivity {
         carListView();
         selectCar();
     }
+
     private void setupAddCarButton() {
         Button btn = (Button) findViewById(R.id.AddCarButton);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -44,18 +49,20 @@ public class SelectTransportationMode extends AppCompatActivity {
     // shows a list view of all the current cars
     private void carListView() {
         List<UserVehicle> carList = CarbonTrackerModel.getInstance().getUserVehicleManager().getVehicleList();
-        ArrayAdapter<UserVehicle> adapter = new ArrayAdapter<UserVehicle>(this, R.layout.jouney_list,carList);
-        ListView list =(ListView) findViewById(R.id.carListView);
+        ArrayAdapter<UserVehicle> adapter = new ArrayAdapter<UserVehicle>(this, R.layout.jouney_list, carList);
+        ListView list = (ListView) findViewById(R.id.carListView);
         list.setAdapter(adapter);
     }
-    private void selectCar(){
-        ListView list = (ListView)findViewById(R.id.carListView);
+
+    private void selectCar() {
+        ListView list = (ListView) findViewById(R.id.carListView);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                carbonTrackerModel.getUserVehicleManager().setCurrentVehicle(
-                        carbonTrackerModel.getUserVehicleManager().getUserVehicle(i));
-                Intent intent  = SelectRouteActivity.makeIntent(SelectTransportationMode.this);
+
+                userVehicleManager.setCurrentVehicle(userVehicleManager.getUserVehicle(i));
+
+                Intent intent = SelectRouteActivity.makeIntent(SelectTransportationMode.this);
                 startActivity(intent);
                 finish();
             }
