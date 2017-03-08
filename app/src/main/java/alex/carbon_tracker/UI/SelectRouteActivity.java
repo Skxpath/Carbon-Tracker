@@ -83,8 +83,6 @@ public class SelectRouteActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 routeManager.setCurrentRoute(routeManager.getRoute(i));
-                carbonTrackerModel.addJourney(carbonTrackerModel.getUserVehicleManager().getCurrentVehicle(),
-                        routeManager.getCurrentRoute());
 
                 UserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
                 Route userCurrentRoute = routeManager.getCurrentRoute();
@@ -97,7 +95,11 @@ public class SelectRouteActivity extends AppCompatActivity {
 
                 // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
                 double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
+
                 Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions);
+                journeyManager.add(journey);
+
+
                 finish();
             }
         });
