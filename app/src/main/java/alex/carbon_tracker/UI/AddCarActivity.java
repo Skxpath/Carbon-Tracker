@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -40,7 +39,7 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     private void setupCarNickName() {
-        EditText text = (EditText) findViewById(R.id.carNickName);
+        EditText text = (EditText) findViewById(R.id.carNicknameEditText);
         carNickname = text.getText().toString();
     }
 
@@ -49,8 +48,12 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addCarToTheModel();
-                finish();
+                if (validateEditText(R.id.carNicknameEditText)) {
+                    addCarToTheModel();
+                    finish();
+                } else {
+                    Toast.makeText(AddCarActivity.this, "Invalid Information Inputted. Please try again!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -72,6 +75,21 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
+    private boolean validateEditText(int id) {
+        boolean isValid = true;
+        EditText editText = (EditText) findViewById(id);
+        String editTextString = editText.getText().toString().trim();
+        if (editTextString.isEmpty() || editTextString.length() == 0) {
+            isValid = false;
+        }
+        if (editTextString.matches("[0-9]+")) {
+            int editTextInt = Integer.parseInt(editTextString);
+            if (editTextInt < 0) {
+                isValid = false;
+            }
+        }
+        return isValid;
+    }
 
     private void setupCarYearDropDown() {
         Spinner carMakeMenu = (Spinner) findViewById(R.id.carYearDropDown);
@@ -151,7 +169,6 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if (adapterView.getId() == findViewById(R.id.carMakeDropMenu).getId()) {
             carMake = adapterView.getItemAtPosition(i).toString();
-            Toast.makeText(adapterView.getContext(), carMake, Toast.LENGTH_LONG).show();
             setupCarModelDropDown();
 
         } else if (adapterView.getId() == findViewById(R.id.carModelDropDownMenu).getId()) {

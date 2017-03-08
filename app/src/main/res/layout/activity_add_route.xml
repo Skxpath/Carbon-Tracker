@@ -18,7 +18,7 @@
         android:id="@+id/ads"
         android:layout_below="@+id/imageView5"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:text="City Distance:"

@@ -48,8 +48,8 @@ public class SelectTransportationMode extends AppCompatActivity {
 
     // shows a list view of all the current cars
     private void carListView() {
-        List<UserVehicle> carList = CarbonTrackerModel.getInstance().getUserVehicleManager().getVehicleList();
-        ArrayAdapter<UserVehicle> adapter = new ArrayAdapter<UserVehicle>(this, R.layout.jouney_list, carList);
+        String[] carList = CarbonTrackerModel.getInstance().getUserVehicleManager().getUserVehicleDescriptions();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.jouney_list, carList);
         ListView list = (ListView) findViewById(R.id.carListView);
         list.setAdapter(adapter);
     }

@@ -51,7 +51,7 @@
         android:text="Vehicle Nickname:"
         android:layout_width="150dp"
         android:layout_height="25dp"
-        android:layout_alignTop="@+id/carNickName"
+        android:layout_alignTop="@+id/carNicknameEditText"
         android:layout_alignParentStart="true"
         android:id="@+id/textView9"
         android:elevation="0dp"
@@ -60,7 +60,7 @@
     <EditText
         android:inputType="text"
         android:ems="10"
-        android:id="@+id/carNickName"
+        android:id="@+id/carNicknameEditText"
         android:layout_marginBottom="49dp"
         android:textSize="14sp"
         android:layout_width="200dp"
@@ -78,7 +78,7 @@
         android:id="@+id/textView4"
         android:layout_below="@+id/imageView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="20dp" />
 
     <Spinner
         android:id="@+id/carMakeDropMenu"

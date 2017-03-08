@@ -54,17 +54,20 @@ public class AddRouteActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isEditingRoute) {
-                    Log.d("AddRouteActivity", "Editing Route");
-                    editRoute();
+                if (validateParameters(R.id.cityDistanceEditText)
+                        && validateParameters(R.id.highwayDistanceEditText)
+                        && validateParameters(R.id.routeNameEditText)) {
+                    if (isEditingRoute) {
+                        editRoute();
+                    } else {
+                        addRoute();
+                    }
+                    Intent intent = new Intent();
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
                 } else {
-                    Log.d("AddRouteActivity", "Adding Route");
-                    addRoute();
+                    Toast.makeText(AddRouteActivity.this, "Invalid Information Inputted. Please try again!", Toast.LENGTH_SHORT).show();
                 }
-
-                Intent intent = new Intent();
-                setResult(Activity.RESULT_OK, intent);
-                finish();
             }
         });
     }
