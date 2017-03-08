@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.List;
 
 import alex.carbon_tracker.Model.CSVReader;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
@@ -39,10 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setupMenuButton();
-
-
-      //  vehicleManager.createVehicleMakeList();
-
         journeyListView();
         setupAddJourneyButton();
     }
@@ -63,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = PieChartActivity.makeIntent(MainActivity.this);
+                Intent intent = DisplayCarbonFootPrintActivity.makeIntent(MainActivity.this);
                 startActivity(intent);
             }
         });
@@ -71,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
     }
     private void journeyListView() {
         // Todo: change to real String[]
-        String[] journeyList = {"journey 1","journwy 2","journey 3"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.jouney_list, journeyList);
+        List<Journey> journeyList = carbonTrackerModel.getJourneyManager().getJourneyList();
+        ArrayAdapter<Journey> adapter = new ArrayAdapter<Journey>(this, R.layout.jouney_list, journeyList);
         ListView list =(ListView) findViewById(R.id.journeyListView);
         list.setAdapter(adapter);
     }
@@ -99,5 +96,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        journeyListView();
+    }
 }

@@ -21,7 +21,7 @@ import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.R;
 
 public class SelectTransportationMode extends AppCompatActivity {
-
+ CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +53,11 @@ public class SelectTransportationMode extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                carbonTrackerModel.getUserVehicleManager().setCurrentVehicle(
+                        carbonTrackerModel.getUserVehicleManager().getUserVehicle(i));
                 Intent intent  = SelectRouteActivity.makeIntent(SelectTransportationMode.this);
                 startActivity(intent);
+                finish();
             }
         });
     }

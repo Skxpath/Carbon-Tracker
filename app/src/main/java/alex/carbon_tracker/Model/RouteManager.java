@@ -12,6 +12,15 @@ import java.util.List;
 
 public class RouteManager {
     private List<Route> routeList = new ArrayList<>();
+    private Route currentRoute;
+
+    public Route getCurrentRoute() {
+        return currentRoute;
+    }
+
+    public void setCurrentRoute(Route currentRoute) {
+        this.currentRoute = currentRoute;
+    }
 
     public Route getRoute(int index) {
         return routeList.get(index);

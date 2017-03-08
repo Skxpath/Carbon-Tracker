@@ -42,4 +42,8 @@ public class Route {
         this.nickname = nickname;
     }
 
+    @Override
+    public String toString() {
+        return nickname;
+    }
 }

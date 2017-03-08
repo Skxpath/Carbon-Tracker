@@ -15,6 +15,10 @@ import java.util.Set;
 public class JourneyManager {
     private List<Journey> journeyList = new ArrayList<>();
 
+    public List<Journey> getJourneyList() {
+        return journeyList;
+    }
+
     public Journey getJourney(int index) {
         return journeyList.get(index);
     }

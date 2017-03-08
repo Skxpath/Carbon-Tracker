@@ -9,12 +9,18 @@ import java.util.Date;
  * make Journey instances.
  */
 public class Journey {
-    private Vehicle vehicle;
+    private UserVehicle vehicle;
     private Route route;
     private Date date;
     private float carbonEmitted = 0;
 
-    public Journey(Vehicle vehicle, Route route) {
+    @Override
+    public String toString(){
+        String journeyName;
+        journeyName = route.toString()+ " - " + vehicle.toString();
+        return journeyName;
+    }
+    public Journey(UserVehicle vehicle, Route route) {
         this.vehicle = vehicle;
         this.route = route;
     }
