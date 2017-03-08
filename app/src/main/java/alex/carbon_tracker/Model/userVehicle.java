@@ -1,7 +1,10 @@
 package alex.carbon_tracker.Model;
 
+import android.util.Log;
+
 /**
  * Created by Sachin on 2017-03-06.
+ * comments
  */
 
 public class UserVehicle extends Vehicle {

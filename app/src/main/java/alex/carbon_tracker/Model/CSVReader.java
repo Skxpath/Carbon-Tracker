@@ -49,6 +49,7 @@ public class CSVReader {
 
     private void storeTokensToVehicleManager(String[] tokens, VehicleManager vehicleManager, HashSet hashSet) {
         Vehicle vehicle = new Vehicle();
+        boolean hasNaturalGas = false;
         vehicle.setMake(tokens[0]);
         vehicle.setModel(tokens[1]);
         if (tokens.length >= 2 && tokens[2].length() > 0) {
@@ -77,13 +78,30 @@ public class CSVReader {
         }
         if (tokens.length >= 6 && tokens[6].length() > 0) {
             vehicle.setFuelType(tokens[6]);
+
+            switch (tokens[6]) {
+                case "Electricity":
+                    vehicle.setFuelTypeNumber(Vehicle.ELECTRICITY);
+                    break;
+                case "Diesel":
+                    vehicle.setFuelTypeNumber(Vehicle.DIESEL);
+                    break;
+                case "CNG":
+                    hasNaturalGas = true;
+                    break;
+                default:
+                    vehicle.setFuelTypeNumber(Vehicle.GASOLINE);
+                    break;
+            }
         }
         if (tokens.length > 7 && tokens[7].length() > 0) {
             vehicle.setTransmission(tokens[7]);
         }
 
-        if (hashSet.add(vehicle)) {
-            vehicleManager.add(vehicle);
+        if (!hasNaturalGas) {
+            if (hashSet.add(vehicle)) {
+                vehicleManager.add(vehicle);
+            }
         }
         //Log.d("MenuActivity", "Just created: " + vehicle.toString());
     }
