@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">carbon-tracker</string>
+    <string name="DisplayDate">Date</string>
+    <string name="DisplayName">Route Name</string>
+    <string name="DisplayDistance">Distance(km)</string>
+    <string name="DisplayVehicle">Vehicle</string>
+    <string name="DisplayCO2">CO2 Emission</string>
 </resources>
