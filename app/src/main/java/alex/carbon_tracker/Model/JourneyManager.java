@@ -1,6 +1,7 @@
 package alex.carbon_tracker.Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +15,15 @@ import java.util.Set;
 
 public class JourneyManager {
     private List<Journey> journeyList = new ArrayList<>();
+    private String currentDate;
+
+    public String getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(String currentDate) {
+        this.currentDate = currentDate;
+    }
 
     public List<Journey> getJourneyList() {
         return journeyList;
@@ -36,7 +46,7 @@ public class JourneyManager {
         for (int i = 0; i < journeyList.size(); i++) {
             Journey journey = getJourney(i);
             descriptions[i] = String.format("Journey No.%d\nRoute Nickname: %s\nVehicle Nickname:%s",
-                    i+1,
+                    i + 1,
                     journey.getRoute().getNickname(),
                     journey.getUserVehicle().getNickname());
         }
