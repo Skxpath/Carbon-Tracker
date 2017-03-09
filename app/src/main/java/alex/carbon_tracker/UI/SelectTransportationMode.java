@@ -29,12 +29,14 @@ public class SelectTransportationMode extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+
     private int currentVehiclePosition=0;
     public static final String CAR_INDEX = "carIndex";
     private String carMake = "";
     private String carModel = "";
     private int carYear = 0;
     private String carNickname = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

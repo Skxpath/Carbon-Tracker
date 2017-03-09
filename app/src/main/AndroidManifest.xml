@@ -47,9 +47,15 @@
         <activity
             android:name=".UI.AddRouteActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.DisplayCarbonFootPrintActivity" />
-        <activity android:name=".UI.EditCarActivity" />
-        <activity android:name=".UI.EditRouteActivity"></activity>
+        <activity
+            android:name=".UI.DisplayCarbonFootPrintActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.EditCarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.EditRouteActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
