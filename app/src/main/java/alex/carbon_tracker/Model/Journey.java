@@ -9,7 +9,7 @@ import java.util.Date;
 public class Journey {
     private UserVehicle vehicle;
     private Route route;
-    private Date date;
+    private String date;
     private double carbonEmitted = 0;
 
     @Override
@@ -19,10 +19,11 @@ public class Journey {
         return journeyName;
     }
 
-    public Journey (UserVehicle vehicle, Route route, double carbonEmitted) {
+    public Journey (UserVehicle vehicle, Route route, double carbonEmitted, String date) {
         this.vehicle = vehicle;
         this.route = route;
         this.carbonEmitted = carbonEmitted;
+        this.date = date;
     }
 
     public Route getRoute() {
@@ -33,7 +34,7 @@ public class Journey {
         return vehicle;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -41,7 +42,7 @@ public class Journey {
         return carbonEmitted;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

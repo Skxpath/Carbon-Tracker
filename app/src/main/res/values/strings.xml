@@ -13,7 +13,7 @@
     <string name="AddRouteSubmitButton">Submit</string>
     <string name="RouteName">Route Name:</string>
     <string name="MainAddJourneyButton">Add Journey</string>
-    <string name="MainGoToGraphs">Go To Graphs</string>
+    <string name="MainGoToGraphs">Go To FootPrint</string>
     <string name="MainHeader">All Journeys</string>
     <string name="SelectRouteHeader">Select Route:</string>
     <string name="SelectRouteAddRouteButton">Add Route</string>
@@ -21,7 +21,7 @@
     <string name="TransportationAddCarButton">Add Car</string>
     <string name="Delete">Delete</string>
     <string name="Edit">Edit</string>
-    <string name="DateFormat">MM/dd/yyyy - hh:mm:ss a</string>
+    <string name="DateFormat">MM/dd/yyyy</string>
     <string name="DisplayDate">Date</string>
     <string name="DisplayName">Route Name</string>
     <string name="DisplayDistance">Distance(km)</string>

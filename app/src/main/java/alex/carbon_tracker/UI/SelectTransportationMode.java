@@ -65,6 +65,7 @@ public class SelectTransportationMode extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = AddCarActivity.makeIntent(SelectTransportationMode.this);
                 startActivity(intent);
+                finish();
             }
         });
     }

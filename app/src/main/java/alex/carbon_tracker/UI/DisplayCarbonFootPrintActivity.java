@@ -71,15 +71,15 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
         for (int i = 0; i < journeyManager.getJourneyList().size(); i++) {
             TableRow tableRow = new TableRow(this);
             carbonTable.addView(tableRow);
-            tableRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
-                    TableLayout.LayoutParams.MATCH_PARENT, 1.0f));
+            //tableRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
+              //      TableLayout.LayoutParams.MATCH_PARENT, 1.0f));
             // Going through columns to fill in the information
             for (int j = 0; j < 5; j++) {
                 Journey journey = journeyManager.getJourney(i);
                 carbonTable.setColumnStretchable(j, true);
                 TextView textview = new TextView(this);
                 if (j == DATE) {
-                    textview.setText("Date");
+                    textview.setText(journey.getDate());
                 } else if (j == ROUTE_NAME) {
                     textview.setText(journey.getRoute().toString());
                 } else if (j == DISTANCE) {
