@@ -22,6 +22,11 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.R;
 
+/*
+* Pie Chart Activity which displays the pie
+* charts of the carbon footprint created by
+* the user
+* */
 public class PieChartActivity extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();

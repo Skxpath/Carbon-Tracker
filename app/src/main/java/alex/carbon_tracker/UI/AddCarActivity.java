@@ -23,6 +23,12 @@ import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.Model.VehicleManager;
 import alex.carbon_tracker.R;
 
+/*
+* Add Car Activity page which allows the
+* user to add one of their cars to
+* the system. Only lists car brands and
+* models that can emit CO2.
+* */
 public class AddCarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();

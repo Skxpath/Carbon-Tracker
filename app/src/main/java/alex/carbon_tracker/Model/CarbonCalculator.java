@@ -2,6 +2,9 @@ package alex.carbon_tracker.Model;
 
 /**
  * Created by Alex on 3/7/2017.
+ *
+ * CarbonCalculator class to calculate the amount of
+ * CO2 produced by a vehicle given necessary parameters.
  */
 
 public class CarbonCalculator {

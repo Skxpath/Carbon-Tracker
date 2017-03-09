@@ -16,6 +16,10 @@ import java.util.Set;
  */
 import alex.carbon_tracker.UI.MainActivity;
 
+/*
+* VehicleManager class which manages the
+* Vehicle objects created by the CSVReader
+* */
 public class VehicleManager {
     private List<Vehicle> vehicleList = new ArrayList<>();
 
