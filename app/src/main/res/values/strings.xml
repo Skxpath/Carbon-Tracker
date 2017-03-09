@@ -1,5 +1,24 @@
 <resources>
     <string name="app_name">carbon-tracker</string>
+    <string name="CarMake">Make</string>
+    <string name="CarModel">Model</string>
+    <string name="CarYear">Year</string>
+    <string name="CarVehicleNickname">Vehicle Nickname:</string>
+    <string name="CarVehicleNicknameHint">Nickname</string>
+    <string name="CarHeader">Add a Car:</string>
+    <string name="CarSubmitButton">Submit</string>
+    <string name="AddRouteHeader">Add a Route</string>
+    <string name="AddRouteCityDistance">City Distance:</string>
+    <string name="AddRouteHighwayDistance">Highway Distance:</string>
+    <string name="AddRouteSubmitButton">Submit</string>
+    <string name="RouteName">Route Name:</string>
+    <string name="MainAddJourneyButton">Add Journey</string>
+    <string name="MainGoToGraphs">Go To Graphs</string>
+    <string name="MainHeader">All Journeys</string>
+    <string name="SelectRouteHeader">Select Route:</string>
+    <string name="SelectRouteAddRouteButton">Add Route</string>
+    <string name="TransportationHeader">Select Transportation Mode</string>
+    <string name="TransportationAddCarButton">Add Car</string>
     <string name="DisplayDate">Date</string>
     <string name="DisplayName">Route Name</string>
     <string name="DisplayDistance">Distance(km)</string>
