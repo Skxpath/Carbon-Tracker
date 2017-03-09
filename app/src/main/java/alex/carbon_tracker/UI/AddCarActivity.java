@@ -144,9 +144,15 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             if (newVehicle.getMake().equals(carMake)
                     && newVehicle.getModel().equals(carModel)
                     && (newVehicle.getYear()) == (carYear)) {
-                setupCarNickName();
 
-                UserVehicle newUserVehicle = new UserVehicle(carMake, carModel, carYear, carNickname, newVehicle.getCityDrive(), newVehicle.getHighwayDrive());
+                setupCarNickName();
+                UserVehicle newUserVehicle = new UserVehicle(carMake,
+                        carModel,
+                        carYear,
+                        carNickname,
+                        newVehicle.getCityDrive(),
+                        newVehicle.getHighwayDrive(),
+                        newVehicle.getFuelTypeNumber());
                 carbonTrackerModel.getUserVehicleManager().add(newUserVehicle);
                 break;
             }

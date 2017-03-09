@@ -10,12 +10,29 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="alex.carbon_tracker.UI.PieChartActivity">
 
+    <TextView
+        android:text="Carbon Footprint Graph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView12"
+        android:layout_marginTop="10dp" />
+
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        />
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="350dp"
+        android:layout_height="350dp" />
 
+    <Button
+        android:text="Go To Table"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/buttonToTable" />
 
 
 </RelativeLayout>

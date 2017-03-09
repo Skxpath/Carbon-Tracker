@@ -1,5 +1,6 @@
 package alex.carbon_tracker.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -96,5 +97,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         journeyListView();
+    }
+
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, MainActivity.class);
     }
 }

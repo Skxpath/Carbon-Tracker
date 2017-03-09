@@ -22,4 +22,9 @@
     <string name="Delete">Delete</string>
     <string name="Edit">Edit</string>
     <string name="DateFormat">MM/dd/yyyy - hh:mm:ss a</string>
+    <string name="DisplayDate">Date</string>
+    <string name="DisplayName">Route Name</string>
+    <string name="DisplayDistance">Distance(km)</string>
+    <string name="DisplayVehicle">Vehicle</string>
+    <string name="DisplayCO2">CO2 Emission</string>
 </resources>
