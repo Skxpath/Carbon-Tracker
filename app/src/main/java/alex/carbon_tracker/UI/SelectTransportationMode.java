@@ -78,7 +78,6 @@ public class SelectTransportationMode extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 userVehicleManager.setCurrentVehicle(userVehicleManager.getUserVehicle(i));
-                Toast.makeText(SelectTransportationMode.this, "Good", Toast.LENGTH_SHORT).show();
                 Intent intent = SelectRouteActivity.makeIntent(SelectTransportationMode.this);
                 startActivity(intent);
                 finish();
