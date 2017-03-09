@@ -48,15 +48,15 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
             carbonTable.setColumnStretchable(i, true);
             TextView text = new TextView(this);
             if (i == DATE) {
-                text.setText("Date");
+                text.setText(R.string.DisplayDate);
             } else if (i == ROUTE_NAME) {
-                text.setText("Route Name");
+                text.setText(R.string.DisplayName);
             } else if (i == DISTANCE) {
-                text.setText("Distance(km)");
+                text.setText(R.string.DisplayDistance);
             } else if (i == VEHICLE_NAME) {
-                text.setText("Vehicle");
+                text.setText(R.string.DisplayVehicle);
             } else if (i == CO2_EMISSION) {
-                text.setText("CO2 Emission");
+                text.setText(R.string.DisplayCO2);
             }
             text.setTextSize(12f);
             text.setTypeface(null, Typeface.BOLD);
