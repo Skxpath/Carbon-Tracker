@@ -12,7 +12,7 @@
     tools:context="alex.carbon_tracker.UI.AddRouteActivity">
 
     <TextView
-        android:text="Add a Route"
+        android:text="@string/AddRouteHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ads"
@@ -21,7 +21,7 @@
         android:layout_marginTop="20dp" />
 
     <TextView
-        android:text="City Distance:"
+        android:text="@string/AddRouteCityDistance"
         android:id="@+id/textView3"
         android:textSize="18sp"
         android:layout_alignStart="@+id/imageView5"
@@ -40,7 +40,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Highway Distance:"
+        android:text="@string/AddRouteHighwayDistance"
         android:id="@+id/textView5"
         android:textSize="18sp"
         android:layout_width="150dp"
@@ -72,7 +72,7 @@
 
 
     <Button
-        android:text="Submit"
+        android:text="@string/AddRouteSubmitButton"
         android:id="@+id/submitBtn"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
@@ -82,7 +82,7 @@
         android:layout_height="48dp" />
 
     <TextView
-        android:text="Route Name:"
+        android:text="@string/RouteName"
         android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_below="@+id/textView5"

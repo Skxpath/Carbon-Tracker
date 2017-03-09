@@ -31,7 +31,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="20dp"
         android:minWidth="48dip"
-        android:text="Add Car" />
+        android:text="@string/TransportationAddCarButton" />
 
     <ImageView
         android:layout_width="400dp"
@@ -42,7 +42,7 @@
         android:id="@+id/imageView4" />
 
     <TextView
-        android:text="Select Transportation Mode"
+        android:text="@string/TransportationHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
