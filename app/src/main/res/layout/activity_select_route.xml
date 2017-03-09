@@ -21,7 +21,7 @@
         android:layout_height="100dp" />
 
     <TextView
-        android:text="Select Route:"
+        android:text="@string/SelectRouteHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -39,7 +39,7 @@
         android:layout_marginRight="20dp"
         android:minWidth="48dip"
         android:minHeight="48dp"
-        android:text="Add Route" />
+        android:text="@string/SelectRouteAddRouteButton" />
 
     <ListView
         android:layout_width="500dp"

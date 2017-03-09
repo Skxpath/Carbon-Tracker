@@ -10,13 +10,14 @@ import android.util.Log;
 public class UserVehicle extends Vehicle {
     private String nickname;
 
-    public UserVehicle(String make, String model, int year, String nickname, int cityDrive, int highwayDrive) {
+    public UserVehicle(String make, String model, int year, String nickname, int cityDrive, int highwayDrive, Double fuelTypeValue) {
         setMake(make);
         setModel(model);
         setYear(year);
         setNickname(nickname);
         setCityDrive(cityDrive);
         setHighwayDrive(highwayDrive);
+        setFuelTypeNumber(fuelTypeValue);
     }
 
     public String getNickname() {
