@@ -76,7 +76,8 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
             // Going through columns to fill in the information
             for (int j = 0; j < 5; j++) {
                 Journey journey = journeyManager.getJourney(i);
-                carbonTable.setColumnStretchable(j, true);
+                //carbonTable.setColumnStretchable(j, true);
+                carbonTable.setMinimumWidth(20);
                 TextView textview = new TextView(this);
                 if (j == DATE) {
                     textview.setText(journey.getDate());

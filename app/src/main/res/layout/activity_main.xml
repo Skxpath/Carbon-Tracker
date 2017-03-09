@@ -29,7 +29,7 @@
         android:layout_toStartOf="@+id/AddJourneyButton"
         android:layout_marginTop="37dp"
         android:layout_alignParentEnd="true"
-        android:layout_height="300dp">
+        android:layout_height="280dp">
 
     </ListView>
 
