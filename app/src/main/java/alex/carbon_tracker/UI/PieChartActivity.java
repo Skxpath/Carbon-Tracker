@@ -43,7 +43,6 @@ public class PieChartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pie_chart);
 
         setJourneyData();
-
         setupPieChart();
         setupChangeButton();
     }
