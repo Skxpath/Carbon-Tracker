@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupAddJourneyButton() {
 
-        final DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy - hh:mm:ss a");
+        final DateFormat dateFormat = new SimpleDateFormat(getString(R.string.DateFormat));
         final Date date = new Date();
 
         Button btn = (Button) findViewById(R.id.AddJourneyButton);
@@ -75,16 +75,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, v.getId(), 0, "Delete");
-        menu.add(0, v.getId(), 0, "Edit");
+        menu.add(0, v.getId(), 0, R.string.Delete);
+        menu.add(0, v.getId(), 0, R.string.Edit);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        if (item.getTitle().equals("Delete")) {
+        if (item.getTitle().equals(R.string.Delete)) {
             // delete the entry
             return true;
-        } else if (item.getTitle().equals("Edit")) {
+        } else if (item.getTitle().equals(R.string.Edit)) {
             return true;
         } else {
             return false;
