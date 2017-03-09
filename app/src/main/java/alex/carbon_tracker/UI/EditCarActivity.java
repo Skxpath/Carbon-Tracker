@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,61 +19,33 @@ import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.UserVehicle;
-import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.Model.Vehicle;
-import alex.carbon_tracker.Model.VehicleManager;
 import alex.carbon_tracker.R;
 
-/*
-* Add Car Activity page which allows the
-* user to add one of their cars to
-* the system. Only lists car brands and
-* models that can emit CO2.
-* */
-public class AddCarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
+public class EditCarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-    private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
-    private VehicleManager vehicleManager = carbonTrackerModel.getVehicleManager();
-
+    private String carMakeFromIntent = "xx";
+    private String carModelFromIntent = "";
+    private int carYearFromIntent = 0;
+    private String carNicknameFromIntent = "";
     private String carMake = "";
     private String carModel = "";
     private int carYear = 0;
     private String carNickname = "";
-
-
     private List<String> carMakeList;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
-        setupCarMakeDropDown();
+        Intent intent = getIntent();
+        getInfoFromIntent(intent);
         setupOkButton();
         setupCarMakeDropDown();
-    }
-    private void setupCarNickName() {
-        EditText text = (EditText) findViewById(R.id.carNicknameEditText);
-        carNickname = text.getText().toString();
+        setupCarNickName();
     }
 
-    private void setupOkButton() {
-        Button ok = (Button) findViewById(R.id.addCarOkButton);
-        ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (validateEditText(R.id.carNicknameEditText)) {
-                    addCarToTheModel();
-                    finish();
-                } else {
-                    Toast.makeText(AddCarActivity.this, "Invalid Information Inputted. Please try again!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 
-    private void addCarToTheModel() {
+    private void editCarInformation(int index) {
         // add the carMake to the carbonModel
         for (int i = 0; i < carbonTrackerModel.getVehicleManager().getSize(); i++) {
 
@@ -80,21 +53,47 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             if (newVehicle.getMake().equals(carMake)
                     && newVehicle.getModel().equals(carModel)
                     && (newVehicle.getYear()) == (carYear)) {
-
-                setupCarNickName();
-                UserVehicle newUserVehicle = new UserVehicle(carMake,
-                        carModel,
-                        carYear,
-                        carNickname,
-                        newVehicle.getCityDrive(),
-                        newVehicle.getHighwayDrive(),
-                        newVehicle.getFuelTypeNumber());
-                carbonTrackerModel.getUserVehicleManager().add(newUserVehicle);
+                setupNewCarNickName();
+                UserVehicle newUserVehicle = new UserVehicle(carMake, carModel, carYear, carNickname,
+                        newVehicle.getCityDrive(), newVehicle.getHighwayDrive(),newVehicle.getFuelTypeNumber());
+                carbonTrackerModel.getUserVehicleManager().replaceUserVehicle(newUserVehicle,index);
                 break;
             }
         }
     }
 
+
+    private void setupCarNickName() {
+        EditText text = (EditText) findViewById(R.id.carNicknameEditText);
+        text.setText(carNicknameFromIntent);
+        carNickname = text.getText().toString();
+    }
+    private void setupNewCarNickName() {
+        EditText text = (EditText) findViewById(R.id.carNicknameEditText);
+        carNickname = text.getText().toString();
+    }
+
+    private void getInfoFromIntent(Intent intent){
+        carMakeFromIntent = intent.getStringExtra("make");
+        carModelFromIntent = intent.getStringExtra("model");
+        carNicknameFromIntent = intent.getStringExtra("carNickName");
+        carYearFromIntent = intent.getIntExtra("year",0);
+    }
+    private void setupOkButton() {
+        Button ok = (Button) findViewById(R.id.addCarOkButton);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (validateEditText(R.id.carNicknameEditText)) {
+                    // edit the car
+                    editCarInformation(getIntent().getIntExtra("position",0));
+                    finish();
+                } else {
+                    Toast.makeText(EditCarActivity.this, "Invalid Information Inputted. Please try again!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
     private boolean validateEditText(int id) {
         boolean isValid = true;
         EditText editText = (EditText) findViewById(id);
@@ -109,6 +108,35 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             }
         }
         return isValid;
+    }
+
+    private void setupCarMakeDropDown() {
+        Spinner carMakeMenu = (Spinner) findViewById(R.id.carMakeDropMenu);
+        carMakeMenu.setOnItemSelectedListener(this);
+        //getting the car make and saving it in a list.
+        carMakeList = new ArrayList<String>();
+        HashSet hashSet = new HashSet();
+        for (int i = 0; i < carbonTrackerModel.getVehicleManager().getSize(); i++) {
+            if (hashSet.add(carbonTrackerModel.getVehicleManager().getVehicle(i).getMake())) {
+                carMakeList.add(carbonTrackerModel.getVehicleManager().getVehicle(i).getMake());
+            }
+        }
+        ArrayAdapter<String> adapt = new ArrayAdapter<String>(EditCarActivity.this, android.R.layout.simple_spinner_item, carMakeList);
+        adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapt.notifyDataSetChanged();
+        carMakeMenu.setAdapter(adapt);
+        // find the carMake in the spinner
+        int spinnerPosition = 0;
+        setIntent(getIntent());
+        Log.i("caar",carMakeFromIntent.toString());
+        for(int i = 0; i< carMakeList.size();i++){
+            if(carMakeList.get(i).equals(carMakeFromIntent)){
+                spinnerPosition = i;
+                carMakeMenu.setSelection(spinnerPosition);
+                break;
+            }
+        }
+
     }
 
     private void setupCarYearDropDown() {
@@ -134,9 +162,18 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             }
         }
         // making the drop down menu
-        ArrayAdapter<String> adapt = new ArrayAdapter<String>(AddCarActivity.this, android.R.layout.simple_spinner_item, carYearList);
+        ArrayAdapter<String> adapt = new ArrayAdapter<String>(EditCarActivity.this, android.R.layout.simple_spinner_item, carYearList);
         adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         carMakeMenu.setAdapter(adapt);
+        int spinnerPosition;
+        for(int i = 0; i< carYearList.size();i++){
+            if(carYearList.get(i).equals(carYearFromIntent)){
+                spinnerPosition = i;
+                carMakeMenu.setSelection(spinnerPosition);
+                break;
+            }
+        }
+
     }
 
     private void setupCarModelDropDown() {
@@ -156,33 +193,26 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
                     carbonTrackerModel.getVehicleManager().getVehicle(i).getMake().toString().equals(carMake)) {
                 carModelList.add(currentCarMake);
             }
+
         }
         //setting up the dropdown
-        ArrayAdapter<String> adapt = new ArrayAdapter<String>(AddCarActivity.this, android.R.layout.simple_spinner_item, carModelList);
+        ArrayAdapter<String> adapt = new ArrayAdapter<String>(EditCarActivity.this, android.R.layout.simple_spinner_item, carModelList);
         adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         carModelMenu.setAdapter(adapt);
         adapt.notifyDataSetChanged();
-    }
-
-    private void setupCarMakeDropDown() {
-        Spinner carMakeMenu = (Spinner) findViewById(R.id.carMakeDropMenu);
-        carMakeMenu.setOnItemSelectedListener(this);
-        //getting the car make and saving it in a list.
-        carMakeList = new ArrayList<String>();
-        HashSet hashSet = new HashSet();
-        for (int i = 0; i < carbonTrackerModel.getVehicleManager().getSize(); i++) {
-            if (hashSet.add(carbonTrackerModel.getVehicleManager().getVehicle(i).getMake())) {
-                carMakeList.add(carbonTrackerModel.getVehicleManager().getVehicle(i).getMake());
+        int spinnerPosition;
+        for(int i = 0; i< carModelList.size();i++){
+            if(carModelList.get(i).equals(carModelFromIntent)){
+                spinnerPosition = i;
+                carModelMenu.setSelection(spinnerPosition);
+                break;
             }
         }
-        ArrayAdapter<String> adapt = new ArrayAdapter<String>(AddCarActivity.this, android.R.layout.simple_spinner_item, carMakeList);
-        adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapt.notifyDataSetChanged();
-        carMakeMenu.setAdapter(adapt);
     }
 
+
     public static Intent makeIntent(Context context) {
-        return new Intent(context, AddCarActivity.class);
+        return new Intent(context, EditCarActivity.class);
     }
 
     @Override
@@ -202,8 +232,6 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        setupCarMakeDropDown();
+
     }
-
-
 }
