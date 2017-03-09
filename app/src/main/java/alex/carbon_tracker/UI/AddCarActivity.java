@@ -40,9 +40,7 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
     private int carYear = 0;
     private String carNickname = "";
 
-
     private List<String> carMakeList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +50,7 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         setupOkButton();
         setupCarMakeDropDown();
     }
+
     private void setupCarNickName() {
         EditText text = (EditText) findViewById(R.id.carNicknameEditText);
         carNickname = text.getText().toString();
@@ -64,23 +63,22 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View view) {
                 if (validateEditText(R.id.carNicknameEditText)) {
                     addCarToTheModel();
+                    Intent intent = SelectRouteActivity.makeIntent(AddCarActivity.this);
+                    startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(AddCarActivity.this, "Invalid Information Inputted. Please try again!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCarActivity.this, R.string.AddRouteSubmitButtonErrorMsg, Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     private void addCarToTheModel() {
-        // add the carMake to the carbonModel
-        for (int i = 0; i < carbonTrackerModel.getVehicleManager().getSize(); i++) {
-
-            Vehicle newVehicle = carbonTrackerModel.getVehicleManager().getVehicle(i);
+        for (int i = 0; i < vehicleManager.getSize(); i++) {
+            Vehicle newVehicle = vehicleManager.getVehicle(i);
             if (newVehicle.getMake().equals(carMake)
                     && newVehicle.getModel().equals(carModel)
                     && (newVehicle.getYear()) == (carYear)) {
-
                 setupCarNickName();
                 UserVehicle newUserVehicle = new UserVehicle(carMake,
                         carModel,
@@ -89,7 +87,8 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
                         newVehicle.getCityDrive(),
                         newVehicle.getHighwayDrive(),
                         newVehicle.getFuelTypeNumber());
-                carbonTrackerModel.getUserVehicleManager().add(newUserVehicle);
+                userVehicleManager.add(newUserVehicle);
+                userVehicleManager.setCurrentVehicle(newUserVehicle);
                 break;
             }
         }
@@ -114,7 +113,6 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
     private void setupCarYearDropDown() {
         Spinner carMakeMenu = (Spinner) findViewById(R.id.carYearDropDown);
         carMakeMenu.setOnItemSelectedListener(this);
-        // getting information from carbonTrackerModel
         List<String> carYearList = new ArrayList<String>();
         for (int i = 0; i < carbonTrackerModel.getVehicleManager().getSize(); i++) {
             boolean isCarYearInTheList = false;
@@ -129,7 +127,6 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             if (isCarYearInTheList == false &&
                     carbonTrackerModel.getVehicleManager().getVehicle(i).getMake().toString().equals(carMake)
                     && carbonTrackerModel.getVehicleManager().getVehicle(i).getModel().equals(carModel)) {
-
                 carYearList.add(currentCarYear);
             }
         }
@@ -190,13 +187,11 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         if (adapterView.getId() == findViewById(R.id.carMakeDropMenu).getId()) {
             carMake = adapterView.getItemAtPosition(i).toString();
             setupCarModelDropDown();
-
         } else if (adapterView.getId() == findViewById(R.id.carModelDropDownMenu).getId()) {
             carModel = adapterView.getItemAtPosition(i).toString();
             setupCarYearDropDown();
         } else if (adapterView.getId() == findViewById(R.id.carYearDropDown).getId()) {
-            carYear = Integer.parseInt(
-                    adapterView.getItemAtPosition(i).toString());
+            carYear = Integer.parseInt(adapterView.getItemAtPosition(i).toString());
         }
     }
 

@@ -62,13 +62,16 @@ public class PieChartActivity extends AppCompatActivity {
         PieDataSet dataSet = new PieDataSet(pieEntries, "");
 
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        dataSet.setValueTextSize(13);
 
         PieData data = new PieData(dataSet);
         PieChart chart = (PieChart) findViewById(R.id.pieChart);
 
         chart.setData(data);
-        chart.setCenterTextSize(20);
+        chart.setCenterText("CO2 Emissions in kilograms");
+       // chart.setChart
         chart.animateY(1000);
+        chart.setEntryLabelTextSize(13);
         chart.invalidate();
 
     }

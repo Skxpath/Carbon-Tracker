@@ -91,37 +91,7 @@ public class AddRouteActivity extends AppCompatActivity {
             }
         }
     }
-/*
-    private void setupDeleteButton(Intent intent) {
-        if (intent.hasExtra(SelectRouteActivity.SelectTransportationMode)) {
-            isEditingRoute = true;
-            Button button = new Button(this);
-            button.setLayoutParams(new TableRow.LayoutParams(
-                    TableRow.LayoutParams.MATCH_PARENT,
-                    TableRow.LayoutParams.MATCH_PARENT,
-                    1.0f));
 
-            button.setText("Delete");
-            button.setPadding(0, 0, 0, 0);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    gridButtonClicked();
-                }
-                private void gridButtonClicked() {
-                    routeManager.deleteRoute(index);
-                    Intent intent = new Intent();
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
-                }
-            });
-
-            RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.relativeLayoutButton);
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            relativeLayout.addView(button, layoutParams);
-        }
-    }
-*/
     private void addRoute() {
         EditText cityDistEditText = (EditText) findViewById(R.id.cityDistanceEditText);
         cityDistance = Integer.parseInt(cityDistEditText.getText().toString());
