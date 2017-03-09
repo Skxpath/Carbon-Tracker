@@ -5,19 +5,7 @@
     android:id="@+id/activity_welcome_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="alex.carbon_tracker.UI.WelcomeScreenActivity">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/carbontrackerlogo5"
-        android:id="@+id/welcomeImage"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -40,6 +28,16 @@
         app:srcCompat="@mipmap/smokebacking1"
         android:id="@+id/smokeImgView"
         android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/welcomeImage" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/carbontrackerlogo5"
+        android:id="@+id/welcomeImage"
+        android:layout_marginTop="168dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

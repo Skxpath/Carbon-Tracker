@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -94,6 +95,7 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                     textview.setText(carbonEmitted);
                 }
                 textview.setTextSize(12f);
+                textview.setGravity(Gravity.CENTER);
                 tableRow.addView(textview);
             }
         }
