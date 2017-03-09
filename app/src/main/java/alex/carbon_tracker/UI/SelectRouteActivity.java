@@ -136,7 +136,6 @@ public class SelectRouteActivity extends AppCompatActivity {
         } else {
             return false;
         }
-
     }
 
     public static Intent makeIntent(Context context) {
