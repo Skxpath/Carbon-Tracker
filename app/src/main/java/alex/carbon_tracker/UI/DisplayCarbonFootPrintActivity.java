@@ -19,6 +19,11 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.R;
 
+/*
+* Display Carbon Footprint Activity class which
+* displays the total carbon footprint created by
+* the user given the journeys they travelled
+* */
 public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
