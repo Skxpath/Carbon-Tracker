@@ -128,7 +128,6 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
         // find the carMake in the spinner
         int spinnerPosition = 0;
         setIntent(getIntent());
-        Log.i("caar",carMakeFromIntent.toString());
         for(int i = 0; i< carMakeList.size();i++){
             if(carMakeList.get(i).equals(carMakeFromIntent)){
                 spinnerPosition = i;

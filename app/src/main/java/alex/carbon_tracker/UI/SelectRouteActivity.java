@@ -5,7 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,20 +28,21 @@ public class SelectRouteActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_ADD_ROUTE = 101;
     public static final int REQUEST_CODE_EDIT_ROUTE = 102;
 
-    public static final String SelectTransportationMode = "routeIndex";
+    public static final String ROUTE_INDEX = "routeIndex";
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private RouteManager routeManager = carbonTrackerModel.getRouteManager();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
     private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
-
+    private  int currentRoutePosition = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_route);
-
+        ListView routeList = (ListView)findViewById(R.id.routeListView);
+        setCurrentRoutePosition();
+        registerForContextMenu(routeList);
         setupAddRouteButton();
-        setupOnItemLongClickListenerToEdit();
         populateListView();
         selectRoute();
     }
@@ -51,24 +53,12 @@ public class SelectRouteActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = AddRouteActivity.makeIntent(SelectRouteActivity.this);
-                startActivityForResult(intent, REQUEST_CODE_EDIT_ROUTE);
+                startActivity(intent);
                 populateListView();
             }
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_CANCELED) {
-            return;
-        }
-        switch (resultCode) {
-            case REQUEST_CODE_EDIT_ROUTE:
-                break;
-        }
-        populateListView();
-    }
 
     private void populateListView() {
         String[] routeNameList = routeManager.getRouteDescriptions();
@@ -83,10 +73,8 @@ public class SelectRouteActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 routeManager.setCurrentRoute(routeManager.getRoute(i));
-
                 UserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
                 Route userCurrentRoute = routeManager.getCurrentRoute();
-
                 double gasType = userCurrentVehicle.getFuelTypeNumber();
                 double distanceTravelledCity = userCurrentRoute.getCityDistance();
                 double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
@@ -98,26 +86,60 @@ public class SelectRouteActivity extends AppCompatActivity {
 
                 Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions);
                 journeyManager.add(journey);
-
                 finish();
             }
         });
     }
 
-    private void setupOnItemLongClickListenerToEdit() {
-        ListView list = (ListView) findViewById(R.id.routeListView);
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0,v.getId(),0,"Delete");
+        menu.add(0,v.getId(),0,"Edit");
+    }
+
+    private void setCurrentRoutePosition() {
+        final ListView listView = (ListView) findViewById(R.id.routeListView);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = AddRouteActivity.makeIntent(SelectRouteActivity.this);
-                intent.putExtra(SelectTransportationMode, position);
-                startActivityForResult(intent, REQUEST_CODE_EDIT_ROUTE);
-                return true;
+                currentRoutePosition = position;
+                return false;
             }
         });
     }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if(item.getTitle().equals("Delete")){
+            // delete the car
+            carbonTrackerModel.getRouteManager().deleteRoute(currentRoutePosition);
+            populateListView();
+            return true;
+        }
+        else if (item.getTitle().equals("Edit")){
+            Intent intent = EditRouteActivity.makeIntent(this);
+            int cityDis = routeManager.getRoute(currentRoutePosition).getCityDistance();
+            int highWayDis = routeManager.getRoute(currentRoutePosition).getHighwayDistance();
+            String routeName = routeManager.getRoute(currentRoutePosition).getNickname();
+            intent.putExtra("highway",highWayDis);
+            intent.putExtra("city",cityDis);
+            intent.putExtra("name",routeName);
+            intent.putExtra("routePosition",currentRoutePosition);
+            startActivity(intent);
+            return true;
+        }
 
+        else {return false;
+        }
+
+    }
     public static Intent makeIntent(Context context) {
         return new Intent(context, SelectRouteActivity.class);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populateListView();
     }
 }
