@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Grape.iml" filepath="$PROJECT_DIR$/Grape.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/carbon-tracker.iml" filepath="$PROJECT_DIR$/carbon-tracker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/good-copy-carbon-tracker.iml" filepath="$PROJECT_DIR$/good-copy-carbon-tracker.iml" />
     </modules>
   </component>
 </project>
