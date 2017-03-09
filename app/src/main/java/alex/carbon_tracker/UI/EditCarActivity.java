@@ -17,14 +17,22 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import alex.carbon_tracker.Model.CarbonCalculator;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.Journey;
+import alex.carbon_tracker.Model.JourneyManager;
+import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.UserVehicle;
+import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.Model.Vehicle;
 import alex.carbon_tracker.R;
 
 public class EditCarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+    private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
+    private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+
     private String carMakeFromIntent = "xx";
     private String carModelFromIntent = "";
     private int carYearFromIntent = 0;
@@ -57,7 +65,37 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
                 setupNewCarNickName();
                 UserVehicle newUserVehicle = new UserVehicle(carMake, carModel, carYear, carNickname,
                         newVehicle.getCityDrive(), newVehicle.getHighwayDrive(), newVehicle.getFuelTypeNumber());
-                carbonTrackerModel.getUserVehicleManager().replaceUserVehicle(newUserVehicle, index);
+                UserVehicle originalVehicle = userVehicleManager.getUserVehicle(getIntent().getIntExtra("position", 0));
+                // carbonTrackerModel.getUserVehicleManager().replaceUserVehicle(newUserVehicle, index);
+
+
+                for (int j = 0; j < journeyManager.getJourneyList().size(); j++) {
+                    Journey journey = journeyManager.getJourney(j);
+                    UserVehicle currentVehicle = journey.getUserVehicle();
+                    if (currentVehicle.getMake().equals(originalVehicle.getMake())
+                            && currentVehicle.getModel().equals(originalVehicle.getModel())
+                            && (currentVehicle.getYear()) == (originalVehicle.getYear())
+                            && currentVehicle.getNickname().equals(originalVehicle.getNickname())) {
+                        userVehicleManager.replaceUserVehicle(newUserVehicle, index);
+                        journey.setVehicle(newUserVehicle);
+
+
+                        Route route = journey.getRoute();
+                        double gasType = newUserVehicle.getFuelTypeNumber();
+                        double distanceTravelledCity = route.getCityDistance();
+                        double distanceTravelledHighway = route.getHighwayDistance();
+                        int milesPerGallonCity = newUserVehicle.getCityDrive();
+                        int milesPerGallonHighway = newUserVehicle.getHighwayDrive();
+
+                        // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
+                        double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
+                        journey.setCarbonEmitted(CO2Emissions);
+                    }
+
+
+                }
+
+
                 break;
             }
         }

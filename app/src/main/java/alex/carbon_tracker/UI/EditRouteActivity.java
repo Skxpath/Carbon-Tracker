@@ -14,12 +14,22 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import alex.carbon_tracker.Model.CarbonCalculator;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.Journey;
+import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
+import alex.carbon_tracker.Model.RouteManager;
+import alex.carbon_tracker.Model.UserVehicle;
+import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
 public class EditRouteActivity extends AppCompatActivity {
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+    private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
+    private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+    private RouteManager routeManager = carbonTrackerModel.getRouteManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +40,9 @@ public class EditRouteActivity extends AppCompatActivity {
 
     private void setupDataFromIntent() {
         Intent intent = getIntent();
-        setNumbToEditText(R.id.cityDistanceEditText,intent.getIntExtra("city",0));
-        setNumbToEditText(R.id.highwayDistanceEditText,intent.getIntExtra("highway",0));
-        setStringToEditText(R.id.routeNameEditText,intent.getStringExtra("name"));
+        setNumbToEditText(R.id.cityDistanceEditText, intent.getIntExtra("city", 0));
+        setNumbToEditText(R.id.highwayDistanceEditText, intent.getIntExtra("highway", 0));
+        setStringToEditText(R.id.routeNameEditText, intent.getStringExtra("name"));
     }
 
 
@@ -44,7 +54,7 @@ public class EditRouteActivity extends AppCompatActivity {
                 if (validateParameters(R.id.cityDistanceEditText)
                         && validateParameters(R.id.highwayDistanceEditText)
                         && validateParameters(R.id.routeNameEditText)) {
-                        editRoute();
+                    editRoute();
                     finish();
                 } else {
                     Toast.makeText(EditRouteActivity.this, "Invalid Information Inputted. Please try again!", Toast.LENGTH_SHORT).show();
@@ -54,16 +64,38 @@ public class EditRouteActivity extends AppCompatActivity {
     }
 
 
-
-
     private void editRoute() {
         int newCityDistance = Integer.parseInt(getEditTextAsString(R.id.cityDistanceEditText));
         int newHighwayDistance = Integer.parseInt(getEditTextAsString(R.id.highwayDistanceEditText));
-       String routeName = getEditTextAsString(R.id.routeNameEditText);
+        String routeName = getEditTextAsString(R.id.routeNameEditText);
 
         Route route = new Route(newCityDistance, newHighwayDistance, routeName);
-        int routePosition = getIntent().getIntExtra("routePosition",0);
+        int routePosition = getIntent().getIntExtra("routePosition", 0);
+        Route originRoute = journeyManager.getJourney(routePosition).getRoute();
+
         carbonTrackerModel.getRouteManager().editRoute(route, routePosition);
+        for (int i = 0; i < journeyManager.getJourneyList().size(); i++) {
+            Journey journey = journeyManager.getJourney(i);
+            if (journey.getRoute() == originRoute) {
+                journey.setRoute(route);
+
+                UserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
+                Route userCurrentRoute = routeManager.getRoute(routePosition);
+                double gasType = userCurrentVehicle.getFuelTypeNumber();
+                double distanceTravelledCity = userCurrentRoute.getCityDistance();
+                double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
+                int milesPerGallonCity = userCurrentVehicle.getCityDrive();
+                int milesPerGallonHighway = userCurrentVehicle.getHighwayDrive();
+
+                // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
+                double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
+
+                journey.setCarbonEmitted(CO2Emissions);
+            }
+
+        }
+
+
     }
 
     private boolean validateParameters(int id) {
