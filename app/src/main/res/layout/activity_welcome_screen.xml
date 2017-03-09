@@ -33,4 +33,13 @@
         android:layout_marginTop="120dp"
         android:layout_below="@+id/welcomeImage"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/smokebacking1"
+        android:id="@+id/smokeImgView"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/welcomeImage" />
+
 </RelativeLayout>

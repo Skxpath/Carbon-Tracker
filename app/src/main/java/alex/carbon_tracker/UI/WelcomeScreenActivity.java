@@ -27,7 +27,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
         vehicleManager.writeDataToList(this, R.raw.vehicles);
-        ImageView welcomeImg = (ImageView) findViewById(R.id.welcomeImage);
+        ImageView welcomeImg = (ImageView) findViewById(R.id.smokeImgView);
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.welcome_anim);
         welcomeImg.startAnimation(myFadeInAnimation);
 
