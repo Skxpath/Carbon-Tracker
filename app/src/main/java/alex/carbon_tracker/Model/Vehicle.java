@@ -1,5 +1,10 @@
 package alex.carbon_tracker.Model;
 
+/*
+* Vehicle class to store the different
+* types of Vehicles read in from CSVReader
+* and the raw vehicle.csv file
+* */
 public class Vehicle {
     private String make;
     private String model;

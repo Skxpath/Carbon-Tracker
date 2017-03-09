@@ -12,6 +12,11 @@ import java.util.HashSet;
 
 import alex.carbon_tracker.R;
 
+/*
+* CSVReader class to read in the raw
+* data from the vehicles.csv file for usage
+* in the application
+* */
 public class CSVReader {
 
     public void startNewThreadForReadingData(final Context context,

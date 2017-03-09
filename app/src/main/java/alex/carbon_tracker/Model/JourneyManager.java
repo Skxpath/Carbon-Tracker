@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Sachin on 2017-03-01.
- * <p>
  * JourneyManager class to manage the different
  * Journeys present in the program.
  */

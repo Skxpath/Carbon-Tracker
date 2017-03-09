@@ -1,9 +1,4 @@
 package alex.carbon_tracker.UI;
-/*
-* after you get all the information on route, call finish which will take you back to the select route activity.
-* read the usecases to see more detail.
-*/
-
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,6 +15,12 @@ import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
 import alex.carbon_tracker.R;
 
+/*
+* Add Route Activity page which allows the
+* user to add a new route they travelled on
+* in the system. We take in highway and city
+* distance travelled (in km).
+*/
 public class AddRouteActivity extends AppCompatActivity {
 
     private static final String ERROR_CITY_MSG = "City distance must be greater than or equal to zero.";
@@ -63,7 +64,7 @@ public class AddRouteActivity extends AppCompatActivity {
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 } else {
-                    Toast.makeText(AddRouteActivity.this, "Invalid Information Inputted. Please try again!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddRouteActivity.this, R.string.AddRouteSubmitButtonErrorMsg, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -87,6 +88,7 @@ public class AddRouteActivity extends AppCompatActivity {
         }
     }
 */
+
     private void addRoute() {
         EditText cityDistEditText = (EditText) findViewById(R.id.cityDistanceEditText);
         cityDistance = Integer.parseInt(cityDistEditText.getText().toString());

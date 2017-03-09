@@ -20,6 +20,11 @@ import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
+/*
+* Select Transportation Mode activity which allows
+* the user to select a car for a journey, or add a new
+* personal car that does not exist on the list.
+* */
 public class SelectTransportationMode extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
@@ -52,6 +57,7 @@ public class SelectTransportationMode extends AppCompatActivity {
             }
         });
     }
+
     private void setupAddCarButton() {
         Button btn = (Button) findViewById(R.id.AddCarButton);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +82,6 @@ public class SelectTransportationMode extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                 userVehicleManager.setCurrentVehicle(userVehicleManager.getUserVehicle(i));
                 Intent intent = SelectRouteActivity.makeIntent(SelectTransportationMode.this);
                 startActivity(intent);
@@ -84,8 +89,6 @@ public class SelectTransportationMode extends AppCompatActivity {
             }
         });
     }
-
-
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, SelectTransportationMode.class);
@@ -98,6 +101,7 @@ public class SelectTransportationMode extends AppCompatActivity {
         carListView();
         setupOnItemClickListener();
     }
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -112,20 +116,18 @@ public class SelectTransportationMode extends AppCompatActivity {
             carbonTrackerModel.getUserVehicleManager().delete(currentVehiclePosition);
             carListView();
             return true;
-        }
-        else if (item.getTitle().equals("Edit")){
+        } else if (item.getTitle().equals("Edit")) {
             setIntent();
             Intent intent = EditCarActivity.makeIntent(this);
-            intent.putExtra("make",carMake);
-            intent.putExtra("model",carModel);
-            intent.putExtra("year",carYear);
+            intent.putExtra("make", carMake);
+            intent.putExtra("model", carModel);
+            intent.putExtra("year", carYear);
             intent.putExtra("carNickName", carNickname);
-            intent.putExtra("position",currentVehiclePosition);
+            intent.putExtra("position", currentVehiclePosition);
             startActivity(intent);
             return true;
-        }
-
-        else {return false;
+        } else {
+            return false;
         }
 
     }

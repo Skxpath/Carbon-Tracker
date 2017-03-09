@@ -23,6 +23,11 @@ import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
+/*
+* Select Route Activity which allows
+* the user to select a route for a journey to use. Also
+*  allows the user to add a new route in the interface.
+*  */
 public class SelectRouteActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_ADD_ROUTE = 101;
