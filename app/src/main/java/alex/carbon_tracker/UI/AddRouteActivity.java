@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.TableRow;
 import android.widget.Toast;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
@@ -45,8 +43,6 @@ public class AddRouteActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        utilizeIntentExtras(intent);
-
         setupSubmitBtn();
        // setupDeleteButton(intent);
     }
@@ -74,11 +70,11 @@ public class AddRouteActivity extends AppCompatActivity {
         });
     }
 
-    private void utilizeIntentExtras(Intent intent) {
-        if (intent.hasExtra(SelectRouteActivity.SelectTransportationMode)) {
+   /* private void utilizeIntentExtras(Intent intent) {
+        if (intent.hasExtra(SelectRouteActivity.ROUTE_INDEX)) {
             isEditingRoute = true;
             Bundle extras = intent.getExtras();
-            index = (int) extras.get(SelectRouteActivity.SelectTransportationMode);
+            index = (int) extras.get(SelectRouteActivity.ROUTE_INDEX);
             Route route = routeManager.getRoute(index);
             cityDistance = route.getCityDistance();
             highwayDistance = route.getHighwayDistance();
@@ -91,6 +87,7 @@ public class AddRouteActivity extends AppCompatActivity {
             }
         }
     }
+*/
 
     private void addRoute() {
         EditText cityDistEditText = (EditText) findViewById(R.id.cityDistanceEditText);
