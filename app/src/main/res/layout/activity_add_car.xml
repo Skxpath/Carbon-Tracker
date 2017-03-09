@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="Make"
+        android:text="@string/CarMake"
         android:layout_height="25dp"
         android:layout_alignTop="@+id/carMakeDropMenu"
         android:layout_alignParentStart="true"
@@ -30,7 +30,7 @@
         android:gravity="center_vertical" />
 
     <TextView
-        android:text="Model"
+        android:text="@string/CarModel"
         android:layout_width="150dp"
         android:layout_height="25dp"
         android:layout_alignTop="@+id/carModelDropDownMenu"
@@ -39,7 +39,7 @@
         android:gravity="center_vertical" />
 
     <TextView
-        android:text="Year"
+        android:text="@string/CarYear"
         android:layout_width="150dp"
         android:layout_height="25dp"
         android:layout_alignTop="@+id/carYearDropDown"
@@ -48,7 +48,7 @@
         android:gravity="center_vertical" />
 
     <TextView
-        android:text="Vehicle Nickname:"
+        android:text="@string/CarVehicleNickname"
         android:layout_width="150dp"
         android:layout_height="25dp"
         android:layout_alignTop="@+id/carNicknameEditText"
@@ -65,14 +65,14 @@
         android:textSize="14sp"
         android:layout_width="200dp"
         android:layout_height="25dp"
-        android:hint="Nickname"
+        android:hint="@string/CarVehicleNicknameHint"
         android:background="@drawable/transparent_border"
         android:layout_above="@+id/addCarOkButton"
         android:layout_alignParentEnd="true"
         android:gravity="center" />
 
     <TextView
-        android:text="Add a Car:"
+        android:text="@string/CarHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView4"
@@ -105,7 +105,7 @@
         android:layout_marginTop="10dp" />
 
     <Button
-        android:text="Submit"
+        android:text="@string/CarSubmitButton"
         android:layout_width="100dp"
         android:layout_height="48dp"
         android:id="@+id/addCarOkButton"
