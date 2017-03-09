@@ -79,21 +79,17 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
                         userVehicleManager.replaceUserVehicle(newUserVehicle, index);
                         journey.setVehicle(newUserVehicle);
 
-/*
-                        Route userCurrentRoute = routeManager.getRoute(routePosition);
+
+                        Route route = journey.getRoute();
                         double gasType = newUserVehicle.getFuelTypeNumber();
-                        double distanceTravelledCity = userCurrentRoute.getCityDistance();
-                        double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
+                        double distanceTravelledCity = route.getCityDistance();
+                        double distanceTravelledHighway = route.getHighwayDistance();
                         int milesPerGallonCity = newUserVehicle.getCityDrive();
                         int milesPerGallonHighway = newUserVehicle.getHighwayDrive();
 
                         // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
                         double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
-
                         journey.setCarbonEmitted(CO2Emissions);
-                        */
-
-
                     }
 
 
