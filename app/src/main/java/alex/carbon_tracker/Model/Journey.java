@@ -26,6 +26,18 @@ public class Journey {
         this.date = date;
     }
 
+    public void setCarbonEmitted(double carbonEmitted) {
+        this.carbonEmitted = carbonEmitted;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
+    }
+
+    public void setVehicle(UserVehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
     public Route getRoute() {
         return route;
     }
