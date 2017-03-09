@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">carbon-tracker</string>
+    <string name="CarMake">Make</string>
+    <string name="CarModel">Model</string>
+    <string name="CarYear">Year</string>
+    <string name="CarVehicleNickname">Vehicle Nickname:</string>
+    <string name="CarVehicleNicknameHint">Nickname</string>
+    <string name="CarAddACar">Add a Car:</string>
+    <string name="CarOkButton">Submit</string>
 </resources>
