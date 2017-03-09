@@ -39,6 +39,10 @@ public class UserVehicleManager {
         vehicleList.remove(index);
     }
 
+    public  void replaceUserVehicle(UserVehicle vehicle,int index){
+        vehicleList.set(index,vehicle);
+    }
+
     public String[] getUserVehicleDescriptions() {
         String[] descriptions = new String[getSize()];
         for (int i = 0; i < getSize(); i++) {
