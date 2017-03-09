@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Sachin on 2017-03-01.
- * <p>
  * RouteManager class which manages the different
  * Routes instantiated and also stores them in an ArrayList.
  */

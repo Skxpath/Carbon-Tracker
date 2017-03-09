@@ -116,7 +116,7 @@ public class SelectTransportationMode extends AppCompatActivity {
             carbonTrackerModel.getUserVehicleManager().delete(currentVehiclePosition);
             carListView();
             return true;
-        } else if (item.getTitle().equals("Edit")){
+        } else if (item.getTitle().equals("Edit")) {
             setIntent();
             Intent intent = EditCarActivity.makeIntent(this);
             intent.putExtra("make", carMake);
@@ -126,9 +126,8 @@ public class SelectTransportationMode extends AppCompatActivity {
             intent.putExtra("position", currentVehiclePosition);
             startActivity(intent);
             return true;
-        }
-
-        else {return false;
+        } else {
+            return false;
         }
 
     }

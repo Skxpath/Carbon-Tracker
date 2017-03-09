@@ -3,8 +3,6 @@ package alex.carbon_tracker.Model;
 import android.util.Log;
 
 /**
- * Created by Sachin on 2017-03-06.
- *
  * UserVehicle class to store the vehicles
  * the user inputs into the system. This class
  * extends from Vehicle.

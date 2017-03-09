@@ -1,8 +1,6 @@
 package alex.carbon_tracker.Model;
 
 /**
- * Created by Sachin on 2017-03-01.
- * <p>
  * Route class which takes in city and
  * highway driving distances from the user input.
  */

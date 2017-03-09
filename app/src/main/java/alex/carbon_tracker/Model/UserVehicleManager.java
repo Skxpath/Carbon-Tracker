@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Sachin on 2017-03-06.
- *
  * UserVehicleManager class to store the different
  * UserVehicle objects the user inputs into the system.
  */
