@@ -37,7 +37,7 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
 
     private String carMake = "";
     private String carModel = "";
-    private int carYear = 0;
+    private int carYear = 1997;
     private String carNickname = "";
 
     private List<String> carMakeList;
@@ -178,6 +178,38 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         carMakeMenu.setAdapter(adapt);
     }
 
+    private void setupCarSpecificationDropDown() {
+        Spinner carMakeMenu = (Spinner) findViewById(R.id.carSpecificationDropDownMenu);
+        carMakeMenu.setOnItemSelectedListener(this);
+        List<String> carSpecList = new ArrayList<String>();
+        for (int i = 0; i < carbonTrackerModel.getVehicleManager().getSize(); i++) {
+            boolean isCarYearInTheList = false;
+            String currentCarSpec = carbonTrackerModel.getVehicleManager().getVehicle(i).getFuelType()+ ","+
+                    carbonTrackerModel.getVehicleManager().getVehicle(i).getTransmission()+ " ,"
+                    + carbonTrackerModel.getVehicleManager().getVehicle(i).getFuelTypeNumber()
+                    ;
+            for (int j = 0; j < carSpecList.size(); j++) {
+                if (carSpecList.get(j).toString().equals(currentCarSpec)) {
+                    isCarYearInTheList = true;
+                    break;
+                }
+            }
+            // checking if car Spec is already in the list?
+            if (isCarYearInTheList == false &&
+                    carbonTrackerModel.getVehicleManager().getVehicle(i).getMake().toString().equals(carMake)
+                    && carbonTrackerModel.getVehicleManager().getVehicle(i).getModel().equals(carModel)
+                    &&carbonTrackerModel.getVehicleManager().getVehicle(i).getYear() == carYear) {
+                carSpecList.add(currentCarSpec);
+            }
+        }
+        // making the drop down menu
+        ArrayAdapter<String> adapt = new ArrayAdapter<String>(AddCarActivity.this, android.R.layout.simple_spinner_item, carSpecList);
+        adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        carMakeMenu.setAdapter(adapt);
+        adapt.notifyDataSetChanged();
+    }
+
+
     public static Intent makeIntent(Context context) {
         return new Intent(context, AddCarActivity.class);
     }
@@ -192,6 +224,10 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             setupCarYearDropDown();
         } else if (adapterView.getId() == findViewById(R.id.carYearDropDown).getId()) {
             carYear = Integer.parseInt(adapterView.getItemAtPosition(i).toString());
+            setupCarSpecificationDropDown();
+        }
+        else if(adapterView.getId() == findViewById(R.id.carSpecificationDropDownMenu).getId()){
+
         }
     }
 

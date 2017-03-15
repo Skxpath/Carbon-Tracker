@@ -108,17 +108,18 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = PieChartActivity.makeIntent(DisplayCarbonFootPrintActivity.this);
                 startActivity(intent);
+                finish();
             }
         });
     }
-
+/*
     @Override
     public void onBackPressed() {
         Intent intent = MainActivity.makeIntent(DisplayCarbonFootPrintActivity.this);
         startActivity(intent);
         finish();
     }
-
+*/
     public static Intent makeIntent(Context context) {
         return new Intent(context, DisplayCarbonFootPrintActivity.class);
     }

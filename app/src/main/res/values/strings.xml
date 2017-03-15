@@ -28,4 +28,5 @@
     <string name="DisplayVehicle">Vehicle</string>
     <string name="DisplayCO2">CO2 Emission</string>
     <string name="AddRouteSubmitButtonErrorMsg">Invalid Information Inputted. Please try again!</string>
+    <string name="carSpecifications">Specification</string>
 </resources>

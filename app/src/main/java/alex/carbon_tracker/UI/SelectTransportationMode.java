@@ -29,8 +29,9 @@ public class SelectTransportationMode extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
-
+/// currentVehicle position to use in delete and edit option
     private int currentVehiclePosition=0;
+
     public static final String CAR_INDEX = "carIndex";
     private String carMake = "";
     private String carModel = "";

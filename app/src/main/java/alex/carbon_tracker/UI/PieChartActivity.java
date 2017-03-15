@@ -86,6 +86,7 @@ public class PieChartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = DisplayCarbonFootPrintActivity.makeIntent(PieChartActivity.this);
                 startActivity(intent);
+                finish();
             }
         });
     }
