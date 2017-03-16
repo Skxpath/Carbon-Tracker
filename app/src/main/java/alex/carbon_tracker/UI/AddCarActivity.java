@@ -40,6 +40,11 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
     private int carYear = 1997;
     private String carNickname = "";
 
+    private String carSpecList ="";
+    private String carTransmission = "";
+    private String carFuelType ="";
+    private double getCarFuelTypeNumber = 0;
+
     private List<String> carMakeList;
 
     @Override
@@ -76,17 +81,23 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
     private void addCarToTheModel() {
         for (int i = 0; i < vehicleManager.getSize(); i++) {
             Vehicle newVehicle = vehicleManager.getVehicle(i);
+           double fuelNumber = newVehicle.getFuelTypeNumber();
             if (newVehicle.getMake().equals(carMake)
                     && newVehicle.getModel().equals(carModel)
-                    && (newVehicle.getYear()) == (carYear)) {
+                    && (newVehicle.getYear()) == (carYear)
+                    && newVehicle.getTransmission().equals(carTransmission)
+                    && newVehicle.getFuelType().equals(carFuelType)
+                    && Double.compare(fuelNumber,getCarFuelTypeNumber)==0) {
                 setupCarNickName();
                 UserVehicle newUserVehicle = new UserVehicle(carMake,
                         carModel,
                         carYear,
                         carNickname,
+                        carTransmission,
+                        carFuelType,
                         newVehicle.getCityDrive(),
                         newVehicle.getHighwayDrive(),
-                        newVehicle.getFuelTypeNumber());
+                        getCarFuelTypeNumber);
                 userVehicleManager.add(newUserVehicle);
                 userVehicleManager.setCurrentVehicle(newUserVehicle);
                 break;
@@ -184,10 +195,10 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         List<String> carSpecList = new ArrayList<String>();
         for (int i = 0; i < carbonTrackerModel.getVehicleManager().getSize(); i++) {
             boolean isCarYearInTheList = false;
-            String currentCarSpec = carbonTrackerModel.getVehicleManager().getVehicle(i).getFuelType()+ ","+
-                    carbonTrackerModel.getVehicleManager().getVehicle(i).getTransmission()+ " ,"
-                    + carbonTrackerModel.getVehicleManager().getVehicle(i).getFuelTypeNumber()
-                    ;
+            String currentCarSpec = carbonTrackerModel.getVehicleManager().getVehicle(i).getTransmission()+ ","
+                    +carbonTrackerModel.getVehicleManager().getVehicle(i).getFuelType()+ ","
+                    + carbonTrackerModel.getVehicleManager().getVehicle(i).getFuelTypeNumber();
+
             for (int j = 0; j < carSpecList.size(); j++) {
                 if (carSpecList.get(j).toString().equals(currentCarSpec)) {
                     isCarYearInTheList = true;
@@ -227,7 +238,13 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             setupCarSpecificationDropDown();
         }
         else if(adapterView.getId() == findViewById(R.id.carSpecificationDropDownMenu).getId()){
-
+            carSpecList = adapterView.getItemAtPosition(i).toString();
+            String[] strings = carSpecList.split(",");
+            carTransmission = strings[0];
+            carFuelType = strings[1];
+            getCarFuelTypeNumber = Double.parseDouble(strings[2]);
+            Toast.makeText(this,carTransmission,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,carFuelType,Toast.LENGTH_SHORT).show();
         }
     }
 

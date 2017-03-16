@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +37,7 @@ public class SelectTransportationMode extends AppCompatActivity {
     private String carMake = "";
     private String carModel = "";
     private int carYear = 0;
+    private String carSpec = "";
     private String carNickname = "";
 
     @Override
@@ -128,6 +130,8 @@ public class SelectTransportationMode extends AppCompatActivity {
             intent.putExtra("year", carYear);
             intent.putExtra("carNickName", carNickname);
             intent.putExtra("position", currentVehiclePosition);
+            Log.i("intent",carSpec);
+            intent.putExtra("carSpec",carSpec);
             startActivity(intent);
             return true;
         } else {
@@ -140,5 +144,8 @@ public class SelectTransportationMode extends AppCompatActivity {
         carModel = carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getModel();
         carYear = carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getYear();
         carNickname = carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getNickname();
+        carSpec = carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getTransmission()
+                +","+ carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getFuelType()+
+                ","+ carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getFuelTypeNumber();
     }
 }
