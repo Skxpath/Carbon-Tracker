@@ -1,6 +1,5 @@
 package alex.carbon_tracker.UI;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -77,7 +76,7 @@ public class AddRouteActivity extends AppCompatActivity {
 
                     Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions, journeyManager.getCurrentDate());
                     journeyManager.add(journey);
-                    Intent intent = MainActivity.makeIntent(AddRouteActivity.this);
+                    Intent intent = JourneyListActivity.makeIntent(AddRouteActivity.this);
                     startActivity(intent);
                     finish();
                 } else {

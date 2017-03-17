@@ -40,7 +40,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 finish();
-                startActivity(new Intent(WelcomeScreenActivity.this, MainActivity.class));
+                startActivity(new Intent(WelcomeScreenActivity.this, JourneyListActivity.class));
             }
 
             @Override
@@ -52,7 +52,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("ppop", "Clicked!!!!");
-                startActivity(new Intent(WelcomeScreenActivity.this, MainActivity.class));
+                startActivity(new Intent(WelcomeScreenActivity.this, JourneyListActivity.class));
                 finish();
             }
         });

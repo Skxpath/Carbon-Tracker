@@ -93,7 +93,7 @@ public class PieChartActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = MainActivity.makeIntent(PieChartActivity.this);
+        Intent intent = JourneyListActivity.makeIntent(PieChartActivity.this);
         startActivity(intent);
         finish();
     }

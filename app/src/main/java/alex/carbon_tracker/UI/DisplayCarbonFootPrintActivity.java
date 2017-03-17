@@ -115,7 +115,7 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
 /*
     @Override
     public void onBackPressed() {
-        Intent intent = MainActivity.makeIntent(DisplayCarbonFootPrintActivity.this);
+        Intent intent = JourneyListActivity.makeIntent(DisplayCarbonFootPrintActivity.this);
         startActivity(intent);
         finish();
     }
