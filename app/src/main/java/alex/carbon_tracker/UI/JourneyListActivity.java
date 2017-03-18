@@ -37,7 +37,6 @@ public class JourneyListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupMenuButton();
         journeyListView();
         setupAddJourneyButton();
     }
@@ -59,17 +58,8 @@ public class JourneyListActivity extends AppCompatActivity {
         });
     }
 
-    private void setupMenuButton() {
-        Button btn = (Button) findViewById(R.id.mainMenuButton);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = DisplayCarbonFootPrintActivity.makeIntent(JourneyListActivity.this);
-                startActivity(intent);
-            }
-        });
 
-    }
+
 
     private void journeyListView() {
         String[] journeyList = carbonTrackerModel.getJourneyManager().getJourneyDescriptions();
