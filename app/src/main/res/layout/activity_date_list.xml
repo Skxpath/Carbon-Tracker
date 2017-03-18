@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_date_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="alex.carbon_tracker.UI.DateListActivity">
+
+    <TextView
+        android:text="Date List"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="68dp"
+        android:id="@+id/textView16" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView16"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="79dp" />
+
+    <Button
+        android:text="LAST MONTH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/textView16"
+        android:layout_marginStart="39dp"
+        android:layout_marginBottom="38dp"
+        android:id="@+id/lastMonthGraphButton" />
+
+    <Button
+        android:text="LAST YEAR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:id="@+id/lastYearGraphButton"
+        android:layout_alignBaseline="@+id/lastMonthGraphButton"
+        android:layout_alignBottom="@+id/lastMonthGraphButton"
+        android:layout_toStartOf="@+id/lastMonthGraphButton" />
+</RelativeLayout>
