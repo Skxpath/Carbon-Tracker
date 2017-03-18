@@ -130,7 +130,6 @@ public class SelectTransportationMode extends AppCompatActivity {
             intent.putExtra("year", carYear);
             intent.putExtra("carNickName", carNickname);
             intent.putExtra("position", currentVehiclePosition);
-            Log.i("intent",carSpec);
             intent.putExtra("carSpec",carSpec);
             startActivity(intent);
             return true;

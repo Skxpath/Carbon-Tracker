@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -31,12 +32,15 @@ public class JourneyListActivity extends AppCompatActivity {
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private VehicleManager vehicleManager = carbonTrackerModel.getVehicleManager();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
+    private int currentJourneyPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setCurrentJourneyPosition();
+        ListView journeyList = (ListView)findViewById(R.id.journeyListView);
+        registerForContextMenu(journeyList);
         journeyListView();
         setupAddJourneyButton();
     }
@@ -71,21 +75,32 @@ public class JourneyListActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, v.getId(), 0, R.string.Delete);
-        menu.add(0, v.getId(), 0, R.string.Edit);
+        menu.add(0, v.getId(), 0, "Delete");
+        menu.add(0, v.getId(), 0, "Edit");
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        if (item.getTitle().equals(R.string.Delete)) {
-            // delete the entry
+        if (item.getTitle().equals("Delete")) {
+            carbonTrackerModel.getJourneyManager().delete(currentJourneyPosition);
+            journeyListView();
             return true;
-        } else if (item.getTitle().equals(R.string.Edit)) {
+        } else if (item.getTitle().equals("Edit")) {
             return true;
         } else {
             return false;
         }
 
+    }
+    private void setCurrentJourneyPosition() {
+        final ListView listView = (ListView) findViewById(R.id.journeyListView);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                currentJourneyPosition = position;
+                return false;
+            }
+        });
     }
 
     @Override
