@@ -58,6 +58,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.SelectTransportationModeActivity" />
         <activity android:name=".UI.SelectDateActivity"></activity>
+        <activity android:name=".UI.MenuActivity" />
+        <activity android:name=".UI.UtilitylistActivity" />
+        <activity android:name=".UI.DateListActivity"></activity>
     </application>
 
 </manifest>

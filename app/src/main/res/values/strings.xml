@@ -30,6 +30,20 @@
     <string name="DisplayCO2">CO2 Emission</string>
     <string name="AddRouteSubmitButtonErrorMsg">Invalid Information Inputted. Please try again!</string>
     <string name="carSpecifications">Specification</string>
+    <string name="title_activity_menu">MenuActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="appName">CARBON TRACKER</string>
+    <string name="journeyList">Journey List</string>
+    <string name="routeList">Route List</string>
+    <string name="carList">Car List</string>
+    <string name="graph">View Graph</string>
+    <string name="ViewJourneys">View Journey</string>
+    <string name="viewUtility">View Utilities</string>
+    <string name="ViewGraph">View Graphs</string>
     <string name="bus">Bus</string>
     <string name="skytrain">Skytrain</string>
     <string name="car">Car</string>

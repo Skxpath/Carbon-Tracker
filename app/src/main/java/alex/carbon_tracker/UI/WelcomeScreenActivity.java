@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.VehicleManager;
 import alex.carbon_tracker.R;
 
@@ -40,7 +41,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 finish();
-                startActivity(new Intent(WelcomeScreenActivity.this, JourneyListActivity.class));
+                startActivity(new Intent(WelcomeScreenActivity.this, MenuActivity.class));
             }
 
             @Override
@@ -52,6 +53,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(WelcomeScreenActivity.this, JourneyListActivity.class));
+                startActivity(new Intent(WelcomeScreenActivity.this, MenuActivity.class));
                 finish();
             }
         });
