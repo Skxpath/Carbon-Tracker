@@ -17,7 +17,8 @@
     <string name="MainHeader">All Journeys</string>
     <string name="SelectRouteHeader">Select Route:</string>
     <string name="SelectRouteAddRouteButton">Add Route</string>
-    <string name="TransportationHeader">Select Transportation Mode</string>
+    <string name="SelectTransportationHeader">Select Transportation Mode</string>
+    <string name="SelectVehicleHeader">Select Vehicle</string>
     <string name="TransportationAddCarButton">Add Car</string>
     <string name="Delete">Delete</string>
     <string name="Edit">Edit</string>
@@ -29,4 +30,11 @@
     <string name="DisplayCO2">CO2 Emission</string>
     <string name="AddRouteSubmitButtonErrorMsg">Invalid Information Inputted. Please try again!</string>
     <string name="carSpecifications">Specification</string>
+    <string name="bus">Bus</string>
+    <string name="skytrain">Skytrain</string>
+    <string name="car">Car</string>
+    <string name="walk">Walk</string>
+    <string name="select_date">Select Date</string>
+    <string name="add_selected_date">Add Selected Date</string>
+    <string name="no_date_selected_yet">No date selected yet</string>
 </resources>
