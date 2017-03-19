@@ -12,12 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
@@ -26,12 +22,12 @@ import alex.carbon_tracker.R;
 * the user to select a car for a journey, or add a new
 * personal car that does not exist on the list.
 * */
-public class SelectTransportationMode extends AppCompatActivity {
+public class SelectVehicleActivity extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
-/// currentVehicle position to use in delete and edit option
-    private int currentVehiclePosition=0;
+
+    private int currentVehiclePosition = 0;
 
     public static final String CAR_INDEX = "carIndex";
     private String carMake = "";
@@ -43,7 +39,7 @@ public class SelectTransportationMode extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transportation_modey);
+        setContentView(R.layout.activity_select_vehicle);
         setupAddCarButton();
         carListView();
         setupOnItemClickListener();
@@ -68,7 +64,7 @@ public class SelectTransportationMode extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = AddCarActivity.makeIntent(SelectTransportationMode.this);
+                Intent intent = AddCarActivity.makeIntent(SelectVehicleActivity.this);
                 startActivity(intent);
                 finish();
             }
@@ -89,7 +85,7 @@ public class SelectTransportationMode extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 userVehicleManager.setCurrentVehicle(userVehicleManager.getUserVehicle(i));
-                Intent intent = SelectRouteActivity.makeIntent(SelectTransportationMode.this);
+                Intent intent = SelectRouteActivity.makeIntent(SelectVehicleActivity.this);
                 startActivity(intent);
                 finish();
             }
@@ -97,7 +93,7 @@ public class SelectTransportationMode extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context) {
-        return new Intent(context, SelectTransportationMode.class);
+        return new Intent(context, SelectVehicleActivity.class);
     }
 
     @Override

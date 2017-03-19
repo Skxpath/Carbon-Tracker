@@ -7,23 +7,24 @@ import java.util.Date;
  * make Journey instances.
  */
 public class Journey {
+    private Transportation transportation;
     private UserVehicle vehicle;
     private Route route;
     private String date;
     private double carbonEmitted = 0;
 
-    @Override
-    public String toString(){
-        String journeyName;
-        journeyName = route.toString()+ " - " + vehicle.toString();
-        return journeyName;
-    }
-
-    public Journey (UserVehicle vehicle, Route route, double carbonEmitted, String date) {
+    public Journey(UserVehicle vehicle, Route route, double carbonEmitted, String date) {
         this.vehicle = vehicle;
         this.route = route;
         this.carbonEmitted = carbonEmitted;
         this.date = date;
+    }
+
+    public Journey(Transportation transportation, Route route, double carbonEmitted, String date) {
+        this.date = date;
+        this.carbonEmitted = carbonEmitted;
+        this.route = route;
+        this.transportation = transportation;
     }
 
     public void setCarbonEmitted(double carbonEmitted) {

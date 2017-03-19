@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.SelectTransportationMode"
+            android:name=".UI.SelectVehicleActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UI.AddCarActivity"
@@ -56,6 +56,8 @@
         <activity
             android:name=".UI.EditRouteActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".UI.SelectTransportationModeActivity" />
+        <activity android:name=".UI.SelectDateActivity"></activity>
         <activity android:name=".UI.MenuActivity" />
         <activity android:name=".UI.UtilitylistActivity" />
         <activity android:name=".UI.DateListActivity"></activity>
