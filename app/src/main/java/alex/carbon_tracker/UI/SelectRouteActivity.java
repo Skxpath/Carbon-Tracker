@@ -19,6 +19,7 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
@@ -35,16 +36,23 @@ public class SelectRouteActivity extends AppCompatActivity {
 
     public static final String ROUTE_INDEX = "routeIndex";
 
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-    private RouteManager routeManager = carbonTrackerModel.getRouteManager();
-    private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
-    private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+    private CarbonTrackerModel carbonTrackerModel;
+    private RouteManager routeManager;
+    private JourneyManager journeyManager;
+    private UserVehicleManager userVehicleManager;
     private int currentRoutePosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_route);
+        carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+         routeManager = carbonTrackerModel.getRouteManager();
+         journeyManager= carbonTrackerModel.getJourneyManager();
+        userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+
+
+
         ListView routeList = (ListView) findViewById(R.id.routeListView);
         setCurrentRoutePosition();
         registerForContextMenu(routeList);
@@ -52,7 +60,10 @@ public class SelectRouteActivity extends AppCompatActivity {
         populateListView();
         selectRoute();
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
     private void setupAddRouteButton() {
         Button btn = (Button) findViewById(R.id.addRouteButton);
         btn.setOnClickListener(new View.OnClickListener() {

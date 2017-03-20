@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
 
 public class UtilitylistActivity extends AppCompatActivity {
@@ -17,5 +19,9 @@ public class UtilitylistActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, UtilitylistActivity.class);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

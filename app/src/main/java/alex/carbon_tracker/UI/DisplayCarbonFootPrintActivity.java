@@ -18,6 +18,7 @@ import android.widget.Toast;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
 
 /*
@@ -27,8 +28,8 @@ import alex.carbon_tracker.R;
 * */
 public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
 
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-    private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
+    private CarbonTrackerModel carbonTrackerModel;
+    private JourneyManager journeyManager ;
 
     private static final int DATE = 0;
     private static final int ROUTE_NAME = 1;
@@ -40,14 +41,19 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_carbon_foot_print);
-
+        carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+        journeyManager = carbonTrackerModel.getJourneyManager();
         setupCarbonFootPrintTable();
         setupChangeButton();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void setupCarbonFootPrintTable() {
         TableLayout carbonTable = (TableLayout) findViewById(R.id.carbonTableLayout);
-        CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+        CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance(this);
         TableRow carbonLabels = new TableRow(this);
         carbonTable.addView(carbonLabels);
         for (int i = 0; i < 5; i++) {

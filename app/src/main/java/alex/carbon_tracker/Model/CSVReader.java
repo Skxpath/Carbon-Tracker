@@ -36,6 +36,7 @@ public class CSVReader {
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))
         );
+
         String line = "";
         HashSet hashSet = new HashSet();
         try {
@@ -50,6 +51,7 @@ public class CSVReader {
             Log.wtf("MenuActivity", "Error reading data file on line " + line, e);
             e.printStackTrace();
         }
+
     }
 
     private void storeTokensToVehicleManager(String[] tokens, VehicleManager vehicleManager, HashSet hashSet) {
@@ -108,6 +110,6 @@ public class CSVReader {
                 vehicleManager.add(vehicle);
             }
         }
-        //Log.d("MenuActivity", "Just created: " + vehicle.toString());
+        // Log.d("MenuActivity", "Just created: " + vehicle.toString());
     }
 }

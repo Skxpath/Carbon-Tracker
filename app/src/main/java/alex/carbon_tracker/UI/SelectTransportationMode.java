@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
@@ -28,8 +29,8 @@ import alex.carbon_tracker.R;
 * */
 public class SelectTransportationMode extends AppCompatActivity {
 
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-    private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+    private CarbonTrackerModel carbonTrackerModel;
+    private UserVehicleManager userVehicleManager;
 /// currentVehicle position to use in delete and edit option
     private int currentVehiclePosition=0;
 
@@ -42,6 +43,8 @@ public class SelectTransportationMode extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+        userVehicleManager = carbonTrackerModel.getUserVehicleManager();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transportation_modey);
         setupAddCarButton();
@@ -50,8 +53,13 @@ public class SelectTransportationMode extends AppCompatActivity {
         ListView vehicleList = (ListView) findViewById(R.id.carListView);
         registerForContextMenu(vehicleList);
         setCurrentVehiclePosition();
+   // userVehicleManager.add(new UserVehicle(carMake,carModel,88,));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
     private void setCurrentVehiclePosition() {
         final ListView listView = (ListView) findViewById(R.id.carListView);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -77,7 +85,7 @@ public class SelectTransportationMode extends AppCompatActivity {
 
     // shows a list view of all the current cars
     private void carListView() {
-        String[] carList = CarbonTrackerModel.getInstance().getUserVehicleManager().getUserVehicleDescriptions();
+        String[] carList = CarbonTrackerModel.getInstance(this).getUserVehicleManager().getUserVehicleDescriptions();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.jouney_list, carList);
         ListView list = (ListView) findViewById(R.id.carListView);
         list.setAdapter(adapter);

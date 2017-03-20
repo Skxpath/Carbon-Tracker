@@ -15,6 +15,7 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
@@ -30,10 +31,10 @@ public class AddRouteActivity extends AppCompatActivity {
     private static final String ERROR_CITY_MSG = "City distance must be greater than or equal to zero.";
     private static final String ERROR_HIGHWAY_MSG = "Highway distance must be greater than or equal to zero.";
 
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-    private RouteManager routeManager = carbonTrackerModel.getRouteManager();
-    private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
-    private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+    private CarbonTrackerModel carbonTrackerModel;
+    private RouteManager routeManager;
+    private JourneyManager journeyManager;
+    private UserVehicleManager userVehicleManager;
 
     private static int cityDistance = 0;
     private static int highwayDistance = 0;
@@ -47,6 +48,10 @@ public class AddRouteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_route);
 
+        carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+        routeManager = carbonTrackerModel.getRouteManager();
+        journeyManager = carbonTrackerModel.getJourneyManager();
+        userVehicleManager = carbonTrackerModel.getUserVehicleManager();
         setupSubmitBtn();
     }
 
@@ -92,7 +97,6 @@ public class AddRouteActivity extends AppCompatActivity {
         EditText highwayDistEditText = (EditText) findViewById(R.id.highwayDistanceEditText);
         highwayDistance = Integer.parseInt(highwayDistEditText.getText().toString());
         routeName = getEditTextAsString(R.id.routeNameEditText);
-
         Route route = new Route(cityDistance, highwayDistance, routeName);
         routeManager.addRoute(route);
         routeManager.setCurrentRoute(route);
@@ -142,5 +146,10 @@ public class AddRouteActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, AddRouteActivity.class);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

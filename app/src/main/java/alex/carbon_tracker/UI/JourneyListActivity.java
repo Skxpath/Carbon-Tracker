@@ -18,7 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.VehicleManager;
 import alex.carbon_tracker.R;
 
@@ -29,20 +31,28 @@ import alex.carbon_tracker.R;
 * */
 public class JourneyListActivity extends AppCompatActivity {
 
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-    private VehicleManager vehicleManager = carbonTrackerModel.getVehicleManager();
-    private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
+    private CarbonTrackerModel carbonTrackerModel;
+    private JourneyManager journeyManager;
     private int currentJourneyPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+         carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+         journeyManager = carbonTrackerModel.getJourneyManager();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         setCurrentJourneyPosition();
         ListView journeyList = (ListView)findViewById(R.id.journeyListView);
         registerForContextMenu(journeyList);
         journeyListView();
         setupAddJourneyButton();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 
     private void setupAddJourneyButton() {
@@ -108,6 +118,7 @@ public class JourneyListActivity extends AppCompatActivity {
         super.onResume();
         journeyListView();
     }
+
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, JourneyListActivity.class);

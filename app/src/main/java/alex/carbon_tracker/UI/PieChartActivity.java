@@ -20,6 +20,7 @@ import java.util.List;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
 
 /*
@@ -29,7 +30,7 @@ import alex.carbon_tracker.R;
 * */
 public class PieChartActivity extends AppCompatActivity {
 
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance(this);
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
 
     private Intent i = this.getIntent();
@@ -45,6 +46,10 @@ public class PieChartActivity extends AppCompatActivity {
         setJourneyData();
         setupPieChart();
         setupChangeButton();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void setupPieChart() {

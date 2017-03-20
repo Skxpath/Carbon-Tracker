@@ -20,12 +20,13 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
 public class EditRouteActivity extends AppCompatActivity {
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance(this);
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
     private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
     private RouteManager routeManager = carbonTrackerModel.getRouteManager();
@@ -38,6 +39,10 @@ public class EditRouteActivity extends AppCompatActivity {
         setupSubmitBtn();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
     private void setupDataFromIntent() {
         Intent intent = getIntent();
         setNumbToEditText(R.id.cityDistanceEditText, intent.getIntExtra("city", 0));

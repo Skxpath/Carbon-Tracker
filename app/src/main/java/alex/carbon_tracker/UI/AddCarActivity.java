@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.Model.Vehicle;
@@ -31,18 +33,18 @@ import alex.carbon_tracker.R;
 * */
 public class AddCarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-    private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
-    private VehicleManager vehicleManager = carbonTrackerModel.getVehicleManager();
+    private CarbonTrackerModel carbonTrackerModel;
+    private UserVehicleManager userVehicleManager;
+    private VehicleManager vehicleManager;
 
     private String carMake = "";
     private String carModel = "";
     private int carYear = 1997;
     private String carNickname = "";
 
-    private String carSpecList ="";
+    private String carSpecList = "";
     private String carTransmission = "";
-    private String carFuelType ="";
+    private String carFuelType = "";
     private double getCarFuelTypeNumber = 0;
 
     private List<String> carMakeList;
@@ -51,6 +53,10 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
+        carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+        userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+        vehicleManager = carbonTrackerModel.getVehicleManager();
+
         setupCarMakeDropDown();
         setupOkButton();
         setupCarMakeDropDown();
@@ -81,13 +87,13 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
     private void addCarToTheModel() {
         for (int i = 0; i < vehicleManager.getSize(); i++) {
             Vehicle newVehicle = vehicleManager.getVehicle(i);
-           double fuelNumber = newVehicle.getFuelTypeNumber();
+            double fuelNumber = newVehicle.getFuelTypeNumber();
             if (newVehicle.getMake().equals(carMake)
                     && newVehicle.getModel().equals(carModel)
                     && (newVehicle.getYear()) == (carYear)
                     && newVehicle.getTransmission().equals(carTransmission)
                     && newVehicle.getFuelType().equals(carFuelType)
-                    && Double.compare(fuelNumber,getCarFuelTypeNumber)==0) {
+                    && Double.compare(fuelNumber, getCarFuelTypeNumber) == 0) {
                 setupCarNickName();
                 UserVehicle newUserVehicle = new UserVehicle(carMake,
                         carModel,
@@ -195,8 +201,8 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         List<String> carSpecList = new ArrayList<String>();
         for (int i = 0; i < carbonTrackerModel.getVehicleManager().getSize(); i++) {
             boolean isCarYearInTheList = false;
-            String currentCarSpec = carbonTrackerModel.getVehicleManager().getVehicle(i).getTransmission()+ ","
-                    +carbonTrackerModel.getVehicleManager().getVehicle(i).getFuelType()+ ","
+            String currentCarSpec = carbonTrackerModel.getVehicleManager().getVehicle(i).getTransmission() + ","
+                    + carbonTrackerModel.getVehicleManager().getVehicle(i).getFuelType() + ","
                     + carbonTrackerModel.getVehicleManager().getVehicle(i).getFuelTypeNumber();
 
             for (int j = 0; j < carSpecList.size(); j++) {
@@ -209,7 +215,7 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
             if (isCarYearInTheList == false &&
                     carbonTrackerModel.getVehicleManager().getVehicle(i).getMake().toString().equals(carMake)
                     && carbonTrackerModel.getVehicleManager().getVehicle(i).getModel().equals(carModel)
-                    &&carbonTrackerModel.getVehicleManager().getVehicle(i).getYear() == carYear) {
+                    && carbonTrackerModel.getVehicleManager().getVehicle(i).getYear() == carYear) {
                 carSpecList.add(currentCarSpec);
             }
         }
@@ -236,15 +242,14 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         } else if (adapterView.getId() == findViewById(R.id.carYearDropDown).getId()) {
             carYear = Integer.parseInt(adapterView.getItemAtPosition(i).toString());
             setupCarSpecificationDropDown();
-        }
-        else if(adapterView.getId() == findViewById(R.id.carSpecificationDropDownMenu).getId()){
+        } else if (adapterView.getId() == findViewById(R.id.carSpecificationDropDownMenu).getId()) {
             carSpecList = adapterView.getItemAtPosition(i).toString();
             String[] strings = carSpecList.split(",");
             carTransmission = strings[0];
             carFuelType = strings[1];
             getCarFuelTypeNumber = Double.parseDouble(strings[2]);
-            Toast.makeText(this,carTransmission,Toast.LENGTH_SHORT).show();
-            Toast.makeText(this,carFuelType,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, carTransmission, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, carFuelType, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -253,5 +258,8 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         setupCarMakeDropDown();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
