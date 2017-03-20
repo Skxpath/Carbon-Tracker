@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
 
 public class DateListActivity extends AppCompatActivity {
@@ -17,5 +19,10 @@ public class DateListActivity extends AppCompatActivity {
     }
     public static Intent makeIntent(Context context) {
         return new Intent(context, DateListActivity.class);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 }

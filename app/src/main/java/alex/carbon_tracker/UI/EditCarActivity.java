@@ -22,6 +22,7 @@ import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.Model.Vehicle;
@@ -29,9 +30,9 @@ import alex.carbon_tracker.R;
 
 public class EditCarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-    private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
-    private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+    private CarbonTrackerModel carbonTrackerModel;
+    private JourneyManager journeyManager;
+    private UserVehicleManager userVehicleManager;
 
     private String carMakeFromIntent = "xx";
     private String carModelFromIntent = "";
@@ -54,11 +55,20 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
+
+        carbonTrackerModel = CarbonTrackerModel.getInstance();
+         journeyManager = carbonTrackerModel.getJourneyManager();
+         userVehicleManager = carbonTrackerModel.getUserVehicleManager();
         Intent intent = getIntent();
         getInfoFromIntent(intent);
         setupOkButton();
         setupCarMakeDropDown();
         setupCarNickName();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 
     private void editCarInformation(int index) {

@@ -19,6 +19,14 @@ public class VehicleManager {
 
     }
 
+    public void setVehicleList(List<Vehicle> vehicleList) {
+        this.vehicleList = vehicleList;
+    }
+
+    public List<Vehicle> getVehicleList() {
+        return vehicleList;
+    }
+
     public int getSize() {
         return vehicleList.size();
     }
