@@ -30,7 +30,7 @@ import alex.carbon_tracker.R;
 * */
 public class PieChartActivity extends AppCompatActivity {
 
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
 
     private Intent i = this.getIntent();
@@ -50,6 +50,7 @@ public class PieChartActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 
     private void setupPieChart() {

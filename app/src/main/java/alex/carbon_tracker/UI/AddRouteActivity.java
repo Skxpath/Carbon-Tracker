@@ -48,7 +48,7 @@ public class AddRouteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_route);
 
-        carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+        carbonTrackerModel = CarbonTrackerModel.getInstance();
         routeManager = carbonTrackerModel.getRouteManager();
         journeyManager = carbonTrackerModel.getJourneyManager();
         userVehicleManager = carbonTrackerModel.getUserVehicleManager();
@@ -151,5 +151,6 @@ public class AddRouteActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 }

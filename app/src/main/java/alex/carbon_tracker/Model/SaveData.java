@@ -17,18 +17,18 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class SaveData {
     public static  void storeSharePreference(Context contex){
-        SharedPreferences pref = contex.getSharedPreferences("app",0);
+        SharedPreferences pref = contex.getSharedPreferences("app",MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         Gson gsonModel = new Gson();
-        String dummy = gsonModel.toJson(CarbonTrackerModel.getInstance(contex));
-        editor.putString("model",dummy);
-        editor.apply();
+        String dummy = gsonModel.toJson(CarbonTrackerModel.getInstance());
+        editor.putString("modl",dummy);
+        editor.commit();
     }
 
     public static CarbonTrackerModel getSharePreference(Context context){
-        SharedPreferences preferences = context.getSharedPreferences("app",0);
+        SharedPreferences preferences = context.getSharedPreferences("app",MODE_PRIVATE);
         Gson gson = new Gson();
-        String carbonModel = preferences.getString("model",null);
+        String carbonModel = preferences.getString("modl",null);
         Type type = new TypeToken<CarbonTrackerModel>(){}.getType();
         return gson.fromJson(carbonModel,type);
     }

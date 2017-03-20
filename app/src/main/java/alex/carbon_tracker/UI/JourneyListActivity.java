@@ -38,7 +38,7 @@ public class JourneyListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-         carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+         carbonTrackerModel = CarbonTrackerModel.getInstance();
          journeyManager = carbonTrackerModel.getJourneyManager();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

@@ -46,7 +46,7 @@ public class SelectRouteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_route);
-        carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+        carbonTrackerModel = CarbonTrackerModel.getInstance();
          routeManager = carbonTrackerModel.getRouteManager();
          journeyManager= carbonTrackerModel.getJourneyManager();
         userVehicleManager = carbonTrackerModel.getUserVehicleManager();
@@ -63,6 +63,7 @@ public class SelectRouteActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
     private void setupAddRouteButton() {
         Button btn = (Button) findViewById(R.id.addRouteButton);

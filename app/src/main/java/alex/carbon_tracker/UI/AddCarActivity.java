@@ -53,7 +53,7 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
-        carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+        carbonTrackerModel = CarbonTrackerModel.getInstance();
         userVehicleManager = carbonTrackerModel.getUserVehicleManager();
         vehicleManager = carbonTrackerModel.getVehicleManager();
 
@@ -261,5 +261,6 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 }

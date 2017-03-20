@@ -23,5 +23,6 @@ public class UtilitylistActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 }

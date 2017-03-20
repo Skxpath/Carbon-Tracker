@@ -41,7 +41,7 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_carbon_foot_print);
-        carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+        carbonTrackerModel = CarbonTrackerModel.getInstance();
         journeyManager = carbonTrackerModel.getJourneyManager();
         setupCarbonFootPrintTable();
         setupChangeButton();
@@ -49,11 +49,12 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 
     private void setupCarbonFootPrintTable() {
         TableLayout carbonTable = (TableLayout) findViewById(R.id.carbonTableLayout);
-        CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+        CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
         TableRow carbonLabels = new TableRow(this);
         carbonTable.addView(carbonLabels);
         for (int i = 0; i < 5; i++) {

@@ -43,7 +43,7 @@ public class SelectTransportationMode extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+        carbonTrackerModel = CarbonTrackerModel.getInstance();
         userVehicleManager = carbonTrackerModel.getUserVehicleManager();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transportation_modey);
@@ -59,6 +59,7 @@ public class SelectTransportationMode extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
     private void setCurrentVehiclePosition() {
         final ListView listView = (ListView) findViewById(R.id.carListView);
@@ -85,7 +86,7 @@ public class SelectTransportationMode extends AppCompatActivity {
 
     // shows a list view of all the current cars
     private void carListView() {
-        String[] carList = CarbonTrackerModel.getInstance(this).getUserVehicleManager().getUserVehicleDescriptions();
+        String[] carList = CarbonTrackerModel.getInstance().getUserVehicleManager().getUserVehicleDescriptions();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.jouney_list, carList);
         ListView list = (ListView) findViewById(R.id.carListView);
         list.setAdapter(adapter);

@@ -38,7 +38,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         CarbonTrackerModel.getSavedModel(this);
-        carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+        carbonTrackerModel = CarbonTrackerModel.getInstance();
         vehicleManager = carbonTrackerModel.getVehicleManager();
         setContentView(R.layout.activity_welcome_screen);
         vehicleManager.writeDataToList(this, R.raw.vehicles);

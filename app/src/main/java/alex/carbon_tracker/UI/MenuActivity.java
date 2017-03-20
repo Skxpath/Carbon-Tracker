@@ -48,6 +48,7 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 
     @Override

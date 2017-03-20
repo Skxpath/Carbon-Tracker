@@ -22,7 +22,7 @@ public class CarbonTrackerModel {
     private static CarbonTrackerModel ourInstance;
     private JourneyManager journeyManager;
     private RouteManager routeManager;
-    private VehicleManager vehicleManager;
+    private static VehicleManager vehicleManager;
     private UserVehicleManager userVehicleManager;
 
     public UserVehicleManager getUserVehicleManager() {
@@ -35,9 +35,10 @@ public class CarbonTrackerModel {
         } else {
             ourInstance = new CarbonTrackerModel();
         }
+
     }
 
-    public static CarbonTrackerModel getInstance(Context context) {
+    public static CarbonTrackerModel getInstance() {
         return ourInstance;
     }
 

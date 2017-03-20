@@ -26,7 +26,7 @@ import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
 public class EditRouteActivity extends AppCompatActivity {
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance(this);
+    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
     private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
     private RouteManager routeManager = carbonTrackerModel.getRouteManager();
@@ -42,6 +42,7 @@ public class EditRouteActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
     private void setupDataFromIntent() {
         Intent intent = getIntent();
