@@ -16,6 +16,7 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
+import alex.carbon_tracker.Model.TipManager;
 import alex.carbon_tracker.Model.Transportation;
 import alex.carbon_tracker.Model.TransportationManager;
 import alex.carbon_tracker.Model.UserVehicle;
@@ -37,6 +38,7 @@ public class AddRouteActivity extends AppCompatActivity {
     private RouteManager routeManager = carbonTrackerModel.getRouteManager();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
     private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+    private TipManager tipManager = carbonTrackerModel.getTipManager();
     private TransportationManager transportationManager = carbonTrackerModel.getTransportationManager();
 
     private static int cityDistance = 0;
@@ -106,9 +108,11 @@ public class AddRouteActivity extends AppCompatActivity {
 
                     Intent intent = JourneyListActivity.makeIntent(AddRouteActivity.this);
                     startActivity(intent);
+                   // Toast.makeText(AddRouteActivity.this, tipManager.getTip(), Toast.LENGTH_SHORT).show();
+                    Log.d("TiptestAddRouteActivity",tipManager.getTip());
                     finish();
                 } else {
-                    Toast.makeText(AddRouteActivity.this, R.string.AddRouteSubmitButtonErrorMsg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddRouteActivity.this, R.string.AddRouteSubmitButtonErrorMsg, Toast.LENGTH_LONG).show();
                 }
             }
         });
