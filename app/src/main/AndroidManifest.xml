@@ -60,7 +60,9 @@
         <activity android:name=".UI.SelectDateActivity"></activity>
         <activity android:name=".UI.MenuActivity" />
         <activity android:name=".UI.UtilitylistActivity" />
-        <activity android:name=".UI.DateListActivity"></activity>
+        <activity android:name=".UI.DateListActivity" />
+        <activity android:name=".UI.AddUtilityBillActivity" />
+        <activity android:name=".UI.AddUtilityBillPart2"></activity>
     </application>
 
 </manifest>

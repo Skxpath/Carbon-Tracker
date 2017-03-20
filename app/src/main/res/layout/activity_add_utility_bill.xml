@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_add_utility_bill"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="alex.carbon_tracker.UI.AddUtilityBillActivity">
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        app:srcCompat="@mipmap/carbontrackerlogo5"
+        android:id="@+id/imageView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:text="@string/add_a_utility_bill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:text="Gas Consumption:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView17"
+        android:layout_alignBaseline="@+id/gasConsumptionEditText"
+        android:layout_alignBottom="@+id/gasConsumptionEditText"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Electrical Consumption:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView19"
+        android:layout_alignBaseline="@+id/electricalConsumptionEditText"
+        android:layout_alignBottom="@+id/electricalConsumptionEditText"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:layout_marginTop="18dp"
+        android:id="@+id/electricalConsumptionEditText"
+        android:text="KWh"
+        android:layout_below="@+id/gasConsumptionEditText"
+        android:layout_toEndOf="@+id/textView19"
+        android:layout_marginStart="24dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/gasConsumptionEditText"
+        android:text="GJ"
+        android:layout_below="@+id/textView4"
+        android:layout_alignStart="@+id/electricalConsumptionEditText" />
+
+    <TextView
+        android:text="Household Size:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView20"
+        android:layout_alignBaseline="@+id/householdSizeEditText"
+        android:layout_alignBottom="@+id/householdSizeEditText"
+        android:layout_alignEnd="@+id/textView17"
+        android:layout_marginEnd="25dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/householdSizeEditText"
+        android:text="1"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/electricalConsumptionEditText" />
+
+    <Button
+        android:text="Next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/nextBtn" />
+
+</RelativeLayout>

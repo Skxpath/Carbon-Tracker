@@ -1,6 +1,7 @@
 package alex.carbon_tracker.Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,7 +17,12 @@ public class UtilityBillManager {
     }
 
     public UtilityBill getMostRecentBill() {
-        this.mostRecentBill = getBills().get(getBills().size()-1);
+        if(getBills().size() > 0) {
+            this.mostRecentBill = getBills().get(getBills().size() - 1);
+        }
+        else {
+            this.mostRecentBill = new UtilityBill(0,0, new Date(), new Date(), 1);
+        }
         return  this.mostRecentBill;
     }
 }
