@@ -9,15 +9,15 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="alex.carbon_tracker.UI.SelectTransportationMode">
+    tools:context="alex.carbon_tracker.UI.SelectVehicleActivity">
 
     <ListView
         android:layout_width="match_parent"
         android:id="@+id/carListView"
         android:layout_toStartOf="@+id/AddCarButton"
-        android:layout_alignParentEnd="true"
         android:layout_height="280dp"
-        android:layout_below="@+id/textView2">
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentEnd="true">
 
     </ListView>
 
@@ -30,7 +30,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="20dp"
         android:minWidth="48dip"
-        android:text="@string/TransportationAddCarButton" />
+        android:text="@string/SelectVehicleHeader" />
 
     <ImageView
         android:layout_width="400dp"
@@ -41,7 +41,7 @@
         android:id="@+id/imageView4" />
 
     <TextView
-        android:text="@string/TransportationHeader"
+        android:text="@string/SelectVehicleHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

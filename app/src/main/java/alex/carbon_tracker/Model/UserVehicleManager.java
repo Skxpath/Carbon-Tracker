@@ -55,7 +55,6 @@ public class UserVehicleManager {
                     userVehicle.getYear());
         }
         return descriptions;
-
     }
 
 }

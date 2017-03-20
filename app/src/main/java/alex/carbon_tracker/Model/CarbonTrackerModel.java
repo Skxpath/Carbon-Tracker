@@ -13,6 +13,7 @@ public class CarbonTrackerModel {
     private static VehicleManager vehicleManager;
     private static UserVehicleManager userVehicleManager;
     private static TipManager tipManager;
+    private static TransportationManager transportationManager;
 
     public UserVehicleManager getUserVehicleManager() {
         return userVehicleManager;
@@ -28,6 +29,7 @@ public class CarbonTrackerModel {
         vehicleManager = new VehicleManager();
         userVehicleManager = new UserVehicleManager();
         tipManager = new TipManager();
+        transportationManager = new TransportationManager();
     }
 
     public JourneyManager getJourneyManager() {
@@ -46,4 +48,8 @@ public class CarbonTrackerModel {
         return tipManager;
     }
 
+
+    public TransportationManager getTransportationManager() {
+        return transportationManager;
+    }
 }

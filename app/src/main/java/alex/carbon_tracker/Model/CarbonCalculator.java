@@ -10,10 +10,18 @@ package alex.carbon_tracker.Model;
 public class CarbonCalculator {
     //1 km = 0.621371 miles
     private static final double KILOMETER_TO_MILES = 0.621371;
+    private static final double GRAMS_TO_KILOGRAMS = 0.001;
+
+    public static double calculate(double CO2InKGperDistanceInKm, double distanceTravelledCity, double distanceTravelledHighway) {
+
+        double CO2ProducedCity = CO2InKGperDistanceInKm * distanceTravelledCity * GRAMS_TO_KILOGRAMS;
+        double CO2ProducedHighway = CO2InKGperDistanceInKm * distanceTravelledHighway * GRAMS_TO_KILOGRAMS;
+
+        return CO2ProducedCity + CO2ProducedHighway;
+    }
 
     //gasType = the amount of co2 produced per gallon of the specific gas type.
     //gives you total carbon emitted
-
     public static double calculate(double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway) {
 
         double distanceTravelledMilesCity = distanceTravelledCity * KILOMETER_TO_MILES;
