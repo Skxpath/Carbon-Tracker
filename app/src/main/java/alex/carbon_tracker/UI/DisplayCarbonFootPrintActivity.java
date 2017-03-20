@@ -96,7 +96,8 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                             + journey.getRoute().getHighwayDistance();
                     textview.setText(distance + "");
                 } else if (j == VEHICLE_NAME) {
-                    textview.setText(journey.getUserVehicle().getNickname());
+                    // Todo: fix
+//                    textview.setText(journey.getUserVehicle().getNickname());
                 } else if (j == CO2_EMISSION) {
                     String carbonEmitted = String.format("%.5f", journey.getCarbonEmitted());
                     textview.setText(carbonEmitted);

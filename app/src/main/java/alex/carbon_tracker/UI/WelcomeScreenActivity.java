@@ -66,6 +66,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         welcomeImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(WelcomeScreenActivity.this, JourneyListActivity.class));
                 startActivity(new Intent(WelcomeScreenActivity.this, MenuActivity.class));
                 finish();
             }

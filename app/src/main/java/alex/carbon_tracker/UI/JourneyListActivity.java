@@ -41,7 +41,7 @@ public class JourneyListActivity extends AppCompatActivity {
          carbonTrackerModel = CarbonTrackerModel.getInstance();
          journeyManager = carbonTrackerModel.getJourneyManager();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_journey_list);
 
         setCurrentJourneyPosition();
         ListView journeyList = (ListView)findViewById(R.id.journeyListView);
@@ -64,9 +64,9 @@ public class JourneyListActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Date", dateFormat.format(date));
-                journeyManager.setCurrentDate(dateFormat.format(date));
-                Intent intent = SelectTransportationMode.makeIntent(JourneyListActivity.this);
+//                Log.i("Date", dateFormat.format(date));
+//                journeyManager.setCurrentDate(dateFormat.format(date));
+                Intent intent = SelectDateActivity.makeIntent(JourneyListActivity.this);
                 startActivity(intent);
             }
         });

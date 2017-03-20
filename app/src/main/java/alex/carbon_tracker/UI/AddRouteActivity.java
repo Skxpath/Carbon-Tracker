@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +16,8 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
-import alex.carbon_tracker.Model.SaveData;
+import alex.carbon_tracker.Model.Transportation;
+import alex.carbon_tracker.Model.TransportationManager;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
@@ -31,10 +33,11 @@ public class AddRouteActivity extends AppCompatActivity {
     private static final String ERROR_CITY_MSG = "City distance must be greater than or equal to zero.";
     private static final String ERROR_HIGHWAY_MSG = "Highway distance must be greater than or equal to zero.";
 
-    private CarbonTrackerModel carbonTrackerModel;
-    private RouteManager routeManager;
-    private JourneyManager journeyManager;
-    private UserVehicleManager userVehicleManager;
+    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+    private RouteManager routeManager = carbonTrackerModel.getRouteManager();
+    private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
+    private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+    private TransportationManager transportationManager = carbonTrackerModel.getTransportationManager();
 
     private static int cityDistance = 0;
     private static int highwayDistance = 0;
@@ -42,17 +45,25 @@ public class AddRouteActivity extends AppCompatActivity {
     private static int index = 0;
 
     private static boolean isEditingRoute = false;
+    private static boolean isVehicle = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_route);
 
-        carbonTrackerModel = CarbonTrackerModel.getInstance();
-        routeManager = carbonTrackerModel.getRouteManager();
-        journeyManager = carbonTrackerModel.getJourneyManager();
-        userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+        Intent intent = getIntent();
+        getExtrasFromIntent(intent);
+
         setupSubmitBtn();
+    }
+
+    private void getExtrasFromIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        if (intent.hasExtra(SelectRouteActivity.SELECTED_VEHICLE)) {
+            isVehicle = true;
+            Log.d("AddRouteActivity", isVehicle + "");
+        }
     }
 
     private void setupSubmitBtn() {
@@ -68,19 +79,31 @@ public class AddRouteActivity extends AppCompatActivity {
                     } else {
                         addRoute();
                     }
-                    UserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
+
                     Route userCurrentRoute = routeManager.getCurrentRoute();
-                    double gasType = userCurrentVehicle.getFuelTypeNumber();
                     double distanceTravelledCity = userCurrentRoute.getCityDistance();
                     double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
-                    int milesPerGallonCity = userCurrentVehicle.getCityDrive();
-                    int milesPerGallonHighway = userCurrentVehicle.getHighwayDrive();
 
-                    // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
-                    double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
+                    if (isVehicle) {
 
-                    Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions, journeyManager.getCurrentDate());
-                    journeyManager.add(journey);
+                        UserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
+                        double gasType = userCurrentVehicle.getFuelTypeNumber();
+                        int milesPerGallonCity = userCurrentVehicle.getCityDrive();
+                        int milesPerGallonHighway = userCurrentVehicle.getHighwayDrive();
+
+                        // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
+                        double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
+
+                        Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions, journeyManager.getCurrentDate());
+                        journeyManager.add(journey);
+                    } else {
+                        Transportation transportation = transportationManager.getCurrTransportation();
+                        double CO2Emissions = CarbonCalculator.calculate(transportation.getCO2InKGperDistanceInKM(), distanceTravelledCity, distanceTravelledHighway);
+
+                        Journey journey = new Journey(transportation, userCurrentRoute, CO2Emissions, journeyManager.getCurrentDate());
+                        journeyManager.add(journey);
+                    }
+
                     Intent intent = JourneyListActivity.makeIntent(AddRouteActivity.this);
                     startActivity(intent);
                     finish();
@@ -97,6 +120,7 @@ public class AddRouteActivity extends AppCompatActivity {
         EditText highwayDistEditText = (EditText) findViewById(R.id.highwayDistanceEditText);
         highwayDistance = Integer.parseInt(highwayDistEditText.getText().toString());
         routeName = getEditTextAsString(R.id.routeNameEditText);
+
         Route route = new Route(cityDistance, highwayDistance, routeName);
         routeManager.addRoute(route);
         routeManager.setCurrentRoute(route);
@@ -146,11 +170,5 @@ public class AddRouteActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, AddRouteActivity.class);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SaveData.storeSharePreference(this);
     }
 }
