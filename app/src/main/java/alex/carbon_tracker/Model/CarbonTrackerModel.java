@@ -24,7 +24,7 @@ public class CarbonTrackerModel {
     private RouteManager routeManager;
     private static VehicleManager vehicleManager;
     private UserVehicleManager userVehicleManager;
-
+    private TransportationManager transportationManager;
     public UserVehicleManager getUserVehicleManager() {
         return userVehicleManager;
     }
@@ -42,11 +42,16 @@ public class CarbonTrackerModel {
         return ourInstance;
     }
 
+    public TransportationManager getTransportationManager() {
+        return transportationManager;
+    }
+
     private CarbonTrackerModel() {
         journeyManager = new JourneyManager();
         routeManager = new RouteManager();
         vehicleManager = new VehicleManager();
         userVehicleManager = new UserVehicleManager();
+        transportationManager = new TransportationManager();
         //userVehicleManager.testing();
     }
 

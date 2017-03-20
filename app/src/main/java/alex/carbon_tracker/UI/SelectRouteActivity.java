@@ -35,6 +35,8 @@ public class SelectRouteActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_EDIT_ROUTE = 102;
 
     public static final String ROUTE_INDEX = "routeIndex";
+    public static final String SELECTED_VEHICLE = "Vehicle";
+    public static final String SELECTED_NON_VEHICLE = "Non Vehicle";
 
     private CarbonTrackerModel carbonTrackerModel;
     private RouteManager routeManager;
