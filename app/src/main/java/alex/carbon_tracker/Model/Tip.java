@@ -4,40 +4,71 @@ package alex.carbon_tracker.Model;
  * Created by Alex on 3/18/2017.
  */
 
-public class Tip implements TipManagerObserver {
+public class Tip implements TipManagerObserver, Comparable<Tip> {
 
 
     private final String tip;
-    private final int key;
-    private int counter = 0;
-    private final int COOLDOWN_LENGTH = 7;
+    private final TipEnum key;
 
-    public Tip(String tip, int key) {
-        this.tip = tip;
-        this.key = key;
+    public int getCounter() {
+        return counter;
     }
 
-    public int getKey() {
+    private int counter = 0;
+    private double emissions = 0;
+
+    //Do not display tip if displayed within the last COOLDOWN_LENGTH tips.
+    private final int COOLDOWN_LENGTH = 7;
+
+    public Tip(String tip, TipEnum key) {
+        this.tip = tip;
+        this.key = key;
+        checkEmissions(key);
+    }
+
+    private void checkEmissions(TipEnum key) {
+        switch (key) {
+            case VEHICLE_TIPS:
+                setEmissions(100);
+                break;
+            case MISC_TIPS:
+                setEmissions(0);
+                break;
+            case NATURALGAS_TIPS:
+                setEmissions(10);
+                break;
+            case TRANSPORTATION_TIPS:
+                setEmissions(5);
+                break;
+            case ELECTRICITY_TIPS:
+                setEmissions(7);
+                break;
+        }
+    }
+
+    private void setEmissions(double emissions) {
+        this.emissions = emissions;
+    }
+
+    public TipEnum getKey() {
         return key;
     }
 
     @Override
-    public void update(int key) {
-        if ((getKey() == key) && (checkCooldowns())) {
-            startCounter();
-        } else {
-            updateCooldowns();
-        }
+    public void update() {
+        updateCooldowns();
+        checkEmissions(getKey());
     }
 
-    private void startCounter() {
+    public void startCounter() {
         counter++;
     }
 
     private void updateCooldowns() {
         if ((counter != 0) && (counter <= COOLDOWN_LENGTH)) {
             counter++;
-        } else if (counter == COOLDOWN_LENGTH) {
+        }
+        if (counter > COOLDOWN_LENGTH) {
             counter = 0;
         }
     }
@@ -47,6 +78,21 @@ public class Tip implements TipManagerObserver {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public String getTip() {
+        return tip;
+    }
+
+    @Override
+    public int compareTo(Tip o) {
+        if (emissions == o.emissions) {
+            return 0;
+        } else if (emissions < o.emissions) {
+            return 1;
+        } else {
+            return -1;
         }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import alex.carbon_tracker.Model.CarbonCalculator;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
@@ -19,6 +21,7 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
+import alex.carbon_tracker.Model.TipManager;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
@@ -39,6 +42,8 @@ public class SelectRouteActivity extends AppCompatActivity {
     private RouteManager routeManager = carbonTrackerModel.getRouteManager();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
     private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+    private TipManager tipManager = carbonTrackerModel.getTipManager();
+
     private int currentRoutePosition = 0;
 
     @Override
@@ -92,6 +97,8 @@ public class SelectRouteActivity extends AppCompatActivity {
 
                 Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions, journeyManager.getCurrentDate());
                 journeyManager.add(journey);
+                //Toast.makeText(SelectRouteActivity.this, tipManager.getTip(), Toast.LENGTH_LONG).show();
+                Log.d("TiptestSRActiv",tipManager.getTip());
                 finish();
             }
         });

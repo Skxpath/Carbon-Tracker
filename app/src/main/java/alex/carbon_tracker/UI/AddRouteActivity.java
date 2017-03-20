@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
+import alex.carbon_tracker.Model.TipManager;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
@@ -34,6 +36,7 @@ public class AddRouteActivity extends AppCompatActivity {
     private RouteManager routeManager = carbonTrackerModel.getRouteManager();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
     private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
+    private TipManager tipManager = carbonTrackerModel.getTipManager();
 
     private static int cityDistance = 0;
     private static int highwayDistance = 0;
@@ -78,9 +81,11 @@ public class AddRouteActivity extends AppCompatActivity {
                     journeyManager.add(journey);
                     Intent intent = JourneyListActivity.makeIntent(AddRouteActivity.this);
                     startActivity(intent);
+                   // Toast.makeText(AddRouteActivity.this, tipManager.getTip(), Toast.LENGTH_SHORT).show();
+                    Log.d("TiptestAddRouteActivity",tipManager.getTip());
                     finish();
                 } else {
-                    Toast.makeText(AddRouteActivity.this, R.string.AddRouteSubmitButtonErrorMsg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddRouteActivity.this, R.string.AddRouteSubmitButtonErrorMsg, Toast.LENGTH_LONG).show();
                 }
             }
         });

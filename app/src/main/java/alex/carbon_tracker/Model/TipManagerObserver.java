@@ -5,5 +5,5 @@ package alex.carbon_tracker.Model;
  */
 
 public interface TipManagerObserver {
-    void update(int key);
+    void update();
 }
