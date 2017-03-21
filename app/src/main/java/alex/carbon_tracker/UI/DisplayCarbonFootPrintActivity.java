@@ -88,7 +88,7 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                 carbonTable.setMinimumWidth(20);
                 TextView textview = new TextView(this);
                 if (j == DATE) {
-                    textview.setText(journey.getDate());
+                    textview.setText(journey.getMonth() + "/" + journey.getDay() + "/" + journey.getYear());
                 } else if (j == ROUTE_NAME) {
                     textview.setText(journey.getRoute().toString());
                 } else if (j == DISTANCE) {
@@ -96,8 +96,11 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                             + journey.getRoute().getHighwayDistance();
                     textview.setText(distance + "");
                 } else if (j == VEHICLE_NAME) {
-                    // Todo: fix
-//                    textview.setText(journey.getUserVehicle().getNickname());
+                    if (journey.hasVehicle()) {
+                        textview.setText(journey.getUserVehicle().getNickname());
+                    } else {
+                        textview.setText(journey.getTransportation().getType());
+                    }
                 } else if (j == CO2_EMISSION) {
                     String carbonEmitted = String.format("%.5f", journey.getCarbonEmitted());
                     textview.setText(carbonEmitted);

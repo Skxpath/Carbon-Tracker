@@ -64,16 +64,12 @@ public class JourneyListActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.i("Date", dateFormat.format(date));
-//                journeyManager.setCurrentDate(dateFormat.format(date));
                 Intent intent = SelectDateActivity.makeIntent(JourneyListActivity.this);
                 startActivity(intent);
+                finish();
             }
         });
     }
-
-
-
 
     private void journeyListView() {
         String[] journeyList = carbonTrackerModel.getJourneyManager().getJourneyDescriptions();
