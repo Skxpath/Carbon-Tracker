@@ -22,6 +22,7 @@ import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
 import alex.carbon_tracker.Model.Transportation;
 import alex.carbon_tracker.Model.TransportationManager;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
@@ -33,6 +34,10 @@ import alex.carbon_tracker.R;
 *  */
 public class SelectRouteActivity extends AppCompatActivity {
 
+    public static final int REQUEST_CODE_ADD_ROUTE = 101;
+    public static final int REQUEST_CODE_EDIT_ROUTE = 102;
+
+    public static final String ROUTE_INDEX = "routeIndex";
     public static final String SELECTED_VEHICLE = "Vehicle";
     public static final String SELECTED_NON_VEHICLE = "Non Vehicle";
 
@@ -70,6 +75,10 @@ public class SelectRouteActivity extends AppCompatActivity {
 
         selectRoute();
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SaveData.storeSharePreference(this);
 
     private void getExtrasFromIntent(Intent intent) {
         Bundle extras = intent.getExtras();
@@ -111,6 +120,7 @@ public class SelectRouteActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void populateListView() {
         String[] routeNameList = routeManager.getRouteDescriptions();

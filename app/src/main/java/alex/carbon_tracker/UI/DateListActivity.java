@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.SaveData;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -89,5 +91,10 @@ public class DateListActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, DateListActivity.class);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 }
