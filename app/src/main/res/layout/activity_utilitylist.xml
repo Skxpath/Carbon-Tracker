@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_utilitylist"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,22 +11,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="alex.carbon_tracker.UI.UtilitylistActivity">
 
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        app:srcCompat="@mipmap/carbontrackerlogo5"
+        android:id="@+id/imageView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
     <TextView
-        android:text="Utility List"
+        android:text="@string/add_a_utility_bill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="54dp"
-        android:id="@+id/textView15" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView15"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="45dp" />
+        android:id="@+id/textView4"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
     <Button
         android:text="ADD"
@@ -36,5 +36,14 @@
         android:layout_marginEnd="36dp"
         android:layout_marginBottom="60dp"
         android:id="@+id/addUtilityButton" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4"
+        android:layout_marginEnd="44dp"
+        android:layout_marginTop="57dp"
+        android:id="@+id/listViewUtilities" />
 
 </RelativeLayout>

@@ -51,7 +51,7 @@
         android:ems="10"
         android:layout_marginTop="18dp"
         android:id="@+id/electricalConsumptionEditText"
-        android:text="KWh"
+        android:text="1"
         android:layout_below="@+id/gasConsumptionEditText"
         android:layout_toEndOf="@+id/textView19"
         android:layout_marginStart="24dp" />
@@ -62,7 +62,7 @@
         android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/gasConsumptionEditText"
-        android:text="GJ"
+        android:text="1"
         android:layout_below="@+id/textView4"
         android:layout_alignStart="@+id/electricalConsumptionEditText" />
 
