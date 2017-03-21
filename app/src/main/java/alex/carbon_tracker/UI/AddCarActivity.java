@@ -78,7 +78,7 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(AddCarActivity.this, R.string.AddRouteSubmitButtonErrorMsg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCarActivity.this, R.string.ErrorMessage, Toast.LENGTH_SHORT).show();
                 }
             }
         });
