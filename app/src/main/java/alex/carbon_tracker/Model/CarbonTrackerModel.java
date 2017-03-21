@@ -18,8 +18,21 @@ public class CarbonTrackerModel {
         return userVehicleManager;
     }
 
+    public static void getSavedModel(Context context) {
+        if (SaveData.getSharePreference(context) != null) {
+            ourInstance = SaveData.getSharePreference(context);
+        } else {
+            ourInstance = new CarbonTrackerModel();
+        }
+
+    }
+
     public static CarbonTrackerModel getInstance() {
         return ourInstance;
+    }
+
+    public TransportationManager getTransportationManager() {
+        return transportationManager;
     }
 
     private CarbonTrackerModel() {
@@ -28,6 +41,9 @@ public class CarbonTrackerModel {
         vehicleManager = new VehicleManager();
         userVehicleManager = new UserVehicleManager();
         tipManager = new TipManager();
+        transportationManager = new TransportationManager();
+
+        //userVehicleManager.testing();
     }
 
     public JourneyManager getJourneyManager() {
