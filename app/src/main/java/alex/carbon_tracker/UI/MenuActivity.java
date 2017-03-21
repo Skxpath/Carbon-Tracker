@@ -3,14 +3,18 @@ package alex.carbon_tracker.UI;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
 
 public class MenuActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +23,11 @@ public class MenuActivity extends AppCompatActivity {
         int journeyListID = findViewById(R.id.journeyListButton).getId();
         int utilityButtonID = findViewById(R.id.utilityListButton).getId();
         int graphListID = findViewById(R.id.graphListButton).getId();
+        int newTipID = findViewById(R.id.tipsButton).getId();
         setupButton(journeyListID);
         setupButton(utilityButtonID);
         setupButton(graphListID);
+        setupButton(newTipID);
 
     }
 
@@ -39,6 +45,11 @@ public class MenuActivity extends AppCompatActivity {
                 } else if (buttonID == findViewById(R.id.utilityListButton).getId()) {
                     Intent intent = UtilitylistActivity.makeIntent(MenuActivity.this);
                     startActivity(intent);
+                } else if (buttonID == findViewById(R.id.tipsButton).getId()) {
+                    CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+                    TextView tips =(TextView)(findViewById(R.id.textView19));
+          tips.setText(carbonTrackerModel.getTipManager().getTip());
+                    Log.i("test", "tipsbutton clicked");
                 }
             }
 
