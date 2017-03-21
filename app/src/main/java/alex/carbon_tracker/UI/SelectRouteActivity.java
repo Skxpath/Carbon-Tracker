@@ -36,6 +36,10 @@ public class SelectRouteActivity extends AppCompatActivity {
     public static final String SELECTED_VEHICLE = "Vehicle";
     public static final String SELECTED_NON_VEHICLE = "Non Vehicle";
 
+    private static final String WALK = "Walk";
+    private static final String BUS = "Bus";
+    private static final String SKY_TRAIN = "Sky Train";
+
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private RouteManager routeManager = carbonTrackerModel.getRouteManager();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
@@ -71,17 +75,17 @@ public class SelectRouteActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         if (intent.hasExtra(SelectTransportationModeActivity.SELECT_BUS)) {
             double CO2 = (Double) extras.get(SelectTransportationModeActivity.SELECT_BUS);
-            transportation = new Transportation(CO2);
+            transportation = new Transportation(CO2, BUS);
             transportationManager.setCurrTransportation(transportation);
             Log.d("SelectRouteActivity", "" + CO2);
         } else if (intent.hasExtra(SelectTransportationModeActivity.SELECT_WALK)) {
             double CO2 = (Double) extras.get(SelectTransportationModeActivity.SELECT_WALK);
-            transportation = new Transportation(CO2);
+            transportation = new Transportation(CO2, WALK);
             transportationManager.setCurrTransportation(transportation);
             Log.d("SelectRouteActivity", "" + CO2);
         } else if (intent.hasExtra(SelectTransportationModeActivity.SELECT_SKY_TRAIN)) {
             double CO2 = (Double) extras.get(SelectTransportationModeActivity.SELECT_SKY_TRAIN);
-            transportation = new Transportation(CO2);
+            transportation = new Transportation(CO2, SKY_TRAIN);
             transportationManager.setCurrTransportation(transportation);
             Log.d("SelectRouteActivity", "" + CO2);
         } else {
@@ -135,12 +139,14 @@ public class SelectRouteActivity extends AppCompatActivity {
                     // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
                     double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
 
-                    Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions, journeyManager.getCurrentDate());
+                    Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions,
+                            journeyManager.getSelectedYear(), journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
                     journeyManager.add(journey);
                 } else {
                     double CO2Emissions = CarbonCalculator.calculate(transportation.getCO2InKGperDistanceInKM(), distanceTravelledCity, distanceTravelledHighway);
 
-                    Journey journey = new Journey(transportation, userCurrentRoute, CO2Emissions, journeyManager.getCurrentDate());
+                    Journey journey = new Journey(transportation, userCurrentRoute, CO2Emissions,
+                            journeyManager.getSelectedYear(), journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
                     journeyManager.add(journey);
                 }
 

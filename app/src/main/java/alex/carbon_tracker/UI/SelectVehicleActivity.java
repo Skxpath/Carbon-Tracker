@@ -41,7 +41,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_vehicle);
         setupAddCarButton();
-        carListView();
+        populateCarListView();
         setupOnItemClickListener();
         ListView vehicleList = (ListView) findViewById(R.id.carListView);
         registerForContextMenu(vehicleList);
@@ -72,7 +72,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
     }
 
     // shows a list view of all the current cars
-    private void carListView() {
+    private void populateCarListView() {
         String[] carList = CarbonTrackerModel.getInstance().getUserVehicleManager().getUserVehicleDescriptions();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.jouney_list, carList);
         ListView list = (ListView) findViewById(R.id.carListView);
@@ -100,7 +100,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setupAddCarButton();
-        carListView();
+        populateCarListView();
         setupOnItemClickListener();
     }
 
@@ -116,7 +116,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
         if(item.getTitle().equals("Delete")){
             // delete the car
             carbonTrackerModel.getUserVehicleManager().delete(currentVehiclePosition);
-            carListView();
+            populateCarListView();
             return true;
         } else if (item.getTitle().equals("Edit")) {
             setIntent();

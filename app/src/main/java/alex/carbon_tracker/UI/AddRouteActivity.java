@@ -85,22 +85,22 @@ public class AddRouteActivity extends AppCompatActivity {
                     double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
 
                     if (isVehicle) {
-
                         UserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
                         double gasType = userCurrentVehicle.getFuelTypeNumber();
                         int milesPerGallonCity = userCurrentVehicle.getCityDrive();
                         int milesPerGallonHighway = userCurrentVehicle.getHighwayDrive();
 
-                        // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
                         double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
 
-                        Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions, journeyManager.getCurrentDate());
+                        Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions, journeyManager.getSelectedYear(),
+                                journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
                         journeyManager.add(journey);
                     } else {
                         Transportation transportation = transportationManager.getCurrTransportation();
                         double CO2Emissions = CarbonCalculator.calculate(transportation.getCO2InKGperDistanceInKM(), distanceTravelledCity, distanceTravelledHighway);
 
-                        Journey journey = new Journey(transportation, userCurrentRoute, CO2Emissions, journeyManager.getCurrentDate());
+                        Journey journey = new Journey(transportation, userCurrentRoute, CO2Emissions, journeyManager.getSelectedYear(),
+                                journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
                         journeyManager.add(journey);
                     }
 
@@ -108,7 +108,7 @@ public class AddRouteActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(AddRouteActivity.this, R.string.AddRouteSubmitButtonErrorMsg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddRouteActivity.this, R.string.ErrorMessage, Toast.LENGTH_SHORT).show();
                 }
             }
         });
