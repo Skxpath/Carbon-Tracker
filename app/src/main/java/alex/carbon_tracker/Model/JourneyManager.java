@@ -16,7 +16,36 @@ public class JourneyManager {
     private int selectedMonth;
     private int selectedDay;
 
+    //Getter for total carbon emissions for: vehicles, natural gas, electricity, public transportation
     private boolean hasDate;
+
+    public double totalCarbonEmissionsJourneys() {
+        return totalCarbonEmissionsPublicTransportation() + totalCarbonEmissionsVehicle();
+    }
+
+    public double totalCarbonEmissionsVehicle() {
+        double carbonEmissionsVehicle_inKG = 0;
+        for (Journey journey : journeyList) {
+            if (journey.hasVehicle()) {
+                double carbonEmission_InKg = journey.getCarbonEmitted();
+                carbonEmissionsVehicle_inKG += carbonEmission_InKg;
+            }
+        }
+
+        return carbonEmissionsVehicle_inKG;
+    }
+
+    public double totalCarbonEmissionsPublicTransportation() {
+        double carbonEmissionsPublicTranportation_inKG = 0;
+        for (Journey journey : journeyList) {
+            if (!journey.hasVehicle()) {
+                double carbonEmission_InKg = journey.getCarbonEmitted();
+                carbonEmissionsPublicTranportation_inKG += carbonEmission_InKg;
+            }
+        }
+
+        return carbonEmissionsPublicTranportation_inKG;
+    }
 
     public boolean hasDate() {
         return hasDate;
