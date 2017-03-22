@@ -22,6 +22,7 @@ import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
 
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class LineGraphActivity extends AppCompatActivity {
@@ -86,8 +87,9 @@ public class LineGraphActivity extends AppCompatActivity {
 
     public void setupInfo(Entry entry){
         TextView text = (TextView)findViewById(R.id.emissionValueText1);
-
         text.setText(entry.getY()+" g");
+        ListView journeyListView = (ListView)findViewById(R.id.journeylistForGraph);
+        // get the jouneylist
     }
 
 

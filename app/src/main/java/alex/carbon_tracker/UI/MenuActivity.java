@@ -36,7 +36,7 @@ public class MenuActivity extends AppCompatActivity {
                     Intent intent = DateListActivity.makeIntent(MenuActivity.this);
                     startActivity(intent);
                 } else if (buttonID == findViewById(R.id.utilityListButton).getId()) {
-                    Intent intent = LineGraphActivity.makeIntent(MenuActivity.this);
+                    Intent intent = UtilitylistActivity.makeIntent(MenuActivity.this);
                     startActivity(intent);
                 }
             }
