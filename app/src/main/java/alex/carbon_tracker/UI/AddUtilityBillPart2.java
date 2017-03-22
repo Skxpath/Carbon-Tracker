@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UtilityBill;
 import alex.carbon_tracker.Model.UtilityBillManager;
 import alex.carbon_tracker.R;
@@ -36,6 +37,12 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
         float gasConsumption = intent.getFloatExtra("gasConsumption", mostRecentBill.getHouseholdGasConsumption());
 
         setupSubmitBtn(householdSize, electricalConsumption, gasConsumption);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 
     private void setupSubmitBtn(final int householdSize, final float electricalConsumption, final float gasConsumption) {

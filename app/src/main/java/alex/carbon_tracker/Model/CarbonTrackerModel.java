@@ -21,14 +21,16 @@ import static android.content.Context.MODE_PRIVATE;
 public class CarbonTrackerModel {
     private static CarbonTrackerModel ourInstance = new CarbonTrackerModel();
 
-    private static JourneyManager journeyManager;
-    private static RouteManager routeManager;
+    private  JourneyManager journeyManager;
+    private  RouteManager routeManager;
     private static VehicleManager vehicleManager;
-    private static UserVehicleManager userVehicleManager;
+    private  UserVehicleManager userVehicleManager;
     private static TipManager tipManager;
 
-    private static UtilityBillManager utilityBillManager;
+    private  UtilityBillManager utilityBillManager;
     private TransportationManager transportationManager;
+
+
     public UserVehicleManager getUserVehicleManager() {
         return userVehicleManager;
     }
