@@ -28,6 +28,7 @@ import alex.carbon_tracker.R;
 * */
 public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
 
+    public static final int COL_SIZE = 5;
     private CarbonTrackerModel carbonTrackerModel;
     private JourneyManager journeyManager ;
 
@@ -54,7 +55,6 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
 
     private void setupCarbonFootPrintTable() {
         TableLayout carbonTable = (TableLayout) findViewById(R.id.carbonTableLayout);
-        CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
         TableRow carbonLabels = new TableRow(this);
         carbonTable.addView(carbonLabels);
         for (int i = 0; i < 5; i++) {
@@ -79,10 +79,7 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
         for (int i = 0; i < journeyManager.getJourneyList().size(); i++) {
             TableRow tableRow = new TableRow(this);
             carbonTable.addView(tableRow);
-            //tableRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
-              //      TableLayout.LayoutParams.MATCH_PARENT, 1.0f));
-            // Going through columns to fill in the information
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < COL_SIZE; j++) {
                 Journey journey = journeyManager.getJourney(i);
                 //carbonTable.setColumnStretchable(j, true);
                 carbonTable.setMinimumWidth(20);
@@ -120,14 +117,7 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
             }
         });
     }
-/*
-    @Override
-    public void onBackPressed() {
-        Intent intent = JourneyListActivity.makeIntent(DisplayCarbonFootPrintActivity.this);
-        startActivity(intent);
-        finish();
-    }
-*/
+
     public static Intent makeIntent(Context context) {
         return new Intent(context, DisplayCarbonFootPrintActivity.class);
     }
