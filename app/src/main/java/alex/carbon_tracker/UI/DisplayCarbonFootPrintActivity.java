@@ -1,7 +1,9 @@
 package alex.carbon_tracker.UI;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +32,9 @@ import alex.carbon_tracker.R;
 * */
 public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
 
+    public static final int COL_SIZE = 5;
+    private CarbonTrackerModel carbonTrackerModel;
+    private JourneyManager journeyManager ;
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
 

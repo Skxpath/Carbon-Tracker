@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Button;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
@@ -45,10 +46,21 @@ public class DateListActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_list);
-
+        setupLastMonthButton();
         createDateList(journeyManager);
         setupOnItemClickListener();
         populateListView();
+    }
+
+    private void setupLastMonthButton() {
+        Button button = (Button)findViewById(R.id.lastMonthGraphButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = LineGraphActivity.makeIntent(DateListActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setupOnItemClickListener() {

@@ -70,6 +70,9 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".UI.DateListActivity">
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UI.LineGraphActivity"
             android:screenOrientation="portrait"</activity>
     </application>
 
