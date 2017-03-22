@@ -100,7 +100,6 @@ public class SelectRouteActivity extends AppCompatActivity {
         } else {
             isVehicle = true;
             Log.d("SelectRouteActivity", "Car");
-
         }
     }
 

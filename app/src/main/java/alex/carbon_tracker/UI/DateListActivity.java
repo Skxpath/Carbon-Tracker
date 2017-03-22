@@ -12,11 +12,9 @@ import android.widget.ListView;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.DateYMD;
 import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
@@ -24,9 +22,13 @@ import alex.carbon_tracker.R;
 
 public class DateListActivity extends AppCompatActivity {
 
+    public static final String CHANGE_TO_GRAPHS = "Change to graphs from date list";
     public static final String SELECTED_YEAR = "Selected Year";
     public static final String SELECTED_MONTH = "Selected Month";
     public static final String SELECTED_DAY = "Selected Day";
+    public static final String DISPLAY_DATA_YEAR = "Display Data Year";
+    public static final String DISPLAY_DATA_MONTH = "Display Data Month";
+    public static final String DISPLAY_DATA_DAY = "Display Data Day";
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
@@ -35,54 +37,64 @@ public class DateListActivity extends AppCompatActivity {
     private int month;
     private int day;
 
+    private List<DateYMD> dateList = new ArrayList<>();
+    private List<String> dateListDescriptions = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_list);
 
+        createDateList(journeyManager);
         setupOnItemClickListener();
         populateListView();
     }
 
     private void setupOnItemClickListener() {
-        ListView list = (ListView) findViewById(R.id.listViewDates);
+        final ListView list = (ListView) findViewById(R.id.listViewDates);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                userVehicleManager.setCurrentVehicle(userVehicleManager.getUserVehicle(i));
-                // Todo: Get year, month, date of (i)
-
+                DateYMD date = dateList.get(i);
+                year = date.getYear();
+                month = date.getMonth();
+                day = date.getDay();
 
                 Intent intent = DisplayCarbonFootPrintActivity.makeIntent(DateListActivity.this);
                 intent.putExtra(SELECTED_YEAR, year);
                 intent.putExtra(SELECTED_MONTH, month);
                 intent.putExtra(SELECTED_DAY, day);
+                intent.putExtra(DISPLAY_DATA_DAY, 0);
+                intent.putExtra(CHANGE_TO_GRAPHS, 0);
+
                 startActivity(intent);
             }
+
+
         });
     }
 
     private void populateListView() {
-        List<DateYMD> dateList = createList(journeyManager);
-        ArrayAdapter<DateYMD> adapter = new ArrayAdapter<>(this, R.layout.jouney_list, dateList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.jouney_list, dateListDescriptions);
         ListView list = (ListView) findViewById(R.id.listViewDates);
         list.setAdapter(adapter);
     }
 
-    private List<DateYMD> createList(JourneyManager journeyManager) {
+
+
+    private List<DateYMD> createDateList(JourneyManager journeyManager) {
         HashSet hashSet = new HashSet();
-        List<DateYMD> dateList = new ArrayList<>();
         int journeyListSize = journeyManager.getSize();
         for (int i = 0; i < journeyListSize; i++) {
             Journey journey = journeyManager.getJourney(i);
             int year = journey.getYear();
             int month = journey.getMonth();
             int day = journey.getDay();
-
-//            String date = month + "/" + day + "/" + year;
+            String description = month + "/" + day + "/" + year;
             DateYMD date = new DateYMD(year, month, day);
-
-            if (hashSet.add(date)) {
+            if (hashSet.add(description)) {
+                dateListDescriptions.add(description);
                 dateList.add(date);
             }
         }
