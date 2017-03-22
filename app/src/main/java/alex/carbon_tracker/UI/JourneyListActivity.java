@@ -38,17 +38,18 @@ public class JourneyListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-         carbonTrackerModel = CarbonTrackerModel.getInstance();
-         journeyManager = carbonTrackerModel.getJourneyManager();
+        carbonTrackerModel = CarbonTrackerModel.getInstance();
+        journeyManager = carbonTrackerModel.getJourneyManager();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_list);
 
         setCurrentJourneyPosition();
-        ListView journeyList = (ListView)findViewById(R.id.journeyListView);
+        ListView journeyList = (ListView) findViewById(R.id.journeyListView);
         registerForContextMenu(journeyList);
         journeyListView();
         setupAddJourneyButton();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -56,24 +57,16 @@ public class JourneyListActivity extends AppCompatActivity {
     }
 
     private void setupAddJourneyButton() {
-
-        final DateFormat dateFormat = new SimpleDateFormat(getString(R.string.DateFormat));
-        final Date date = new Date();
-
         Button btn = (Button) findViewById(R.id.AddJourneyButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.i("Date", dateFormat.format(date));
-//                journeyManager.setCurrentDate(dateFormat.format(date));
                 Intent intent = SelectDateActivity.makeIntent(JourneyListActivity.this);
                 startActivity(intent);
+                finish();
             }
         });
     }
-
-
-
 
     private void journeyListView() {
         String[] journeyList = carbonTrackerModel.getJourneyManager().getJourneyDescriptions();
@@ -102,6 +95,7 @@ public class JourneyListActivity extends AppCompatActivity {
         }
 
     }
+
     private void setCurrentJourneyPosition() {
         final ListView listView = (ListView) findViewById(R.id.journeyListView);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

@@ -10,21 +10,32 @@ public class Journey {
     private Transportation transportation;
     private UserVehicle vehicle;
     private Route route;
-    private String date;
     private double carbonEmitted = 0;
 
-    public Journey(UserVehicle vehicle, Route route, double carbonEmitted, String date) {
+    private int year;
+    private int month;
+    private int day;
+
+    public Journey(UserVehicle vehicle, Route route, double carbonEmitted, int year, int month, int day) {
         this.vehicle = vehicle;
         this.route = route;
         this.carbonEmitted = carbonEmitted;
-        this.date = date;
+        this.year = year;
+        this.month = month;
+        this.day = day;
     }
 
-    public Journey(Transportation transportation, Route route, double carbonEmitted, String date) {
-        this.date = date;
+    public Journey(Transportation transportation, Route route, double carbonEmitted, int year, int month, int day) {
         this.carbonEmitted = carbonEmitted;
         this.route = route;
         this.transportation = transportation;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
+    public boolean hasVehicle() {
+        return (vehicle != null);
     }
 
     public void setCarbonEmitted(double carbonEmitted) {
@@ -39,6 +50,38 @@ public class Journey {
         this.vehicle = vehicle;
     }
 
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public Transportation getTransportation() {
+        return transportation;
+    }
+
+    public void setTransportation(Transportation transportation) {
+        this.transportation = transportation;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
     public Route getRoute() {
         return route;
     }
@@ -47,16 +90,8 @@ public class Journey {
         return vehicle;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     public double getCarbonEmitted() {
         return carbonEmitted;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public void setCarbonEmitted(float carbonEmitted) {
