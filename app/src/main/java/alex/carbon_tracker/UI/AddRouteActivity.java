@@ -59,7 +59,6 @@ public class AddRouteActivity extends AppCompatActivity {
     }
 
     private void getExtrasFromIntent(Intent intent) {
-        Bundle extras = intent.getExtras();
         if (intent.hasExtra(SelectRouteActivity.SELECTED_VEHICLE)) {
             isVehicle = true;
             Log.d("AddRouteActivity", isVehicle + "");
@@ -90,17 +89,32 @@ public class AddRouteActivity extends AppCompatActivity {
                         int milesPerGallonCity = userCurrentVehicle.getCityDrive();
                         int milesPerGallonHighway = userCurrentVehicle.getHighwayDrive();
 
-                        double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
+                        double CO2Emissions = CarbonCalculator.calculate(gasType,
+                                distanceTravelledCity,
+                                distanceTravelledHighway,
+                                milesPerGallonCity,
+                                milesPerGallonHighway);
 
-                        Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions, journeyManager.getSelectedYear(),
-                                journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
+                        Journey journey = new Journey(userCurrentVehicle,
+                                userCurrentRoute,
+                                CO2Emissions,
+                                journeyManager.getSelectedYear(),
+                                journeyManager.getSelectedMonth(),
+                                journeyManager.getSelectedDay());
                         journeyManager.add(journey);
                     } else {
                         Transportation transportation = transportationManager.getCurrTransportation();
-                        double CO2Emissions = CarbonCalculator.calculate(transportation.getCO2InKGperDistanceInKM(), distanceTravelledCity, distanceTravelledHighway);
+                        double CO2Emissions = CarbonCalculator.calculate(
+                                transportation.getCO2InKGperDistanceInKM(),
+                                distanceTravelledCity,
+                                distanceTravelledHighway);
 
-                        Journey journey = new Journey(transportation, userCurrentRoute, CO2Emissions, journeyManager.getSelectedYear(),
-                                journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
+                        Journey journey = new Journey(transportation,
+                                userCurrentRoute,
+                                CO2Emissions,
+                                journeyManager.getSelectedYear(),
+                                journeyManager.getSelectedMonth(),
+                                journeyManager.getSelectedDay());
                         journeyManager.add(journey);
                     }
 
@@ -108,7 +122,9 @@ public class AddRouteActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(AddRouteActivity.this, R.string.ErrorMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddRouteActivity.this,
+                            R.string.ErrorMessage,
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -127,8 +143,10 @@ public class AddRouteActivity extends AppCompatActivity {
     }
 
     private void editRoute() {
-        int newCityDistance = Integer.parseInt(getEditTextAsString(R.id.cityDistanceEditText));
-        int newHighwayDistance = Integer.parseInt(getEditTextAsString(R.id.highwayDistanceEditText));
+        int newCityDistance = Integer.parseInt(
+                getEditTextAsString(R.id.cityDistanceEditText));
+        int newHighwayDistance = Integer.parseInt(
+                getEditTextAsString(R.id.highwayDistanceEditText));
         routeName = getEditTextAsString(R.id.routeNameEditText);
 
         Route route = new Route(newCityDistance, newHighwayDistance, routeName);

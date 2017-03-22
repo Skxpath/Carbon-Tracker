@@ -12,11 +12,11 @@ public class JourneyManager {
     private List<Journey> journeyList = new ArrayList<>();
     private String currentDate;
 
+    private boolean hasDate;
+
     private int selectedYear;
     private int selectedMonth;
     private int selectedDay;
-
-    private boolean hasDate;
 
     public boolean hasDate() {
         return hasDate;

@@ -15,6 +15,7 @@ import alex.carbon_tracker.R;
 
 public class SelectDateActivity extends AppCompatActivity {
 
+    public static final String DATE_PICKER = "datePicker";
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
 
@@ -56,7 +57,7 @@ public class SelectDateActivity extends AppCompatActivity {
 
     public void displayDateFragment(View v) {
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
+        newFragment.show(getSupportFragmentManager(), DATE_PICKER);
     }
 
     public static Intent makeIntent(Context context) {
