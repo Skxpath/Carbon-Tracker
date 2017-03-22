@@ -23,6 +23,26 @@ public class JourneyManager {
         return totalCarbonEmissionsPublicTransportation() + totalCarbonEmissionsVehicle();
     }
 
+    public int totalVehicleJourneys() {
+        int totalVehicleJourneys = 0;
+        for (Journey journey : journeyList) {
+            if (journey.hasVehicle()) {
+                totalVehicleJourneys++;
+            }
+        }
+        return totalVehicleJourneys;
+    }
+
+    public int totalTransportationJourneys() {
+        int totalTransportationJourneys = 0;
+        for (Journey journey : journeyList) {
+            if (journey.hasVehicle()) {
+                totalTransportationJourneys++;
+            }
+        }
+        return totalTransportationJourneys;
+    }
+
     public double totalCarbonEmissionsVehicle() {
         double carbonEmissionsVehicle_inKG = 0;
         for (Journey journey : journeyList) {

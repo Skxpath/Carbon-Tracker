@@ -7,7 +7,7 @@ package alex.carbon_tracker.Model;
 public class Tip implements TipManagerObserver, Comparable<Tip> {
 
 
-    private final String tip;
+    private String tip;
     private final TipEnum key;
 
     public int getCounter() {
@@ -15,21 +15,29 @@ public class Tip implements TipManagerObserver, Comparable<Tip> {
     }
 
     private int counter = 0;
-    private double emissions = 0;
+    private int emissions = 0;
+
+    private int identifier = 0;
+
+    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
 
     //Do not display tip if displayed within the last COOLDOWN_LENGTH tips.
     private final int COOLDOWN_LENGTH = 7;
 
-    public Tip(String tip, TipEnum key) {
+    public Tip(String tip, TipEnum key, int identifier) {
         this.tip = tip;
         this.key = key;
-        checkEmissions(key);
+        this.identifier = identifier;
     }
+
+public void setTip (String tip) {
+    this.tip = tip;
+}
 
     private void checkEmissions(TipEnum key) {
         switch (key) {
             case VEHICLE_TIPS:
-                setEmissions(100);
+                setEmissions(carbonTrackerModel.getEmissionsManager().getTotalEmissionsVehicle());
                 break;
             case MISC_TIPS:
                 setEmissions(0);
@@ -38,7 +46,8 @@ public class Tip implements TipManagerObserver, Comparable<Tip> {
                 setEmissions(10);
                 break;
             case TRANSPORTATION_TIPS:
-                setEmissions(5);
+                setEmissions(1);
+                //carbonTrackerModel.getEmissionsManager().getTotalEmissionsTransportation()
                 break;
             case ELECTRICITY_TIPS:
                 setEmissions(7);
@@ -46,7 +55,7 @@ public class Tip implements TipManagerObserver, Comparable<Tip> {
         }
     }
 
-    private void setEmissions(double emissions) {
+    private void setEmissions(int emissions) {
         this.emissions = emissions;
     }
 
@@ -83,6 +92,10 @@ public class Tip implements TipManagerObserver, Comparable<Tip> {
 
     public String getTip() {
         return tip;
+    }
+
+    public int getIdentifier() {
+        return identifier;
     }
 
     @Override
