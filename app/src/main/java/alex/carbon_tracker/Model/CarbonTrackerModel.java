@@ -57,6 +57,7 @@ public class CarbonTrackerModel {
         vehicleManager = new VehicleManager();
         userVehicleManager = new UserVehicleManager();
         transportationManager = new TransportationManager();
+
         tipManager = new TipManager();
         transportationManager = new TransportationManager();
 

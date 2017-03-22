@@ -16,6 +16,12 @@ public class UtilityBillManager {
         return bills;
     }
 
+    public void addBill (UtilityBill bill){
+        //need to add a sort function to make bill with oldest end date first index and be sorted chronologically such that bill with newest end date is last index
+        //need to get date working properly first
+        getBills().add(bill);
+    }
+
     public UtilityBill getMostRecentBill() {
         if(getBills().size() > 0) {
             this.mostRecentBill = getBills().get(getBills().size() - 1);

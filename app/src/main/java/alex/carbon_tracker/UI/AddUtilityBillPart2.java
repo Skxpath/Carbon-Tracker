@@ -19,14 +19,22 @@ import alex.carbon_tracker.R;
 
 public class AddUtilityBillPart2 extends AppCompatActivity {
 
+    CarbonTrackerModel model = CarbonTrackerModel.getInstance();
+    UtilityBillManager manager = model.getUtilityBillManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_utility_bill_part2);
+
+        UtilityBill mostRecentBill = manager.getMostRecentBill();
+
         Intent intent = getIntent();
+
         int householdSize = intent.getIntExtra("householdSize", 1);
-        float electricalConsumption = intent.getFloatExtra("electricalConsumption", CarbonTrackerModel.getInstance().getUtilityBillManager().getMostRecentBill().getHouseholdElectricalConsumption());
-        float gasConsumption = intent.getFloatExtra("gasConsumption", CarbonTrackerModel.getInstance().getUtilityBillManager().getMostRecentBill().getHouseholdGasConsumption());
+        float electricalConsumption = intent.getFloatExtra("electricalConsumption", mostRecentBill.getHouseholdElectricalConsumption());
+        float gasConsumption = intent.getFloatExtra("gasConsumption", mostRecentBill.getHouseholdGasConsumption());
+
         setupSubmitBtn(householdSize, electricalConsumption, gasConsumption);
     }
 
@@ -40,11 +48,9 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
                 long startDateVal = getDateFromCalendar(R.id.startDateCalendar);
                 long endDateVal = getDateFromCalendar(R.id.endDateCalendar);
                 if (startDateVal < endDateVal) {
-                    CarbonTrackerModel model = CarbonTrackerModel.getInstance();
-                    UtilityBillManager manager = model.getUtilityBillManager();
                     Date startDate = new Date(startDateVal);
                     Date endDate = new Date(endDateVal);
-                    manager.getBills().add(new UtilityBill(gasConsumption, electricalConsumption, startDate, endDate, householdSize));
+                    manager.addBill(new UtilityBill(gasConsumption, electricalConsumption, startDate, endDate, householdSize));
                     Intent intent = new Intent(AddUtilityBillPart2.this, UtilitylistActivity.class);
                     startActivity(intent);
                     finish();
@@ -58,8 +64,6 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
     private long getDateFromCalendar(int id) {
         CalendarView calendarView = (CalendarView) findViewById(id);
         Date date = new Date(calendarView.getDate());
-
-        Log.d("Date", "" + (date.getTime()/(1000*60*60*24)));
         return calendarView.getDate();
     }
 
