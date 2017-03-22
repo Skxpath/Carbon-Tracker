@@ -1,5 +1,18 @@
 package alex.carbon_tracker.Model;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
+import alex.carbon_tracker.UI.WelcomeScreenActivity;
+
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Carbon Tracker Model class which acts as a facade class for the
  * rest of the project. This class connects together JourneyManager,
@@ -12,16 +25,29 @@ public class CarbonTrackerModel {
     private static RouteManager routeManager;
     private static VehicleManager vehicleManager;
     private static UserVehicleManager userVehicleManager;
-    private static TransportationManager transportationManager;
     private static TipManager tipManager;
 
     private static UtilityBillManager utilityBillManager;
+    private TransportationManager transportationManager;
     public UserVehicleManager getUserVehicleManager() {
         return userVehicleManager;
     }
 
+    public static void getSavedModel(Context context) {
+        if (SaveData.getSharePreference(context) != null) {
+            ourInstance = SaveData.getSharePreference(context);
+        } else {
+            ourInstance = new CarbonTrackerModel();
+        }
+
+    }
+
     public static CarbonTrackerModel getInstance() {
         return ourInstance;
+    }
+
+    public TransportationManager getTransportationManager() {
+        return transportationManager;
     }
 
     private CarbonTrackerModel() {
@@ -30,8 +56,11 @@ public class CarbonTrackerModel {
         routeManager = new RouteManager();
         vehicleManager = new VehicleManager();
         userVehicleManager = new UserVehicleManager();
+        transportationManager = new TransportationManager();
         tipManager = new TipManager();
         transportationManager = new TransportationManager();
+
+        //userVehicleManager.testing();
     }
     public  UtilityBillManager getUtilityBillManager() { return  utilityBillManager; }
 
@@ -51,8 +80,4 @@ public class CarbonTrackerModel {
         return tipManager;
     }
 
-
-    public TransportationManager getTransportationManager() {
-        return transportationManager;
-    }
 }

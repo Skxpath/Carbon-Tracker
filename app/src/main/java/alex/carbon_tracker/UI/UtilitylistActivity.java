@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.SaveData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,5 +76,10 @@ public class UtilitylistActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, UtilitylistActivity.class);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SaveData.storeSharePreference(this);
     }
 }

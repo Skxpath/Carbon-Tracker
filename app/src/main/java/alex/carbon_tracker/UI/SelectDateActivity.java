@@ -7,10 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.R;
 
 public class SelectDateActivity extends AppCompatActivity {
+
+    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+    private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,7 @@ public class SelectDateActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                journeyManager.setHasDate(false);
                 displayDateFragment(v);
             }
         });
@@ -36,18 +43,21 @@ public class SelectDateActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = SelectTransportationModeActivity.makeIntent(SelectDateActivity.this);
-                startActivity(intent);
+                if (journeyManager.hasDate()) {
+                    Intent intent = SelectTransportationModeActivity.makeIntent(SelectDateActivity.this);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(SelectDateActivity.this, R.string.ErrorMessage, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
-
 
     public void displayDateFragment(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
-
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, SelectDateActivity.class);

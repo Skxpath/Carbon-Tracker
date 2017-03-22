@@ -28,7 +28,7 @@
     <string name="DisplayDistance">Distance(km)</string>
     <string name="DisplayVehicle">Vehicle</string>
     <string name="DisplayCO2">CO2 Emission</string>
-    <string name="AddRouteSubmitButtonErrorMsg">Invalid Information Inputted. Please try again!</string>
+    <string name="ErrorMessage">Invalid Information Inputted. Please try again!</string>
     <string name="carSpecifications">Specification</string>
     <string name="title_activity_menu">MenuActivity</string>
 
@@ -52,4 +52,8 @@
     <string name="select_date">Select Date</string>
     <string name="add_selected_date">Add Selected Date</string>
     <string name="no_date_selected_yet">No date selected yet</string>
+    <string name="current_selected_date">Current Selected Date:</string>
+
+
+
 </resources>

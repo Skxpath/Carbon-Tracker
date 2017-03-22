@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +13,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
@@ -24,10 +24,10 @@ import alex.carbon_tracker.R;
 * */
 public class SelectVehicleActivity extends AppCompatActivity {
 
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-    private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
-
-    private int currentVehiclePosition = 0;
+    private CarbonTrackerModel carbonTrackerModel;
+    private UserVehicleManager userVehicleManager;
+/// currentVehicle position to use in delete and edit option
+    private int currentVehiclePosition=0;
 
     public static final String CAR_INDEX = "carIndex";
     private String carMake = "";
@@ -38,16 +38,24 @@ public class SelectVehicleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        carbonTrackerModel = CarbonTrackerModel.getInstance();
+        userVehicleManager = carbonTrackerModel.getUserVehicleManager();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_vehicle);
         setupAddCarButton();
-        carListView();
+        populateCarListView();
         setupOnItemClickListener();
         ListView vehicleList = (ListView) findViewById(R.id.carListView);
         registerForContextMenu(vehicleList);
         setCurrentVehiclePosition();
+   // userVehicleManager.add(new UserVehicle(carMake,carModel,88,));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SaveData.storeSharePreference(this);
+    }
     private void setCurrentVehiclePosition() {
         final ListView listView = (ListView) findViewById(R.id.carListView);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -72,7 +80,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
     }
 
     // shows a list view of all the current cars
-    private void carListView() {
+    private void populateCarListView() {
         String[] carList = CarbonTrackerModel.getInstance().getUserVehicleManager().getUserVehicleDescriptions();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.jouney_list, carList);
         ListView list = (ListView) findViewById(R.id.carListView);
@@ -100,7 +108,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setupAddCarButton();
-        carListView();
+        populateCarListView();
         setupOnItemClickListener();
     }
 
@@ -116,7 +124,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
         if(item.getTitle().equals("Delete")){
             // delete the car
             carbonTrackerModel.getUserVehicleManager().delete(currentVehiclePosition);
-            carListView();
+            populateCarListView();
             return true;
         } else if (item.getTitle().equals("Edit")) {
             setIntent();
@@ -126,7 +134,6 @@ public class SelectVehicleActivity extends AppCompatActivity {
             intent.putExtra("year", carYear);
             intent.putExtra("carNickName", carNickname);
             intent.putExtra("position", currentVehiclePosition);
-            Log.i("intent",carSpec);
             intent.putExtra("carSpec",carSpec);
             startActivity(intent);
             return true;

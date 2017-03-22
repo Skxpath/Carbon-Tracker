@@ -16,7 +16,8 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
-import alex.carbon_tracker.Model.TipManager;
+import alex.carbon_tracker.Model.Transportation;
+import alex.carbon_tracker.Model.TransportationManager;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
@@ -36,7 +37,7 @@ public class AddRouteActivity extends AppCompatActivity {
     private RouteManager routeManager = carbonTrackerModel.getRouteManager();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
     private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
-    private TipManager tipManager = carbonTrackerModel.getTipManager();
+    private TransportationManager transportationManager = carbonTrackerModel.getTransportationManager();
 
     private static int cityDistance = 0;
     private static int highwayDistance = 0;
@@ -44,13 +45,25 @@ public class AddRouteActivity extends AppCompatActivity {
     private static int index = 0;
 
     private static boolean isEditingRoute = false;
+    private static boolean isVehicle = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_route);
 
+        Intent intent = getIntent();
+        getExtrasFromIntent(intent);
+
         setupSubmitBtn();
+    }
+
+    private void getExtrasFromIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        if (intent.hasExtra(SelectRouteActivity.SELECTED_VEHICLE)) {
+            isVehicle = true;
+            Log.d("AddRouteActivity", isVehicle + "");
+        }
     }
 
     private void setupSubmitBtn() {
@@ -66,26 +79,36 @@ public class AddRouteActivity extends AppCompatActivity {
                     } else {
                         addRoute();
                     }
-                    UserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
+
                     Route userCurrentRoute = routeManager.getCurrentRoute();
-                    double gasType = userCurrentVehicle.getFuelTypeNumber();
                     double distanceTravelledCity = userCurrentRoute.getCityDistance();
                     double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
-                    int milesPerGallonCity = userCurrentVehicle.getCityDrive();
-                    int milesPerGallonHighway = userCurrentVehicle.getHighwayDrive();
 
-                    // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
-                    double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
+                    if (isVehicle) {
+                        UserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
+                        double gasType = userCurrentVehicle.getFuelTypeNumber();
+                        int milesPerGallonCity = userCurrentVehicle.getCityDrive();
+                        int milesPerGallonHighway = userCurrentVehicle.getHighwayDrive();
 
-                    Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions, journeyManager.getCurrentDate());
-                    journeyManager.add(journey);
+                        double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
+
+                        Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions, journeyManager.getSelectedYear(),
+                                journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
+                        journeyManager.add(journey);
+                    } else {
+                        Transportation transportation = transportationManager.getCurrTransportation();
+                        double CO2Emissions = CarbonCalculator.calculate(transportation.getCO2InKGperDistanceInKM(), distanceTravelledCity, distanceTravelledHighway);
+
+                        Journey journey = new Journey(transportation, userCurrentRoute, CO2Emissions, journeyManager.getSelectedYear(),
+                                journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
+                        journeyManager.add(journey);
+                    }
+
                     Intent intent = JourneyListActivity.makeIntent(AddRouteActivity.this);
                     startActivity(intent);
-                   // Toast.makeText(AddRouteActivity.this, tipManager.getTip(), Toast.LENGTH_SHORT).show();
-                    Log.d("TiptestAddRouteActivity",tipManager.getTip());
                     finish();
                 } else {
-                    Toast.makeText(AddRouteActivity.this, R.string.AddRouteSubmitButtonErrorMsg, Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddRouteActivity.this, R.string.ErrorMessage, Toast.LENGTH_SHORT).show();
                 }
             }
         });
