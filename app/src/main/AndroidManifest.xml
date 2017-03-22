@@ -61,7 +61,7 @@
         <activity android:name=".UI.MenuActivity" />
         <activity android:name=".UI.UtilitylistActivity" />
         <activity android:name=".UI.DateListActivity" />
-        <activity android:name=".UI.BarGraphActivity"></activity>
+        <activity android:name=".UI.LineGraphActivity"></activity>
     </application>
 
 </manifest>

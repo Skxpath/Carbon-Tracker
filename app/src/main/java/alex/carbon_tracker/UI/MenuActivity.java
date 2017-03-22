@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
 
@@ -37,7 +36,7 @@ public class MenuActivity extends AppCompatActivity {
                     Intent intent = DateListActivity.makeIntent(MenuActivity.this);
                     startActivity(intent);
                 } else if (buttonID == findViewById(R.id.utilityListButton).getId()) {
-                    Intent intent = BarGraphActivity.makeIntent(MenuActivity.this);
+                    Intent intent = LineGraphActivity.makeIntent(MenuActivity.this);
                     startActivity(intent);
                 }
             }

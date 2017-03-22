@@ -6,19 +6,13 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,41 +22,18 @@ import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
-import java.util.ArrayList;
-import static android.R.attr.data;
-import static android.R.attr.entries;
-import static android.R.attr.x;
-
-public class BarGraphActivity extends AppCompatActivity {
+public class LineGraphActivity extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
 
-    private List<Double> journeyNumbers = new ArrayList<>();
-    private List<Double> journeyCO2Emissions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bar_graph);
-        setJourneyData();
+        setContentView(R.layout.activity_line_graph);
         setupBarChart();
     }
     @Override
@@ -74,7 +45,7 @@ public class BarGraphActivity extends AppCompatActivity {
 
     private void setupBarChart() {
 
-        LineChart lineChart = (LineChart) findViewById(R.id.chart);
+        final LineChart lineChart = (LineChart) findViewById(R.id.chart);
         ArrayList<Entry> entries = new ArrayList<>();
         entries.add(new Entry( 0,5.6f));
         entries.add(new Entry(1,8.4f));
@@ -87,12 +58,15 @@ public class BarGraphActivity extends AppCompatActivity {
 
         List<ILineDataSet>sets = new ArrayList<>();
         sets.add(dataset);
-        dataset.setCircleColorHole(Color.BLUE);
+        dataset.setDrawCircleHole(true);
 
+        dataset.setValueTextSize(12f);
+        dataset.setCircleColorHole(Color.BLACK);
         LineData data = new LineData(sets);
-        lineChart.setBackgroundColor(Color.CYAN);
-        dataset.setColors(Color.BLACK); //
+        lineChart.setBackgroundColor(Color.DKGRAY);
+        dataset.setColors(Color.BLUE); //
         lineChart.setData(data);
+        lineChart.getAxisRight().setEnabled(false);
         lineChart.animateY(1000);
         lineChart.invalidate();
 
@@ -100,6 +74,7 @@ public class BarGraphActivity extends AppCompatActivity {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
                 setupInfo(e);
+                lineChart.setHighlightPerTapEnabled(true);
             }
 
             @Override
@@ -110,8 +85,7 @@ public class BarGraphActivity extends AppCompatActivity {
     }
 
     public void setupInfo(Entry entry){
-        CardView cardView = (CardView)findViewById(R.id.graphInfoCard);
-        TextView text = (TextView)findViewById(R.id.emissionValueText);
+        TextView text = (TextView)findViewById(R.id.emissionValueText1);
 
         text.setText(entry.getY()+" g");
     }
@@ -120,21 +94,7 @@ public class BarGraphActivity extends AppCompatActivity {
 
 
     public static Intent makeIntent(Context context) {
-        return new Intent(context, BarGraphActivity.class);
+        return new Intent(context, LineGraphActivity.class);
     }
 
-    public void setJourneyData() {
-        for(int i =0; i<5;i++){
-            journeyNumbers.add(i,.1);
-            journeyCO2Emissions.add(i,.1);
-        }
-
-        /*
-        for (int i = 0; i < journeyManager.getJourneyList().size(); i++) {
-            Journey journey = journeyManager.getJourney(i);
-            journeyNumbers.add((double) i);
-            journeyCO2Emissions.add(journey.getCarbonEmitted());
-        }
-        */
-    }
 }
