@@ -24,9 +24,9 @@ public class TipManager {
 
     private int totalJourneys = 0;
 
-   private int totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
+    private int totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
     private int totalEmissionsNaturalgas = 0;
-   private int totalEmissionsElectricity = 0;
+    private int totalEmissionsElectricity = 0;
 
     private int totalEmissionsOverall = 0;
 
@@ -63,6 +63,7 @@ public class TipManager {
             }
         }
 
+        Collections.sort(Tips);
     }
 
     public String getTip() {
@@ -82,13 +83,13 @@ public class TipManager {
     private boolean checkKey(TipEnum key) {
         switch (key) {
             case VEHICLE_TIPS:
-             if (totalEmissionsVehicle == 0) {
-                 return false;
-             } else {
-                 return true;
-             }
+                if (totalEmissionsVehicle == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
             case MISC_TIPS:
-               return true;
+                return true;
             case NATURALGAS_TIPS:
                 if (totalEmissionsNaturalgas == 0) {
                     return false;
@@ -129,7 +130,10 @@ public class TipManager {
         makeElectricityTip(updatedTipString(8));
         makeMiscTip(updatedTipString(9));
         makeElectricityTip(updatedTipString(10));
-
+        makeNaturalGasTip(updatedTipString(11));
+        makeElectricityTip(updatedTipString(12));
+        makeNaturalGasTip(updatedTipString(13));
+        makeMiscTip(updatedTipString(14));
     }
 
     private String updatedTipString(int identifier) {
@@ -143,7 +147,7 @@ public class TipManager {
                         " Consider combining trips to reduce your emissions!";
 
             case 2:
-                return "You have generated " + totalEmissionsVehicle + " kg of CO2 from vehicle trips and " + totalEmissionsTransportation +
+                return "You have generated " + totalEmissionsVehicle + " kg of CO2 from vehicle trips but only " + totalEmissionsTransportation +
                         " kg of CO2 from public transportation. By taking the bus or Skytrain more frequently " +
                         "you can reduce your vehicle emissions a lot!";
 
@@ -154,43 +158,46 @@ public class TipManager {
             case 4:
                 return "You have taken " + totalTransportationJourneys +
                         " trips using public transportation recently, generating a total of " + totalEmissionsTransportation
-                        + " Kg of CO2. Consider walking to closer destinations!";
+                        + " kg of CO2. Consider walking to closer destinations!";
 
             case 5:
                 return "You have generated a total of " + totalEmissionsTransportation
-                        + " Kg of CO2 recently from public transportation. If it is possible to reroute " +
+                        + " kg of CO2 recently from public transportation. If it is possible to reroute " +
                         "your public transportation path to using the Skytrain more, it can help reduce your emissions!";
 
             case 6:
-                return "You have generated a total of " + totalEmissionsNaturalgas + " Kg of CO2 recently. Consider reducing heating usage to save natural gas!";
+                return "You have generated a total of " + totalEmissionsNaturalgas + " kg of CO2 recently. Consider reducing heating usage to save natural gas!";
 
             case 7:
-                return "Out of a total of " + totalEmissionsOverall + " Kg of CO2 generated. You have generated a total of "+ "totalCO2GeneratedElectricity" + " recently." +
+                return "Out of a total of " + totalEmissionsOverall + " kg of CO2 generated. You have generated a total of " + "totalCO2GeneratedElectricity" + " recently." +
                         " Consider reducing your electricity usage to improve your carbon footprint!";
 
             case 8:
                 return "You should consider warming your clothing outside in the summer to save electricity on your dryer, as " +
-                        "you have generated " + totalEmissionsElectricity + " Kg of CO2 from electricity recently!";
+                        "you have generated " + totalEmissionsElectricity + " kg of CO2 from electricity recently!";
 
             case 9:
-                return "You have made " + totalJourneys + " recently. You should consider walking instead of taking a form of transportation when possible!";
+                return "You have made " + totalJourneys + " journeys by vehicle or transportation recently. " +
+                        "You should consider walking instead of taking a form of transportation when possible to reduce emissions!";
 
             case 10:
                 return "Out of a total of " + totalEmissionsOverall + " Kg of CO2 generated, " + totalEmissionsNaturalgasAndElectricity +
                         " were from utility usage. Consider reducing your natural gas and electricity usage to improve your carbon footprint!";
 
             case 11:
-                return "case 11";
+                return "You have generated " + totalEmissionsNaturalgasAndElectricity + " kg of CO2 in utilities and " + totalEmissionsNaturalgas + " are from natural gas." +
+                        "Perhaps upgrading high natural gas usage appliances such as the stove, the fireplace, or heating to electrical can reduce emissions!";
 
             case 12:
-                return "case 12";
-
+                return "You have generated " + totalEmissionsNaturalgasAndElectricity + " kg of CO2 in utilities and" + totalEmissionsElectricity + " are from electricity. " +
+                        "In winter time, you can consider reducing the heating and using more blankets to reduce emissions!";
             case 13:
-                return "case 13";
+                return "You have generated " + totalEmissionsNaturalgasAndElectricity + " kg of CO2 in utilities. " +
+                        "Remember to turn off the lights and heating when you leave the house to save electricity and natural gas!";
 
             case 14:
-                return "case 14";
-
+                return "You have generated " + totalEmissionsNaturalgasAndElectricity + " kg of CO2 in utilities. " +
+                        "By spending less time at home, you can reduce the emissions you create by using house utilities!";
             default:
                 return "This tip was overwritten because no case for it was given! Tip #: " + identifier;
         }
