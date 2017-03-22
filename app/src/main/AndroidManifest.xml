@@ -73,7 +73,9 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".UI.LineGraphActivity"
-            android:screenOrientation="portrait"</activity>
+            android:screenOrientation="portrait"
+            <activity android:name=".UI.AddUtilityBillActivity"
+            <activity android:name=".UI.AddUtilityBillPart2"/>
     </application>
 
 </manifest>

@@ -21,12 +21,16 @@ import static android.content.Context.MODE_PRIVATE;
 public class CarbonTrackerModel {
     private static CarbonTrackerModel ourInstance = new CarbonTrackerModel();
 
-    private static JourneyManager journeyManager;
-    private static RouteManager routeManager;
+    private  JourneyManager journeyManager;
+    private  RouteManager routeManager;
     private static VehicleManager vehicleManager;
-    private static UserVehicleManager userVehicleManager;
+    private  UserVehicleManager userVehicleManager;
     private static TipManager tipManager;
+
+    private  UtilityBillManager utilityBillManager;
     private TransportationManager transportationManager;
+
+
     public UserVehicleManager getUserVehicleManager() {
         return userVehicleManager;
     }
@@ -49,15 +53,19 @@ public class CarbonTrackerModel {
     }
 
     private CarbonTrackerModel() {
+        utilityBillManager = new UtilityBillManager();
         journeyManager = new JourneyManager();
         routeManager = new RouteManager();
         vehicleManager = new VehicleManager();
         userVehicleManager = new UserVehicleManager();
+        transportationManager = new TransportationManager();
+
         tipManager = new TipManager();
         transportationManager = new TransportationManager();
 
         //userVehicleManager.testing();
     }
+    public  UtilityBillManager getUtilityBillManager() { return  utilityBillManager; }
 
     public JourneyManager getJourneyManager() {
         return journeyManager;
