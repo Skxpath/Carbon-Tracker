@@ -39,6 +39,10 @@ public class Journey {
         return (vehicle != null);
     }
 
+    public boolean hasTransportation() {
+        return (transportation != null);
+    }
+
     public void setCarbonEmitted(double carbonEmitted) {
         this.carbonEmitted = carbonEmitted;
     }

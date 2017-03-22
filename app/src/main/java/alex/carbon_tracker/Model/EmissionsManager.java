@@ -14,6 +14,14 @@ public class EmissionsManager implements TipManagerObserver {
     private int totalVehicleJourneys = 0;
     private int totalEmissionsVehicleAndTransportation = 0;
 
+    private int totalJourneys = 0;
+
+    private int totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
+    private int totalEmissionsNaturalgas = 0;
+    private int totalEmissionsElectricity = 0;
+
+    private int totalEmissionsOverall = 0;
+
     public int getTotalEmissionsVehicle() {
         return totalEmissionsVehicle;
     }
@@ -34,6 +42,26 @@ public class EmissionsManager implements TipManagerObserver {
         return totalVehicleJourneys;
     }
 
+    public int getTotalEmissionsNaturalgas() {
+        return totalEmissionsNaturalgas;
+    }
+
+    public int getTotalEmissionsElectricity() {
+        return totalEmissionsElectricity;
+    }
+
+    public int getTotalEmissionsOverall() {
+        return totalEmissionsOverall;
+    }
+
+    public int getTotalEmissionsNaturalgasAndElectricity() {
+        return totalEmissionsNaturalgasAndElectricity;
+    }
+
+    public int getTotalJourneys() {
+        return totalJourneys;
+    }
+
     @Override
     public void update() {
         totalEmissionsTransportation = (int) carbonTrackerModel.getJourneyManager().totalCarbonEmissionsPublicTransportation();
@@ -41,5 +69,13 @@ public class EmissionsManager implements TipManagerObserver {
         totalTransportationJourneys = carbonTrackerModel.getJourneyManager().totalTransportationJourneys();
         totalVehicleJourneys = carbonTrackerModel.getJourneyManager().totalVehicleJourneys();
         totalEmissionsVehicleAndTransportation = (int) carbonTrackerModel.getJourneyManager().totalCarbonEmissionsJourneys();
+
+        totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
+        totalEmissionsNaturalgas = 0;
+        totalEmissionsElectricity = 0;
+
+        totalJourneys = carbonTrackerModel.getJourneyManager().totalJourneys();
+
+        totalEmissionsOverall = totalEmissionsVehicleAndTransportation+totalEmissionsNaturalgasAndElectricity;
     }
 }

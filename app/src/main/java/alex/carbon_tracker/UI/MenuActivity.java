@@ -14,8 +14,6 @@ import alex.carbon_tracker.R;
 
 public class MenuActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +26,8 @@ public class MenuActivity extends AppCompatActivity {
         setupButton(utilityButtonID);
         setupButton(graphListID);
         setupButton(newTipID);
+
+        updateTipTextview();
 
     }
 
@@ -46,14 +46,22 @@ public class MenuActivity extends AppCompatActivity {
                     Intent intent = UtilitylistActivity.makeIntent(MenuActivity.this);
                     startActivity(intent);
                 } else if (buttonID == findViewById(R.id.tipsButton).getId()) {
-                    CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-                    TextView tips =(TextView)(findViewById(R.id.textView19));
-          tips.setText(carbonTrackerModel.getTipManager().getTip());
+                    updateTipTextview();
                     Log.i("test", "tipsbutton clicked");
                 }
             }
 
         });
+    }
+
+    private void updateTipTextview() {
+        CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+        TextView tips =(TextView)(findViewById(R.id.textView19));
+        if (carbonTrackerModel.getJourneyManager().totalJourneys() > 0) {
+            tips.setText(carbonTrackerModel.getTipManager().getTip());
+        } else {
+            tips.setText("Add a new Journey before we can display to you a useful tip!");
+        }
     }
 
     @Override

@@ -43,14 +43,13 @@ public void setTip (String tip) {
                 setEmissions(0);
                 break;
             case NATURALGAS_TIPS:
-                setEmissions(10);
+                setEmissions(carbonTrackerModel.getEmissionsManager().getTotalEmissionsNaturalgas());
                 break;
             case TRANSPORTATION_TIPS:
-                setEmissions(1);
-                //carbonTrackerModel.getEmissionsManager().getTotalEmissionsTransportation()
+                setEmissions(carbonTrackerModel.getEmissionsManager().getTotalEmissionsTransportation());
                 break;
             case ELECTRICITY_TIPS:
-                setEmissions(7);
+                setEmissions(carbonTrackerModel.getEmissionsManager().getTotalEmissionsElectricity());
                 break;
         }
     }

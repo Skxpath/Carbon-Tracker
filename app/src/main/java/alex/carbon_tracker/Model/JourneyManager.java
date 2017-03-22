@@ -23,6 +23,10 @@ public class JourneyManager {
         return totalCarbonEmissionsPublicTransportation() + totalCarbonEmissionsVehicle();
     }
 
+    public int totalJourneys() {
+        return totalVehicleJourneys()+totalTransportationJourneys();
+    }
+
     public int totalVehicleJourneys() {
         int totalVehicleJourneys = 0;
         for (Journey journey : journeyList) {
@@ -36,7 +40,7 @@ public class JourneyManager {
     public int totalTransportationJourneys() {
         int totalTransportationJourneys = 0;
         for (Journey journey : journeyList) {
-            if (journey.hasVehicle()) {
+            if (journey.hasTransportation()) {
                 totalTransportationJourneys++;
             }
         }
@@ -58,7 +62,7 @@ public class JourneyManager {
     public double totalCarbonEmissionsPublicTransportation() {
         double carbonEmissionsPublicTranportation_inKG = 0;
         for (Journey journey : journeyList) {
-            if (!journey.hasVehicle()) {
+            if (journey.hasTransportation()) {
                 double carbonEmission_InKg = journey.getCarbonEmitted();
                 carbonEmissionsPublicTranportation_inKG += carbonEmission_InKg;
             }
