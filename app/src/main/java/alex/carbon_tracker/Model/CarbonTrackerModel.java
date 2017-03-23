@@ -23,7 +23,7 @@ public class CarbonTrackerModel {
     }
 
     public static void getSavedModel(Context context) {
-        if (SaveData.getSharePreference(context) != null) {
+       if (SaveData.getSharePreference(context) != null) {
             ourInstance = SaveData.getSharePreference(context);
         } else {
             ourInstance = new CarbonTrackerModel();
