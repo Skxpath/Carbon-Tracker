@@ -44,6 +44,7 @@
     <string name="ViewJourneys">View Journey</string>
     <string name="viewUtility">View Utilities</string>
     <string name="ViewGraph">View Graphs</string>
+    <string name="add_a_utility_bill">Add a Utility Bill:</string>
     <string name="bus">Bus</string>
     <string name="skytrain">Skytrain</string>
     <string name="car">Car</string>

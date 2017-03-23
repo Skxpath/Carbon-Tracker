@@ -14,6 +14,8 @@ public class UtilityBill {
     private int householdSize;
     private float personalElectricalConsumption;
     private float personalGasConsumption;
+    private double emissionsForElectricity;
+    private double emissionsForGas;
     public UtilityBill(float gasConsumption, float electricalConsumption, Date startDate, Date endDate, int householdSize) {
         this.householdGasConsumption = gasConsumption;
         this.householdElectricalConsumption = electricalConsumption;
@@ -22,6 +24,8 @@ public class UtilityBill {
         this.householdSize = householdSize;
         this.personalElectricalConsumption = calculatePersonalConsumption(getHouseholdElectricalConsumption());
         this.personalGasConsumption = calculatePersonalConsumption(getHouseholdGasConsumption());
+        setEmissionsForElectricity();
+        setEmissionsForGas();
     }
 
     public float getHouseholdGasConsumption() {
@@ -58,11 +62,34 @@ public class UtilityBill {
         return personalGasConsumption;
     }
 
+    public double getEmissionsForElectricity() {
+        return emissionsForElectricity;
+    }
+
+    public double getEmissionsForGas() {
+        return emissionsForGas;
+    }
+
+    public void setEmissionsForElectricity() {
+        //Electricity: Assume 9000Kg CO2 per GWh
+        //1,000,000 kilowatts per gigawatt
+        int KILOWATTS_TO_GIGAWATTS = 1000000;
+        int KILOGRAMS_OF_CO2_PER_GIGAWATT = 9000;
+        float gigaWatts = this.getHouseholdElectricalConsumption()/KILOWATTS_TO_GIGAWATTS;
+        this.emissionsForElectricity = gigaWatts * KILOGRAMS_OF_CO2_PER_GIGAWATT;
+    }
+
+    public void setEmissionsForGas() {
+        //Natural Gas: Assume 56.1 kg CO2 / GJ
+        double KILOGRAMS_OF_CO2_PER_GJ = 56.1;
+        this.emissionsForGas = KILOGRAMS_OF_CO2_PER_GJ * getHouseholdGasConsumption();
+    }
+
     float getDailyConsumption (float totalConsumption){
         int elapsedDays;
         //not sure if my math here is correct. got it online
-        elapsedDays = (int)(((getEndDate().getTime() - getStartDate().getTime())/ (1000*60*60*24)) % 7);
-        float dailyConsumption = totalConsumption/elapsedDays;
+        elapsedDays = (int)(((getEndDate().getTime() - getStartDate().getTime())/ (1000*60*60*24)));
+        float dailyConsumption = totalConsumption/(float)elapsedDays;
         return  dailyConsumption;
     }
 }

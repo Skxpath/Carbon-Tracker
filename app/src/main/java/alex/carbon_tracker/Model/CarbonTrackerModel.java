@@ -1,6 +1,17 @@
 package alex.carbon_tracker.Model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
+import alex.carbon_tracker.UI.WelcomeScreenActivity;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Carbon Tracker Model class which acts as a facade class for the
@@ -16,7 +27,8 @@ public class CarbonTrackerModel {
     private static VehicleManager vehicleManager;
     private UserVehicleManager userVehicleManager;
     private static TipManager tipManager;
-    private  TransportationManager transportationManager;
+    private UtilityBillManager utilityBillManager;
+    private TransportationManager transportationManager;
 
 
     public UserVehicleManager getUserVehicleManager() {
@@ -42,15 +54,18 @@ public class CarbonTrackerModel {
     private CarbonTrackerModel() {
         //emissionsManager must be instantiated before tipManager.
         emissionsManager = new EmissionsManager();
+        utilityBillManager = new UtilityBillManager();
         journeyManager = new JourneyManager();
         routeManager = new RouteManager();
         vehicleManager = new VehicleManager();
         userVehicleManager = new UserVehicleManager();
+        transportationManager = new TransportationManager();
         tipManager = new TipManager();
         transportationManager = new TransportationManager();
 tipManager.addObserver(emissionsManager);
         //userVehicleManager.testing();
     }
+    public  UtilityBillManager getUtilityBillManager() { return  utilityBillManager; }
 
     public EmissionsManager getEmissionsManager() {
         return emissionsManager;

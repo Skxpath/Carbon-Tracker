@@ -10,7 +10,6 @@ public class Journey {
     private Transportation transportation;
     private UserVehicle vehicle;
     private Route route;
-    private String date;
     private double carbonEmitted = 0;
 
     private int year;
@@ -95,16 +94,8 @@ public class Journey {
         return vehicle;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     public double getCarbonEmitted() {
         return carbonEmitted;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public void setCarbonEmitted(float carbonEmitted) {

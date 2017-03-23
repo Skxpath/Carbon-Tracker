@@ -58,10 +58,6 @@ public class JourneyListActivity extends AppCompatActivity {
     }
 
     private void setupAddJourneyButton() {
-
-        final DateFormat dateFormat = new SimpleDateFormat(getString(R.string.DateFormat));
-        final Date date = new Date();
-
         Button btn = (Button) findViewById(R.id.AddJourneyButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
