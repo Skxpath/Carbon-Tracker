@@ -76,8 +76,6 @@ public class UtilityBill implements Comparable<UtilityBill>{
     }
 
     public void setEmissionsForElectricity() {
-        //Electricity: Assume 9000Kg CO2 per GWh
-        //1,000,000 kilowatts per gigawatt
         int KILOWATTS_TO_GIGAWATTS = 1000000;
         int KILOGRAMS_OF_CO2_PER_GIGAWATT = 9000;
         float gigaWatts = this.getHouseholdElectricalConsumption() / KILOWATTS_TO_GIGAWATTS;
