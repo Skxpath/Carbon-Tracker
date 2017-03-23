@@ -1,5 +1,7 @@
 package alex.carbon_tracker.Model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,11 +64,14 @@ public class JourneyManager {
     public double totalCarbonEmissionsPublicTransportation() {
         double carbonEmissionsPublicTranportation_inKG = 0;
         for (Journey journey : journeyList) {
-            if (journey.hasTransportation()) {
+            Log.d("JMAct", "Test1");
+            if (!journey.hasVehicle()) {
+                Log.d("JMAct", "Test2");
                 double carbonEmission_InKg = journey.getCarbonEmitted();
                 carbonEmissionsPublicTranportation_inKG += carbonEmission_InKg;
             }
         }
+        Log.d("JourneyManager", "Total emi for trans = " +carbonEmissionsPublicTranportation_inKG);
 
         return carbonEmissionsPublicTranportation_inKG;
     }

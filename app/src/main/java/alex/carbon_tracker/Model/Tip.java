@@ -15,7 +15,7 @@ public class Tip implements TipManagerObserver, Comparable<Tip> {
     }
 
     private int counter = 0;
-    private int emissions = 0;
+    private double emissions = 0;
 
     private int identifier = 0;
 
@@ -54,7 +54,8 @@ public void setTip (String tip) {
         }
     }
 
-    private void setEmissions(int emissions) {
+    private void setEmissions(double emissions) {
+
         this.emissions = emissions;
     }
 

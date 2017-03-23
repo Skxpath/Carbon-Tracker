@@ -38,17 +38,19 @@ public class JourneyListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-         carbonTrackerModel = CarbonTrackerModel.getInstance();
-         journeyManager = carbonTrackerModel.getJourneyManager();
+        carbonTrackerModel = CarbonTrackerModel.getInstance();
+        journeyManager = carbonTrackerModel.getJourneyManager();
+        Log.d("JLAct", journeyManager.totalCarbonEmissionsPublicTransportation() + "");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_list);
 
         setCurrentJourneyPosition();
-        ListView journeyList = (ListView)findViewById(R.id.journeyListView);
+        ListView journeyList = (ListView) findViewById(R.id.journeyListView);
         registerForContextMenu(journeyList);
         journeyListView();
         setupAddJourneyButton();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -98,6 +100,7 @@ public class JourneyListActivity extends AppCompatActivity {
         }
 
     }
+
     private void setCurrentJourneyPosition() {
         final ListView listView = (ListView) findViewById(R.id.journeyListView);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

@@ -1,14 +1,16 @@
 package alex.carbon_tracker.Model;
 
+import android.util.Log;
+
 /**
  * Created by Aria on 3/21/2017.
  */
 
 public class EmissionsManager implements TipManagerObserver {
 
-    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+private CarbonTrackerModel carbonTrackerModel;
 
-    private int totalEmissionsTransportation = 0;
+    private double totalEmissionsTransportation = 0;
     private int totalEmissionsVehicle = 0;
     private int totalTransportationJourneys = 0;
     private int totalVehicleJourneys = 0;
@@ -26,7 +28,7 @@ public class EmissionsManager implements TipManagerObserver {
         return totalEmissionsVehicle;
     }
 
-    public int getTotalEmissionsTransportation() {
+    public double getTotalEmissionsTransportation() {
         return totalEmissionsTransportation;
     }
 
@@ -64,11 +66,13 @@ public class EmissionsManager implements TipManagerObserver {
 
     @Override
     public void update() {
-        totalEmissionsTransportation = (int) carbonTrackerModel.getJourneyManager().totalCarbonEmissionsPublicTransportation();
+        carbonTrackerModel = CarbonTrackerModel.getInstance();
+        totalEmissionsTransportation =  carbonTrackerModel.getJourneyManager().totalCarbonEmissionsPublicTransportation();
+        Log.d("EmissionsManager", "Total emi for trans = " + totalEmissionsTransportation);
         totalEmissionsVehicle = (int) carbonTrackerModel.getJourneyManager().totalCarbonEmissionsVehicle();
         totalTransportationJourneys = carbonTrackerModel.getJourneyManager().totalTransportationJourneys();
         totalVehicleJourneys = carbonTrackerModel.getJourneyManager().totalVehicleJourneys();
-        totalEmissionsVehicleAndTransportation = (int) carbonTrackerModel.getJourneyManager().totalCarbonEmissionsJourneys();
+        totalEmissionsVehicleAndTransportation = (int)carbonTrackerModel.getJourneyManager().totalCarbonEmissionsJourneys();
 
         totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
         totalEmissionsNaturalgas = 0;

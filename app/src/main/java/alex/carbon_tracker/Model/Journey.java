@@ -40,7 +40,7 @@ public class Journey {
     }
 
     public boolean hasTransportation() {
-        return (transportation != null);
+        return (vehicle == null);
     }
 
     public void setCarbonEmitted(double carbonEmitted) {

@@ -17,7 +17,7 @@ public class TipManager {
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
 
     private int totalTransportationJourneys = 0;
-    private int totalEmissionsTransportation = 0;
+    private double totalEmissionsTransportation = 0;
     private int totalVehicleJourneys = 0;
     private int totalEmissionsVehicle = 0;
     private int totalEmissionsVehicleAndTransportation = 0;
@@ -69,7 +69,7 @@ public class TipManager {
     public String getTip() {
 
         updateTipValues();
-
+//
         for (Tip tip : Tips) {
             if (tip.checkCooldowns() && checkKey(tip.getKey())) {
                 notifyAllObservers();
@@ -128,12 +128,12 @@ public class TipManager {
         makeNaturalGasTip(updatedTipString(6));
         makeElectricityTip(updatedTipString(7));
         makeElectricityTip(updatedTipString(8));
-        makeMiscTip(updatedTipString(9));
+        makeVehicleTip(updatedTipString(9));
         makeElectricityTip(updatedTipString(10));
         makeNaturalGasTip(updatedTipString(11));
         makeElectricityTip(updatedTipString(12));
         makeNaturalGasTip(updatedTipString(13));
-        makeMiscTip(updatedTipString(14));
+        makeElectricityTip(updatedTipString(14));
     }
 
     private String updatedTipString(int identifier) {
@@ -166,7 +166,7 @@ public class TipManager {
                         "your public transportation path to using the Skytrain more, it can help reduce your emissions!";
 
             case 6:
-                return "You have generated a total of " + totalEmissionsNaturalgas + " kg of CO2 recently. Consider reducing heating usage to save natural gas!";
+                return "You have generated a total of " + totalEmissionsNaturalgas + " kg of CO2 from natural gas recently. Consider reducing heating usage to save natural gas!";
 
             case 7:
                 return "Out of a total of " + totalEmissionsOverall + " kg of CO2 generated. You have generated a total of " + "totalCO2GeneratedElectricity" + " recently." +
