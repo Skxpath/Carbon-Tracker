@@ -51,10 +51,10 @@
         android:ems="10"
         android:layout_marginTop="18dp"
         android:id="@+id/electricalConsumptionEditText"
-        android:text="1"
         android:layout_below="@+id/gasConsumptionEditText"
         android:layout_toEndOf="@+id/textView19"
-        android:layout_marginStart="24dp" />
+        android:layout_marginStart="24dp"
+        android:hint="kWh" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -62,9 +62,9 @@
         android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/gasConsumptionEditText"
-        android:text="1"
         android:layout_below="@+id/textView4"
-        android:layout_alignStart="@+id/electricalConsumptionEditText" />
+        android:layout_alignStart="@+id/electricalConsumptionEditText"
+        android:hint="GJ" />
 
     <TextView
         android:text="Household Size:"

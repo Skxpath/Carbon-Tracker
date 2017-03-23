@@ -54,6 +54,12 @@
     <string name="no_date_selected_yet">No date selected yet</string>
     <string name="current_selected_date">Current Selected Date:</string>
     <string name="tipsButton">New Tip</string>
+    <string name="natGas">Nat Gas</string>
+    <string name="elecHeader">Elec</string>
+    <string name="CO2EmissionsinKG">CO2 Emissions in kilograms</string>
+    <string name="NaturalGasString">Natural Gas</string>
+    <string name="ElecUsage">Electricity Usage</string>
+    <string name="UtilBillStrintg">Utility Bill</string>
 
 
 </resources>

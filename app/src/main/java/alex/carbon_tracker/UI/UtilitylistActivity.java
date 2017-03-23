@@ -13,7 +13,9 @@ import android.widget.ListView;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
@@ -52,13 +54,22 @@ public class UtilitylistActivity extends AppCompatActivity {
     private List<String> convertUtilitiesToStrings(List<UtilityBill> utilityList) {
         List<String> utilityDescriptionsList = new ArrayList<>();
         for (UtilityBill bill : utilityList) {
+            Date startDate = bill.getStartDate();
+            Date endDate = bill.getEndDate();
+            SimpleDateFormat st = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat end = new SimpleDateFormat("yyyy-MM-dd");
             int i = utilityDescriptionsList.size() + 1;
-            String description = String.format("Utility Bill No. %d\n" +
-                            "Gas Consumption: %f\n" +
-                            "Electricity Consumption: %f",
+            String description = String.format(String.format("Utility Bill No. %d\n" +
+                            "Gas Per Person: %.02f\n" +
+                            "Electricity Per Person: %.02f\n" +
+                            "Date: %s to %s\n" +
+                            "HouseHold Size: %d",
                     i,
                     bill.getHouseholdGasConsumption(),
-                    bill.getHouseholdElectricalConsumption()
+                    bill.getHouseholdElectricalConsumption(),
+                    st.format(startDate),
+                    end.format(endDate),
+                    bill.getHouseholdSize())
             );
             utilityDescriptionsList.add(description);
         }

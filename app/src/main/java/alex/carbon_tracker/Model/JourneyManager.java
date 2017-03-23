@@ -1,5 +1,6 @@
 package alex.carbon_tracker.Model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -108,18 +109,24 @@ public class JourneyManager {
         for (int i = 0; i < journeyList.size(); i++) {
             Journey journey = getJourney(i);
             if (journey.hasVehicle()) {
+                Date date = journey.getDate();
+                SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+                f.format(date);
                 descriptions[i] = String.format("Journey No.%d\nRoute Nickname: %s\nTransportation: %s\n",
                         i + 1,
                         journey.getRoute().getNickname(),
                         journey.getUserVehicle().getNickname())
-                        + "Date: " + journey.getDate();
+                        + "Date: " + f.format(date);
 
             } else {
+                Date date = journey.getDate();
+                SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+                f.format(date);
                 descriptions[i] = String.format("Journey No.%d\nRoute Nickname: %s\nTransportation: %s\n",
                         i + 1,
                         journey.getRoute().getNickname(),
                         journey.getTransportation().getType())
-                        + "Date: " + journey.getDate();
+                        + "Date: " + f.format(date);
 
             }
         }
