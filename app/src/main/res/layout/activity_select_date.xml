@@ -29,13 +29,13 @@
 
     <TextView
         android:text="@string/no_date_selected_yet"
-        android:layout_height="20dp"
         android:id="@+id/textViewDate"
         android:gravity="center_horizontal"
         android:textSize="14sp"
         android:layout_above="@+id/buttonSelectDate"
         android:layout_alignParentEnd="true"
-        android:layout_width="210dp" />
+        android:layout_width="1dp"
+        android:layout_height="1dp" />
 
     <TextView
         android:text="@string/current_selected_date"
@@ -49,13 +49,13 @@
         android:layout_width="140dp" />
 
     <Button
-        android:layout_height="48dp"
         android:id="@+id/buttonSelectDate"
         android:text="@string/select_date"
-        android:layout_width="170dp"
         android:layout_alignBottom="@+id/textViewSelectADate"
         android:layout_alignStart="@+id/buttonAddSelectedDate"
-        android:layout_marginBottom="13dp" />
+        android:layout_marginBottom="13dp"
+        android:layout_width="1dp"
+        android:layout_height="1dp" />
 
     <CalendarView
         android:layout_width="wrap_content"

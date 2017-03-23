@@ -88,5 +88,4 @@ public class Journey {
         return new SimpleDateFormat(filter);
     }
 
-
 }
