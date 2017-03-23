@@ -31,7 +31,7 @@
 
     <Button
         android:text="@string/ViewJourneys"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:id="@+id/journeyListButton"
         android:layout_alignBaseline="@+id/utilityListButton"
@@ -40,31 +40,13 @@
         android:layout_marginEnd="30dp" />
 
     <Button
-        android:text="@string/ViewGraph"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/graphListButton"
-        android:layout_marginBottom="102dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
         android:text="@string/viewUtility"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:id="@+id/utilityListButton"
         android:layout_marginBottom="69dp"
         android:layout_above="@+id/graphListButton"
         android:layout_toStartOf="@+id/textView14" />
-
-    <Button
-        android:text="@string/tipsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tipsButton"
-        android:layout_alignBaseline="@+id/graphListButton"
-        android:layout_alignBottom="@+id/graphListButton"
-        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -79,4 +61,21 @@
         android:text=""
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="@string/ViewGraph"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/graphListButton"
+        android:layout_marginBottom="92dp"
+        android:layout_above="@+id/textView19"
+        android:layout_alignStart="@+id/utilityListButton" />
+
+    <Button
+        android:text="@string/tipsButton"
+        android:layout_height="wrap_content"
+        android:id="@+id/tipsButton"
+        android:layout_below="@+id/utilityListButton"
+        android:layout_alignEnd="@+id/journeyListButton"
+        android:layout_width="120dp" />
 </RelativeLayout>

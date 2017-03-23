@@ -40,10 +40,13 @@ public class PieChartActivity extends AppCompatActivity {
 
     private Intent i = this.getIntent();
 
+    private double billGas;
+    private double billElec;
     private Date date;
 
     private List<String> journeyNumbers = new ArrayList<>();
     private List<Double> journeyCO2Emissions = new ArrayList<>();
+    private double totalBill;
 
 
     @Override
@@ -63,6 +66,9 @@ public class PieChartActivity extends AppCompatActivity {
 
         if (intent.hasExtra(DisplayCarbonFootPrintActivity.CHANGE_TO_GRAPHS)) {
             date = (Date) extras.get(DisplayCarbonFootPrintActivity.PASS_DATE_DATA);
+            billGas = (double) extras.get(DisplayCarbonFootPrintActivity.GAS_DATA);
+            billElec = (double) extras.get(DisplayCarbonFootPrintActivity.ELEC_DATA);
+            totalBill = billGas + billElec;
             handleDay = true;
         }
 
@@ -82,6 +88,9 @@ public class PieChartActivity extends AppCompatActivity {
             Log.i("PieChartAct", "No. " + journeyNumbers.get(i));
         }
 
+        pieEntries.add(createNewPieEntry((float) totalBill, getString(R.string.UtilBillStrintg)));
+        //  pieEntries.add(createNewPieEntry((float) billElec, getString(R.string.ElecUsage)));
+
         PieDataSet dataSet = new PieDataSet(pieEntries, "");
 
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
@@ -91,7 +100,7 @@ public class PieChartActivity extends AppCompatActivity {
         PieChart chart = (PieChart) findViewById(R.id.pieChart);
 
         chart.setData(data);
-        chart.setCenterText("CO2 Emissions in kilograms");
+        chart.setCenterText(getString(R.string.CO2EmissionsinKG));
         chart.animateY(1000);
         chart.setEntryLabelTextSize(13);
         chart.invalidate();
