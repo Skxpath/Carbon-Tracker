@@ -16,6 +16,8 @@ public class Journey {
     private int month;
     private int day;
 
+    private Date date;
+
     public Journey(UserVehicle vehicle, Route route, double carbonEmitted, int year, int month, int day) {
         this.vehicle = vehicle;
         this.route = route;

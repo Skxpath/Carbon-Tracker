@@ -7,16 +7,29 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import alex.carbon_tracker.Model.CarbonCalculator;
+import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.JourneyManager;
+import alex.carbon_tracker.Model.Route;
+import alex.carbon_tracker.Model.Transportation;
 import alex.carbon_tracker.R;
+import alex.carbon_tracker.Model.Route;
 
 public class SelectTransportationModeActivity extends AppCompatActivity {
 
+    private static final String WALK = "Walk";
+    private static final String BUS = "Bus";
+    private static final String SKY_TRAIN = "Sky Train";
     public static final double WALK_CARBON_EMISSION_GRAMS = 0.0;
     public static final double BUS_CARBON_EMISSION_GRAMS = 89.0;
     public static final double SKY_TRAIN_CARBON_EMISSION_GRAMS = 50.4;
     public static final String SELECT_WALK = "Walk";
     public static final String SELECT_BUS = "Bus";
     public static final String SELECT_SKY_TRAIN = "Sky Train";
+    private boolean isEditingJourney = false;
+    private int editJourneyPosition;
+    CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+    JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +40,15 @@ public class SelectTransportationModeActivity extends AppCompatActivity {
         setupSelectBusButton();
         setupSelectSkyTrainButton();
         setupSelectCarButton();
+        getIntentFromJourney();
+    }
 
+    private void getIntentFromJourney() {
+        Intent intent = getIntent();
+        isEditingJourney = intent.getBooleanExtra("editJourney", false);
+        if (isEditingJourney) {
+            editJourneyPosition = intent.getIntExtra("journeyPosition", 0);
+        }
     }
 
     private void setupSelectWalkButton() {
@@ -37,12 +58,22 @@ public class SelectTransportationModeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = SelectRouteActivity.makeIntent(SelectTransportationModeActivity.this);
                 intent.putExtra(SELECT_WALK, WALK_CARBON_EMISSION_GRAMS);
-                startActivity(intent);
-                finish();
+                editJourneyPosition
+                        = getIntent().getIntExtra("journeyPosition", 0);
 
+
+                // if editing journey
+                if (isEditingJourney) {
+                    resetTheVehicle(WALK_CARBON_EMISSION_GRAMS, WALK);
+                    finish();
+                } else {
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }
+
     private void setupSelectBusButton() {
         Button button = (Button) findViewById(R.id.buttonSelectBus);
         button.setOnClickListener(new View.OnClickListener() {
@@ -50,12 +81,33 @@ public class SelectTransportationModeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = SelectRouteActivity.makeIntent(SelectTransportationModeActivity.this);
                 intent.putExtra(SELECT_BUS, BUS_CARBON_EMISSION_GRAMS);
-                startActivity(intent);
-                finish();
-
+                intent.putExtra("editJourney", isEditingJourney);
+                editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
+                if (isEditingJourney) {
+                    resetTheVehicle(BUS_CARBON_EMISSION_GRAMS, BUS);
+                    finish();
+                } else {
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }
+
+    public void resetTheVehicle(double emissionInGram, String transportation) {
+        editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
+        Transportation trans = new Transportation(emissionInGram, transportation);
+        journeyManager.getJourney(editJourneyPosition).setVehicle(null);
+        journeyManager.getJourney(editJourneyPosition).setTransportation(trans);
+        //recalculating co2 emmision
+        Route currRoute = journeyManager.getJourney(editJourneyPosition).getRoute();
+        double distanceTravelledCity = currRoute.getCityDistance();
+        double distanceTravelledHighway = currRoute.getHighwayDistance();
+        double CO2Emissions = CarbonCalculator.calculate(trans.getCO2InKGperDistanceInKM(),
+                distanceTravelledCity, distanceTravelledHighway);
+        journeyManager.getJourney(editJourneyPosition).setCarbonEmitted(CO2Emissions);
+    }
+
     private void setupSelectSkyTrainButton() {
         Button button = (Button) findViewById(R.id.buttonSelectSkyTrain);
         button.setOnClickListener(new View.OnClickListener() {
@@ -63,23 +115,34 @@ public class SelectTransportationModeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = SelectRouteActivity.makeIntent(SelectTransportationModeActivity.this);
                 intent.putExtra(SELECT_SKY_TRAIN, SKY_TRAIN_CARBON_EMISSION_GRAMS);
-                startActivity(intent);
-                finish();
+                intent.putExtra("editJourney", isEditingJourney);
+                editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
+                if (isEditingJourney) {
+                    resetTheVehicle(SKY_TRAIN_CARBON_EMISSION_GRAMS, SKY_TRAIN);
+                    finish();
+                } else {
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }
+
     private void setupSelectCarButton() {
         Button button = (Button) findViewById(R.id.buttonSelectVehicle);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = SelectVehicleActivity.makeIntent(SelectTransportationModeActivity.this);
+                intent.putExtra("editJourney", isEditingJourney);
+                if (isEditingJourney) {
+                    intent.putExtra("journeyPosition", editJourneyPosition);
+                }
                 startActivity(intent);
                 finish();
             }
         });
     }
-
 
 
     public static Intent makeIntent(Context context) {

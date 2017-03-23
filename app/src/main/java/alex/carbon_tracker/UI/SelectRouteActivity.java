@@ -53,6 +53,8 @@ public class SelectRouteActivity extends AppCompatActivity {
 
     private Transportation transportation;
     private int currentRoutePosition = 0;
+    private  boolean isEditingJourney = false;
+    private int editJourneyPosition;
 
     private boolean isVehicle = false;
 
@@ -63,14 +65,10 @@ public class SelectRouteActivity extends AppCompatActivity {
 
         ListView routeList = (ListView) findViewById(R.id.routeListView);
         setCurrentRoutePosition();
-
         Intent intent = getIntent();
         getExtrasFromIntent(intent);
-
         registerForContextMenu(routeList);
-
         setupAddRouteButton();
-
         populateListView();
 
         selectRoute();
@@ -81,6 +79,11 @@ public class SelectRouteActivity extends AppCompatActivity {
         SaveData.storeSharePreference(this);
     }
     private void getExtrasFromIntent(Intent intent) {
+        isEditingJourney = getIntent().getBooleanExtra("editJourney",false);
+        if(isEditingJourney){
+            editJourneyPosition = getIntent().getIntExtra("journeyPosition",0);
+        }
+
         Bundle extras = intent.getExtras();
         if (intent.hasExtra(SelectTransportationModeActivity.SELECT_BUS)) {
             double CO2 = (Double) extras.get(SelectTransportationModeActivity.SELECT_BUS);
@@ -147,16 +150,24 @@ public class SelectRouteActivity extends AppCompatActivity {
 
                     // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
                     double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
-
-                    Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions,
-                            journeyManager.getSelectedYear(), journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
-                    journeyManager.add(journey);
+                    if(isEditingJourney){
+                        journeyManager.getJourney(editJourneyPosition).setRoute(routeManager.getRoute(i));
+                    }
+                    else {
+                        Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions,
+                                journeyManager.getSelectedYear(), journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
+                        journeyManager.add(journey);
+                    }
                 } else {
                     double CO2Emissions = CarbonCalculator.calculate(transportation.getCO2InKGperDistanceInKM(), distanceTravelledCity, distanceTravelledHighway);
-
-                    Journey journey = new Journey(transportation, userCurrentRoute, CO2Emissions,
-                            journeyManager.getSelectedYear(), journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
-                    journeyManager.add(journey);
+                    if(isEditingJourney){
+                        journeyManager.getJourney(editJourneyPosition).setRoute(routeManager.getRoute(i));
+                    }
+                    else {
+                        Journey journey = new Journey(transportation, userCurrentRoute, CO2Emissions,
+                                journeyManager.getSelectedYear(), journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
+                        journeyManager.add(journey);
+                    }
                 }
 
                 finish();

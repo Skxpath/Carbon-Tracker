@@ -72,7 +72,6 @@ public class DateListActivity extends AppCompatActivity {
                 year = date.getYear();
                 month = date.getMonth();
                 day = date.getDay();
-
                 Intent intent = DisplayCarbonFootPrintActivity.makeIntent(DateListActivity.this);
                 intent.putExtra(SELECTED_YEAR, year);
                 intent.putExtra(SELECTED_MONTH, month);

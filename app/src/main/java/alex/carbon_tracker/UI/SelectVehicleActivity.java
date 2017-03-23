@@ -12,8 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import alex.carbon_tracker.Model.CarbonCalculator;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.SaveData;
+import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
@@ -26,8 +29,8 @@ public class SelectVehicleActivity extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel;
     private UserVehicleManager userVehicleManager;
-/// currentVehicle position to use in delete and edit option
-    private int currentVehiclePosition=0;
+    /// currentVehicle position to use in delete and edit option
+    private int currentVehiclePosition = 0;
 
     public static final String CAR_INDEX = "carIndex";
     private String carMake = "";
@@ -35,6 +38,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
     private int carYear = 0;
     private String carSpec = "";
     private String carNickname = "";
+    private int editJourneyPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
         ListView vehicleList = (ListView) findViewById(R.id.carListView);
         registerForContextMenu(vehicleList);
         setCurrentVehiclePosition();
-   // userVehicleManager.add(new UserVehicle(carMake,carModel,88,));
+        // userVehicleManager.add(new UserVehicle(carMake,carModel,88,));
     }
 
     @Override
@@ -56,6 +60,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
         super.onDestroy();
         SaveData.storeSharePreference(this);
     }
+
     private void setCurrentVehiclePosition() {
         final ListView listView = (ListView) findViewById(R.id.carListView);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -92,10 +97,37 @@ public class SelectVehicleActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                userVehicleManager.setCurrentVehicle(userVehicleManager.getUserVehicle(i));
-                Intent intent = SelectRouteActivity.makeIntent(SelectVehicleActivity.this);
-                startActivity(intent);
-                finish();
+                //editing journey
+                Intent intent = getIntent();
+                if (intent.getBooleanExtra("editJourney", false)) {
+                    editJourneyPosition = intent.getIntExtra("journeyPosition", 0);
+                    UserVehicle newVehicle = userVehicleManager.getUserVehicle(i);
+                    carbonTrackerModel.getJourneyManager().getJourney(editJourneyPosition)
+                            .setVehicle(newVehicle);
+                    //resetting carbon emmission
+                    Route userCurrentRoute = carbonTrackerModel.getJourneyManager().
+                            getJourney(editJourneyPosition).getRoute();
+
+                    double distanceTravelledCity = userCurrentRoute.getCityDistance();
+                    double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
+
+                    double gasType = newVehicle.getFuelTypeNumber();
+                    int milesPerGallonCity = newVehicle.getCityDrive();
+                    int milesPerGallonHighway = newVehicle.getHighwayDrive();
+
+                    double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity,
+                            distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
+                    //setting the new carbon emission value
+                    carbonTrackerModel.getJourneyManager().getJourney(editJourneyPosition).setCarbonEmitted(CO2Emissions);
+                        finish();
+                }
+                else {
+                    userVehicleManager.setCurrentVehicle(userVehicleManager.getUserVehicle(i));
+                    Intent intent1 = SelectRouteActivity.makeIntent(SelectVehicleActivity.this);
+                    startActivity(intent1);
+                    finish();
+
+                }
             }
         });
     }
@@ -115,13 +147,15 @@ public class SelectVehicleActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0,v.getId(),0,"Delete");
-        menu.add(0,v.getId(),0,"Edit");
+     if(!getIntent().getBooleanExtra("editJourney",false)){
+            menu.add(0, v.getId(), 0, "Delete");
+            menu.add(0, v.getId(), 0, "Edit");
+        }
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        if(item.getTitle().equals("Delete")){
+        if (item.getTitle().equals("Delete")) {
             // delete the car
             carbonTrackerModel.getUserVehicleManager().delete(currentVehiclePosition);
             populateCarListView();
@@ -134,7 +168,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
             intent.putExtra("year", carYear);
             intent.putExtra("carNickName", carNickname);
             intent.putExtra("position", currentVehiclePosition);
-            intent.putExtra("carSpec",carSpec);
+            intent.putExtra("carSpec", carSpec);
             startActivity(intent);
             return true;
         } else {
@@ -142,13 +176,14 @@ public class SelectVehicleActivity extends AppCompatActivity {
         }
 
     }
-    public void setIntent(){
+
+    public void setIntent() {
         carMake = carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getMake();
         carModel = carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getModel();
         carYear = carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getYear();
         carNickname = carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getNickname();
         carSpec = carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getTransmission()
-                +","+ carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getFuelType()+
-                ","+ carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getFuelTypeNumber();
+                + "," + carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getFuelType() +
+                "," + carbonTrackerModel.getUserVehicleManager().getUserVehicle(currentVehiclePosition).getFuelTypeNumber();
     }
 }

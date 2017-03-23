@@ -69,13 +69,15 @@
             android:name=".UI.UtilitylistActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".UI.DateListActivity">
+            android:name=".UI.DateListActivity"/>
             android:screenOrientation="portrait"/>
         <activity
             android:name=".UI.LineGraphActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="portrait"/>
             <activity android:name=".UI.AddUtilityBillActivity"
-            <activity android:name=".UI.AddUtilityBillPart2"/>
+                android:screenOrientation="portrait"/>
+            <activity android:name=".UI.AddUtilityBillPart2"
+                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
