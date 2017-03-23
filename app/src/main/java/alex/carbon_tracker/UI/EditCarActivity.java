@@ -53,7 +53,6 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
     private String carFuelType;
     private double getCarFuelTypeNumber;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,9 +99,13 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
                             && currentVehicle.getModel().equals(originalVehicle.getModel())
                             && (currentVehicle.getYear()) == (originalVehicle.getYear())
                             && currentVehicle.getNickname().equals(originalVehicle.getNickname())) {
-                        userVehicleManager.replaceUserVehicle(newUserVehicle, index);
-                        journey.setVehicle(newUserVehicle);
-
+                        if(getIntent().getBooleanExtra("editJourney",false)==true){
+                            journey.setVehicle(newUserVehicle);
+                        }
+                        else {
+                            userVehicleManager.replaceUserVehicle(newUserVehicle, index);
+                            journey.setVehicle(newUserVehicle);
+                        }
 
                         Route route = journey.getRoute();
                         double gasType = newUserVehicle.getFuelTypeNumber();

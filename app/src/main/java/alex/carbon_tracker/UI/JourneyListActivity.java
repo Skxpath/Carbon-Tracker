@@ -34,6 +34,7 @@ public class JourneyListActivity extends AppCompatActivity {
     private JourneyManager journeyManager;
     private int currentJourneyPosition;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -78,7 +79,8 @@ public class JourneyListActivity extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, v.getId(), 0, "Delete");
-        menu.add(0, v.getId(), 0, "Edit");
+        menu.add(0, v.getId(), 0, "Edit Transportation");
+        menu.add(0,v.getId(),0,"Edit Route");
     }
 
     @Override
@@ -87,9 +89,22 @@ public class JourneyListActivity extends AppCompatActivity {
             carbonTrackerModel.getJourneyManager().delete(currentJourneyPosition);
             journeyListView();
             return true;
-        } else if (item.getTitle().equals("Edit")) {
+        } else if (item.getTitle().equals("Edit Transportation")) {
+          // editing car
+            Intent intent = SelectTransportationModeActivity.makeIntent(this);
+            intent.putExtra("editJourney",true);
+            intent.putExtra("journeyPosition", currentJourneyPosition);
+            startActivity(intent);
             return true;
-        } else {
+        }
+        else if (item.getTitle().equals("Edit Route")){
+            Intent intent = SelectRouteActivity.makeIntent(this);
+            intent.putExtra("editJourney",true);
+            intent.putExtra("journeyPosition",currentJourneyPosition);
+            startActivity(intent);
+        return true;
+        }
+        else {
             return false;
         }
 

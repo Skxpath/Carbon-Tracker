@@ -41,6 +41,7 @@ public class SelectRouteActivity extends AppCompatActivity {
     private static final String WALK = "Walk";
     private static final String BUS = "Bus";
     private static final String SKY_TRAIN = "Sky Train";
+    public static final String EDIT_JOURNEY = "editJourney";
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private RouteManager routeManager = carbonTrackerModel.getRouteManager();
@@ -50,7 +51,8 @@ public class SelectRouteActivity extends AppCompatActivity {
 
     private Transportation transportation;
     private int currentRoutePosition = 0;
-
+    private boolean isEditingJourney = false;
+    private int editJourneyPosition;
     private boolean isVehicle = false;
 
     @Override
@@ -63,13 +65,9 @@ public class SelectRouteActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         getExtrasFromIntent(intent);
-
         registerForContextMenu(routeList);
-
         setupAddRouteButton();
-
         populateListView();
-
         selectRoute();
     }
 
@@ -80,6 +78,14 @@ public class SelectRouteActivity extends AppCompatActivity {
     }
 
     private void getExtrasFromIntent(Intent intent) {
+        isEditingJourney = getIntent().getBooleanExtra("editJourney", false);
+        if (isEditingJourney) {
+            editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
+            if (journeyManager.getJourney(editJourneyPosition).hasVehicle()) {
+                isVehicle = true;
+            }
+        }
+
         Bundle extras = intent.getExtras();
         if (intent.hasExtra(SelectTransportationModeActivity.SELECT_BUS)) {
             double CO2 = (Double) extras.get(SelectTransportationModeActivity.SELECT_BUS);
@@ -107,14 +113,33 @@ public class SelectRouteActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = AddRouteActivity.makeIntent(SelectRouteActivity.this);
-                if (isVehicle) {
-                    intent.putExtra(SelectRouteActivity.SELECTED_VEHICLE, 0);
-                } else {
-                    intent.putExtra(SelectRouteActivity.SELECTED_NON_VEHICLE, 0);
+
+                if (getIntent().getBooleanExtra("editJourney", false)) {
+                    Log.i("select","its true");
+                    editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
+                    Intent intent = AddRouteActivity.makeIntent(SelectRouteActivity.this);
+                    intent.putExtra("journeyPosition", editJourneyPosition);
+                    intent.putExtra("editJourney1",true);
+                    if (isVehicle) {
+                        Log.i("vehicle","good");
+                        intent.putExtra(SelectRouteActivity.SELECTED_VEHICLE,0);
+                    } else {
+                        intent.putExtra(SelectRouteActivity.SELECTED_NON_VEHICLE, 0);
+                    }
+                    Log.i("start","heere");
+                    startActivity(intent);
+                    finish();
                 }
-                startActivity(intent);
-                finish();
+                else {
+                    Intent intent1 = AddRouteActivity.makeIntent(SelectRouteActivity.this);
+                    if (isVehicle) {
+                        intent1.putExtra(SelectRouteActivity.SELECTED_VEHICLE, 0);
+                    } else {
+                        intent1.putExtra(SelectRouteActivity.SELECTED_NON_VEHICLE, 0);
+                    }
+                    startActivity(intent1);
+                    finish();
+                }
             }
         });
     }
@@ -137,9 +162,22 @@ public class SelectRouteActivity extends AppCompatActivity {
                 Route userCurrentRoute = routeManager.getCurrentRoute();
                 double distanceTravelledCity = userCurrentRoute.getCityDistance();
                 double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
-
+                if (getIntent().getBooleanExtra("editJourney", false)) {
+                    editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
+                    if (journeyManager.getJourney(editJourneyPosition).hasVehicle()) {
+                        isVehicle = true;
+                    } else {
+                        isVehicle = false;
+                    }
+                }
                 if (isVehicle) {
-                    UserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
+                    UserVehicle userCurrentVehicle;
+                    if (getIntent().getBooleanExtra("editJourney", false)) {
+                        editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
+                        userCurrentVehicle = journeyManager.getJourney(editJourneyPosition).getUserVehicle();
+                    } else {
+                        userCurrentVehicle = userVehicleManager.getCurrentVehicle();
+                    }
                     double gasType = userCurrentVehicle.getFuelTypeNumber();
                     int milesPerGallonCity = userCurrentVehicle.getCityDrive();
                     int milesPerGallonHighway = userCurrentVehicle.getHighwayDrive();
@@ -147,19 +185,37 @@ public class SelectRouteActivity extends AppCompatActivity {
                     // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
                     double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
 
-                    Journey journey = new Journey(userCurrentVehicle,
-                            userCurrentRoute,
-                            CO2Emissions,
-                            journeyManager.getDate());
-                    journeyManager.add(journey);
-                } else {
-                    double CO2Emissions = CarbonCalculator.calculate(transportation.getCO2InKGperDistanceInKM(), distanceTravelledCity, distanceTravelledHighway);
+                    // only changing co2 emmission and route values if editing journey
+                    if (isEditingJourney) {
+                        journeyManager.getJourney(editJourneyPosition).setRoute(routeManager.getRoute(i));
+                        journeyManager.getJourney(editJourneyPosition).setCarbonEmitted(CO2Emissions);
+                    }
+                    // if creating a new journey
+                    else {
+                        Journey journey = new Journey(userCurrentVehicle,
+                                userCurrentRoute,
+                                CO2Emissions,
+                                journeyManager.getDate());
+                        journeyManager.add(journey);
+                    }
 
-                    Journey journey = new Journey(transportation,
-                            userCurrentRoute,
-                            CO2Emissions,
-                            journeyManager.getDate());
-                    journeyManager.add(journey);
+                } else {
+                    if (isEditingJourney) {
+                        transportation = journeyManager.getJourney(editJourneyPosition).getTransportation();
+                    }
+                    double CO2Emissions = CarbonCalculator.calculate(transportation.getCO2InKGperDistanceInKM(), distanceTravelledCity, distanceTravelledHighway);
+                    if (isEditingJourney) {
+                        journeyManager.getJourney(editJourneyPosition).setRoute(routeManager.getRoute(i));
+                        journeyManager.getJourney(editJourneyPosition).setCarbonEmitted(CO2Emissions);
+                    } else {
+                        Journey journey = new Journey(transportation,
+                                userCurrentRoute,
+                                CO2Emissions,
+                                journeyManager.getDate());
+                        journeyManager.add(journey);
+                    }
+
+
                 }
                 Toast.makeText(SelectRouteActivity.this, carbonTrackerModel.getTipManager().getTip(), Toast.LENGTH_LONG).show();
                 finish();
@@ -170,8 +226,10 @@ public class SelectRouteActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, v.getId(), 0, "Delete");
-        menu.add(0, v.getId(), 0, "Edit");
+        if (!getIntent().getBooleanExtra("editJourney", false)) {
+            menu.add(0, v.getId(), 0, "Delete");
+            menu.add(0, v.getId(), 0, "Edit");
+        }
     }
 
     private void setCurrentRoutePosition() {

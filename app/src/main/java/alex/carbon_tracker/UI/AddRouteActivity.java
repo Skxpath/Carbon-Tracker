@@ -43,9 +43,9 @@ public class AddRouteActivity extends AppCompatActivity {
     private static int highwayDistance = 0;
     private static String routeName = "";
     private static int index = 0;
-
     private static boolean isEditingRoute = false;
     private static boolean isVehicle = false;
+    private int editJourneyPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,6 @@ public class AddRouteActivity extends AppCompatActivity {
     private void getExtrasFromIntent(Intent intent) {
         if (intent.hasExtra(SelectRouteActivity.SELECTED_VEHICLE)) {
             isVehicle = true;
-            Log.d("AddRouteActivity", isVehicle + "");
         }
     }
 
@@ -80,11 +79,22 @@ public class AddRouteActivity extends AppCompatActivity {
                     }
 
                     Route userCurrentRoute = routeManager.getCurrentRoute();
+
                     double distanceTravelledCity = userCurrentRoute.getCityDistance();
                     double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
 
+                    if(!journeyManager.getJourney(editJourneyPosition).hasVehicle()){
+                        isVehicle = false;
+                    }
+
                     if (isVehicle) {
-                        UserVehicle userCurrentVehicle = userVehicleManager.getCurrentVehicle();
+                        UserVehicle userCurrentVehicle;
+                        if (getIntent().getBooleanExtra("editJourney1",false)) {
+                            editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
+                            userCurrentVehicle = journeyManager.getJourney(editJourneyPosition).getUserVehicle();
+                        } else {
+                            userCurrentVehicle = userVehicleManager.getCurrentVehicle();
+                        }
                         double gasType = userCurrentVehicle.getFuelTypeNumber();
                         int milesPerGallonCity = userCurrentVehicle.getCityDrive();
                         int milesPerGallonHighway = userCurrentVehicle.getHighwayDrive();
@@ -94,24 +104,45 @@ public class AddRouteActivity extends AppCompatActivity {
                                 distanceTravelledHighway,
                                 milesPerGallonCity,
                                 milesPerGallonHighway);
+                        if (getIntent().getBooleanExtra("editJourney1",false)) {
+                            journeyManager.getJourney(editJourneyPosition).setRoute(userCurrentRoute);
+                            journeyManager.getJourney(editJourneyPosition).setCarbonEmitted(CO2Emissions);
+                            finish();
+                        } else {
+                            Journey journey = new Journey(userCurrentVehicle,
+                                    userCurrentRoute,
+                                    CO2Emissions,
+                                    journeyManager.getDate());
+                            journeyManager.add(journey);
+                        }
 
-                        Journey journey = new Journey(userCurrentVehicle,
-                                userCurrentRoute,
-                                CO2Emissions,
-                                journeyManager.getDate());
-                        journeyManager.add(journey);
+
                     } else {
-                        Transportation transportation = transportationManager.getCurrTransportation();
+                        Transportation transportation;
+                        if (getIntent().getBooleanExtra("editJourney1",false)) {
+                            editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
+                            transportation = journeyManager.getJourney(editJourneyPosition).getTransportation();
+                        } else {
+                            transportation = transportationManager.getCurrTransportation();
+                        }
                         double CO2Emissions = CarbonCalculator.calculate(
                                 transportation.getCO2InKGperDistanceInKM(),
                                 distanceTravelledCity,
                                 distanceTravelledHighway);
+                        if (getIntent().getBooleanExtra("editJourney1",false)) {
+                            journeyManager.getJourney(editJourneyPosition).setRoute(userCurrentRoute);
+                            journeyManager.getJourney(editJourneyPosition).setCarbonEmitted(CO2Emissions);
+                        }
+                        else
+                        {
+                            Journey journey = new Journey(transportation,
+                                    userCurrentRoute,
+                                    CO2Emissions,
+                                    journeyManager.getDate());
+                            journeyManager.add(journey);
+                        }
 
-                        Journey journey = new Journey(transportation,
-                                userCurrentRoute,
-                                CO2Emissions,
-                                journeyManager.getDate());
-                        journeyManager.add(journey);
+
                     }
 
                     Intent intent = JourneyListActivity.makeIntent(AddRouteActivity.this);
