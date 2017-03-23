@@ -98,9 +98,7 @@ public class AddRouteActivity extends AppCompatActivity {
                         Journey journey = new Journey(userCurrentVehicle,
                                 userCurrentRoute,
                                 CO2Emissions,
-                                journeyManager.getSelectedYear(),
-                                journeyManager.getSelectedMonth(),
-                                journeyManager.getSelectedDay());
+                                journeyManager.getDate());
                         journeyManager.add(journey);
                     } else {
                         Transportation transportation = transportationManager.getCurrTransportation();
@@ -112,9 +110,7 @@ public class AddRouteActivity extends AppCompatActivity {
                         Journey journey = new Journey(transportation,
                                 userCurrentRoute,
                                 CO2Emissions,
-                                journeyManager.getSelectedYear(),
-                                journeyManager.getSelectedMonth(),
-                                journeyManager.getSelectedDay());
+                                journeyManager.getDate());
                         journeyManager.add(journey);
                     }
 

@@ -76,10 +76,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".UI.AddUtilityBillActivity"
-            android:screenOrientation="portrait" />/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.AddUtilityBillPart2"
-            android:screenOrientation="portrait" />/>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

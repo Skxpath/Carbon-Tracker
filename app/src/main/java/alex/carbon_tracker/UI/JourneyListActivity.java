@@ -63,7 +63,6 @@ public class JourneyListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = SelectDateActivity.makeIntent(JourneyListActivity.this);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -112,7 +111,6 @@ public class JourneyListActivity extends AppCompatActivity {
         super.onResume();
         journeyListView();
     }
-
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, JourneyListActivity.class);

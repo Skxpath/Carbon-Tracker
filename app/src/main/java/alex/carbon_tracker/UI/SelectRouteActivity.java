@@ -35,10 +35,6 @@ import alex.carbon_tracker.R;
 *  */
 public class SelectRouteActivity extends AppCompatActivity {
 
-    public static final int REQUEST_CODE_ADD_ROUTE = 101;
-    public static final int REQUEST_CODE_EDIT_ROUTE = 102;
-
-    public static final String ROUTE_INDEX = "routeIndex";
     public static final String SELECTED_VEHICLE = "Vehicle";
     public static final String SELECTED_NON_VEHICLE = "Non Vehicle";
 
@@ -151,14 +147,18 @@ public class SelectRouteActivity extends AppCompatActivity {
                     // double gasType, double distanceTravelledCity, double distanceTravelledHighway, int milesPerGallonCity, int milesPerGallonHighway
                     double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
 
-                    Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions,
-                            journeyManager.getSelectedYear(), journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
+                    Journey journey = new Journey(userCurrentVehicle,
+                            userCurrentRoute,
+                            CO2Emissions,
+                            journeyManager.getDate());
                     journeyManager.add(journey);
                 } else {
                     double CO2Emissions = CarbonCalculator.calculate(transportation.getCO2InKGperDistanceInKM(), distanceTravelledCity, distanceTravelledHighway);
 
-                    Journey journey = new Journey(transportation, userCurrentRoute, CO2Emissions,
-                            journeyManager.getSelectedYear(), journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
+                    Journey journey = new Journey(transportation,
+                            userCurrentRoute,
+                            CO2Emissions,
+                            journeyManager.getDate());
                     journeyManager.add(journey);
                 }
                 Toast.makeText(SelectRouteActivity.this, carbonTrackerModel.getTipManager().getTip(), Toast.LENGTH_LONG).show();

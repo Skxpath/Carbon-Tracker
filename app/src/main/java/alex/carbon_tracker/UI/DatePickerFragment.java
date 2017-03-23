@@ -45,10 +45,10 @@ public class DatePickerFragment extends DialogFragment
         textView.setText("Year: " + selectedYear
                 + " Month: " + selectedMonth
                 + " Day: " + selectedDay);
-        journeyManager.setSelectedYear(selectedYear);
-        journeyManager.setSelectedMonth(selectedMonth);
-        journeyManager.setSelectedDay(selectedDay);
-
-        journeyManager.setHasDate(true);
+//        journeyManager.setSelectedYear(selectedYear);
+//        journeyManager.setSelectedMonth(selectedMonth);
+//        journeyManager.setSelectedDay(selectedDay);
+//
+//        journeyManager.setHasDate(true);
     }
 }
