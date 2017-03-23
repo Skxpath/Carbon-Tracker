@@ -1,7 +1,5 @@
 package alex.carbon_tracker.Model;
 
-import java.util.Date;
-
 /**
  * Journey class that uses route and vehicle classes to
  * make Journey instances.

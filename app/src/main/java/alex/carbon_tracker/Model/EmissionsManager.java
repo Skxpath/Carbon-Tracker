@@ -1,14 +1,15 @@
 package alex.carbon_tracker.Model;
 
-import android.util.Log;
-
 /**
- * Created by Aria on 3/21/2017.
+ * Created by Alex on 3/21/2017.
+ * <p>
+ * EmissionsManager class to grab all the emission values from the journey
+ * and utility classes.
  */
 
 public class EmissionsManager implements TipManagerObserver {
 
-private CarbonTrackerModel carbonTrackerModel;
+    private CarbonTrackerModel carbonTrackerModel;
 
     private double totalEmissionsTransportation = 0;
     private double totalEmissionsVehicle = 0;
@@ -23,7 +24,7 @@ private CarbonTrackerModel carbonTrackerModel;
     private double totalEmissionsNaturalgas = 0;
     private double totalEmissionsElectricity = 0;
 
-    private double totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
+    private double totalEmissionsNaturalgasAndElectricity = 0;
 
     private double totalEmissionsOverall = 0;
 
@@ -78,7 +79,6 @@ private CarbonTrackerModel carbonTrackerModel;
         carbonTrackerModel = CarbonTrackerModel.getInstance();
 
         totalEmissionsTransportation = roundToOneDecimalPlace(carbonTrackerModel.getJourneyManager().totalCarbonEmissionsPublicTransportation());
-        Log.d("EmissionsManager", "Total emi for trans = " + totalEmissionsTransportation);
         totalEmissionsVehicle = roundToOneDecimalPlace(carbonTrackerModel.getJourneyManager().totalCarbonEmissionsVehicle());
 
         totalTransportationJourneys = carbonTrackerModel.getJourneyManager().totalTransportationJourneys();
@@ -86,12 +86,13 @@ private CarbonTrackerModel carbonTrackerModel;
 
         totalEmissionsVehicleAndTransportation = roundToOneDecimalPlace(carbonTrackerModel.getJourneyManager().totalCarbonEmissionsJourneys());
 
-        totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
-        totalEmissionsNaturalgas = 0;
-        totalEmissionsElectricity = 0;
+        totalEmissionsNaturalgas = roundToOneDecimalPlace(carbonTrackerModel.getUtilityBillManager().totalCarbonEmissionsNaturalGas());
+        totalEmissionsElectricity = roundToOneDecimalPlace(carbonTrackerModel.getUtilityBillManager().totalCarbonEmissionsElectricity());
+
+        totalEmissionsNaturalgasAndElectricity = roundToOneDecimalPlace(totalEmissionsNaturalgas + totalEmissionsElectricity); //Add etc.
 
         totalJourneys = carbonTrackerModel.getJourneyManager().totalJourneys();
 
-        totalEmissionsOverall = roundToOneDecimalPlace(totalEmissionsVehicleAndTransportation+totalEmissionsNaturalgasAndElectricity);
+        totalEmissionsOverall = roundToOneDecimalPlace(totalEmissionsVehicleAndTransportation + totalEmissionsNaturalgasAndElectricity);
     }
 }

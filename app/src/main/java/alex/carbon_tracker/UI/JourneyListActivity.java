@@ -25,9 +25,8 @@ import alex.carbon_tracker.Model.VehicleManager;
 import alex.carbon_tracker.R;
 
 /*
-* Main Activity class page which allows the
-* user to view either their carbon footprint
-* or add a new journey to the system
+* JourneyListActivity class page which allows the
+* user to add a new journey to the system
 * */
 public class JourneyListActivity extends AppCompatActivity {
 

@@ -25,6 +25,9 @@ import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
+/*EditRouteActivity to support editing
+* of a route
+* */
 public class EditRouteActivity extends AppCompatActivity {
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
@@ -44,6 +47,7 @@ public class EditRouteActivity extends AppCompatActivity {
         super.onDestroy();
         SaveData.storeSharePreference(this);
     }
+
     private void setupDataFromIntent() {
         Intent intent = getIntent();
         setNumbToEditText(R.id.cityDistanceEditText, intent.getIntExtra("city", 0));

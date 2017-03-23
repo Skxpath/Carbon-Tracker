@@ -9,9 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
 
+/*MenuActivity class that serves
+* for the main menu when the user first
+* enters the application*/
 public class MenuActivity extends AppCompatActivity {
 
     @Override
@@ -56,7 +60,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private void updateTipTextview() {
         CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-        TextView tips =(TextView)(findViewById(R.id.textView19));
+        TextView tips = (TextView) (findViewById(R.id.textView19));
         if (carbonTrackerModel.getJourneyManager().totalJourneys() > 0) {
             tips.setText(carbonTrackerModel.getTipManager().getTip());
         } else {

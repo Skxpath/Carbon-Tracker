@@ -1,7 +1,5 @@
 package alex.carbon_tracker.Model;
 
-import android.util.Log;
-
 /**
  * UserVehicle class to store the vehicles
  * the user inputs into the system. This class
@@ -33,7 +31,7 @@ public class UserVehicle extends Vehicle {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return nickname;
     }
 }

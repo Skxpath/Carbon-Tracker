@@ -25,6 +25,10 @@ import alex.carbon_tracker.R;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/*LineGraphActivity class that displays
+* the last 28 and 365 days of utility data
+* in a graphical
+* form*/
 public class LineGraphActivity extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
@@ -37,6 +41,7 @@ public class LineGraphActivity extends AppCompatActivity {
         setContentView(R.layout.activity_line_graph);
         setupBarChart();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -48,16 +53,16 @@ public class LineGraphActivity extends AppCompatActivity {
 
         final LineChart lineChart = (LineChart) findViewById(R.id.chart);
         ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry( 0,5.6f));
-        entries.add(new Entry(1,8.4f));
-        entries.add(new Entry(2,6));
-        entries.add(new Entry(3,2));
-        entries.add(new Entry(7,18));
-        entries.add(new Entry(5,9));
+        entries.add(new Entry(0, 5.6f));
+        entries.add(new Entry(1, 8.4f));
+        entries.add(new Entry(2, 6));
+        entries.add(new Entry(3, 2));
+        entries.add(new Entry(7, 18));
+        entries.add(new Entry(5, 9));
 
         LineDataSet dataset = new LineDataSet(entries, "Cars");
 
-        List<ILineDataSet>sets = new ArrayList<>();
+        List<ILineDataSet> sets = new ArrayList<>();
         sets.add(dataset);
         dataset.setDrawCircleHole(true);
 
@@ -85,14 +90,12 @@ public class LineGraphActivity extends AppCompatActivity {
         });
     }
 
-    public void setupInfo(Entry entry){
-        TextView text = (TextView)findViewById(R.id.emissionValueText1);
-        text.setText(entry.getY()+" g");
-        ListView journeyListView = (ListView)findViewById(R.id.journeylistForGraph);
+    public void setupInfo(Entry entry) {
+        TextView text = (TextView) findViewById(R.id.emissionValueText1);
+        text.setText(entry.getY() + " g");
+        ListView journeyListView = (ListView) findViewById(R.id.journeylistForGraph);
         // get the jouneylist
     }
-
-
 
 
     public static Intent makeIntent(Context context) {

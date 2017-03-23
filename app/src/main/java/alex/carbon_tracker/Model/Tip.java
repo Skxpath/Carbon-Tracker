@@ -2,10 +2,11 @@ package alex.carbon_tracker.Model;
 
 /**
  * Created by Alex on 3/18/2017.
+ * <p>
+ * Tip class to store info about individual tips
+ * displayed to the user
  */
-
 public class Tip implements TipManagerObserver, Comparable<Tip> {
-
 
     private String tip;
     private final TipEnum key;
@@ -21,26 +22,20 @@ public class Tip implements TipManagerObserver, Comparable<Tip> {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
 
-    //Do not display tip if displayed within the last COOLDOWN_LENGTH tips.
-    private final int COOLDOWN_LENGTH = 7;
-
     public Tip(String tip, TipEnum key, int identifier) {
         this.tip = tip;
         this.key = key;
         this.identifier = identifier;
     }
 
-public void setTip (String tip) {
-    this.tip = tip;
-}
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
 
     private void checkEmissions(TipEnum key) {
         switch (key) {
             case VEHICLE_TIPS:
                 setEmissions(carbonTrackerModel.getEmissionsManager().getTotalEmissionsVehicle());
-                break;
-            case MISC_TIPS:
-                setEmissions(0);
                 break;
             case NATURALGAS_TIPS:
                 setEmissions(carbonTrackerModel.getEmissionsManager().getTotalEmissionsNaturalgas());
@@ -55,7 +50,6 @@ public void setTip (String tip) {
     }
 
     private void setEmissions(double emissions) {
-
         this.emissions = emissions;
     }
 
@@ -74,6 +68,7 @@ public void setTip (String tip) {
     }
 
     private void updateCooldowns() {
+        int COOLDOWN_LENGTH = 7;
         if ((counter != 0) && (counter <= COOLDOWN_LENGTH)) {
             counter++;
         }
@@ -83,11 +78,7 @@ public void setTip (String tip) {
     }
 
     public boolean checkCooldowns() {
-        if (counter == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return counter == 0;
     }
 
     public String getTip() {

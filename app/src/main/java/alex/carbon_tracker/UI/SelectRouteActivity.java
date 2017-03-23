@@ -76,11 +76,13 @@ public class SelectRouteActivity extends AppCompatActivity {
 
         selectRoute();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         SaveData.storeSharePreference(this);
     }
+
     private void getExtrasFromIntent(Intent intent) {
         Bundle extras = intent.getExtras();
         if (intent.hasExtra(SelectTransportationModeActivity.SELECT_BUS)) {
