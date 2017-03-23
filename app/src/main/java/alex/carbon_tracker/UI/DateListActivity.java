@@ -13,6 +13,7 @@ import android.widget.Button;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -37,7 +38,7 @@ public class DateListActivity extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
-// Todo: change these to date and be able to send that date to display...Activity
+
     private List<Date> dateList = new ArrayList<>();
     private List<String> dateListDescriptions = new ArrayList<>();
 
@@ -98,11 +99,8 @@ public class DateListActivity extends AppCompatActivity {
         for (int i = 0; i < journeyListSize; i++) {
             Journey journey = journeyManager.getJourney(i);
             Date journeyDate = journey.getDate();
-//            int year = journey.getYear(journeyDate);
-//            int month = journey.getMonth(journeyDate);
-//            int day = journey.getDay(journeyDate);
-//            String description = month + "/" + day + "/" + year;
-            String description = journeyDate + "";
+            SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+            String description = f.format(journeyDate);
             if (hashSet.add(description)) {
                 dateListDescriptions.add(description);
                 dateList.add(journeyDate);
