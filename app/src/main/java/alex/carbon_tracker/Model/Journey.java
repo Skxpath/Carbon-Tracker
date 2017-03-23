@@ -1,5 +1,9 @@
 package alex.carbon_tracker.Model;
 
+import android.util.Log;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -12,26 +16,28 @@ public class Journey {
     private Route route;
     private double carbonEmitted = 0;
 
-    private int year;
-    private int month;
-    private int day;
+    private Date date;
 
-    public Journey(UserVehicle vehicle, Route route, double carbonEmitted, int year, int month, int day) {
+    public Journey(UserVehicle vehicle, Route route, double carbonEmitted, Date date) {
         this.vehicle = vehicle;
         this.route = route;
         this.carbonEmitted = carbonEmitted;
-        this.year = year;
-        this.month = month;
-        this.day = day;
+        this.date = date;
     }
 
-    public Journey(Transportation transportation, Route route, double carbonEmitted, int year, int month, int day) {
+    public Journey(Transportation transportation, Route route, double carbonEmitted, Date date) {
         this.carbonEmitted = carbonEmitted;
         this.route = route;
         this.transportation = transportation;
-        this.year = year;
-        this.month = month;
-        this.day = day;
+        this.date = date;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public boolean hasVehicle() {
@@ -50,36 +56,12 @@ public class Journey {
         this.vehicle = vehicle;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
     public Transportation getTransportation() {
         return transportation;
     }
 
     public void setTransportation(Transportation transportation) {
         this.transportation = transportation;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public int getDay() {
-        return day;
     }
 
     public Route getRoute() {
@@ -97,5 +79,10 @@ public class Journey {
     public void setCarbonEmitted(float carbonEmitted) {
         this.carbonEmitted = carbonEmitted;
     }
+
+    private DateFormat getDateFormat(String filter) {
+        return new SimpleDateFormat(filter);
+    }
+
 
 }

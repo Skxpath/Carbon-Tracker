@@ -16,6 +16,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
@@ -33,8 +34,6 @@ import alex.carbon_tracker.R;
 public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
 
     public static final int COL_SIZE = 5;
-    private CarbonTrackerModel carbonTrackerModel;
-    private JourneyManager journeyManager ;
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
 
@@ -47,11 +46,9 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
     public static final String CHANGE_TO_GRAPHS = "Change to graphs from tables";
     public static final String PASS_YEAR_DATA = "Pass year data";
     public static final String PASS_MONTH_DATA = "Pass month data";
-    public static final String PASS_DAY_DATA = "Pass day data";
+    public static final String PASS_DATE_DATA = "Pass date data";
 
-    private int year;
-    private int month;
-    private int day;
+    private Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,18 +65,13 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         // User comes from pie chart activity
         if (intent.hasExtra(PieChartActivity.CHANGE_TO_TABLE)) {
-            if (intent.hasExtra(PieChartActivity.DISPLAY_DATA_DAY)) {
-                year = (int) extras.get(PASS_YEAR_DATA);
-                month = (int) extras.get(PASS_MONTH_DATA);
-                day = (int) extras.get(PASS_DAY_DATA);
+            if (intent.hasExtra(PieChartActivity.DISPLAY_DATA_DATE)) {
+                date = (Date) extras.get(PASS_DATE_DATA);
             }
         } else if (intent.hasExtra(DateListActivity.CHANGE_TO_GRAPHS)) {
-
             if (intent.hasExtra(DateListActivity.DISPLAY_DATA_DAY)) {
-                Log.d("DisplayActivity", extras.get(DateListActivity.SELECTED_DAY) + "");
-                year = (int) extras.get(DateListActivity.SELECTED_YEAR);
-                month = (int) extras.get(DateListActivity.SELECTED_MONTH);
-                day = (int) extras.get(DateListActivity.SELECTED_DAY);
+                Log.d("DisplayActivity", extras.get(DateListActivity.SELECTED_DATE) + "");
+                date = (Date) extras.get(DateListActivity.SELECTED_DATE);
             }
         }
     }
@@ -88,12 +80,10 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
         TableLayout carbonTable = (TableLayout) findViewById(R.id.carbonTableLayout);
         TableRow carbonLabels = new TableRow(this);
         carbonTable.addView(carbonLabels);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < COL_SIZE; i++) {
             carbonTable.setColumnStretchable(i, true);
             TextView text = new TextView(this);
-            if (i == DATE) {
-                text.setText(R.string.DisplayDate);
-            } else if (i == ROUTE_NAME) {
+            if (i == ROUTE_NAME) {
                 text.setText(R.string.DisplayName);
             } else if (i == DISTANCE) {
                 text.setText(R.string.DisplayDistance);
@@ -112,19 +102,16 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
 
     private void displayDataOnTableLayout(TableLayout tableLayout) {
         List<Journey> journeysOnSelectedDay = new ArrayList<>();
-        addJourneysOnSelectedDay(journeysOnSelectedDay, year, month, day);
+        addJourneysOnSelectedDay(journeysOnSelectedDay);
         for (int i = 0; i < journeysOnSelectedDay.size(); i++) {
             TableRow tableRow = new TableRow(this);
             tableLayout.addView(tableRow);
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < COL_SIZE; j++) {
                 Journey journey = journeysOnSelectedDay.get(i);
                 tableLayout.setMinimumWidth(20);
                 TextView textview = new TextView(this);
-                if (j == DATE) {
-                    textview.setText(journey.getMonth()
-                            + "/" + journey.getDay()
-                            + "/" + journey.getYear());
-                } else if (j == ROUTE_NAME) {
+                Date journeyDate = journey.getDate();
+                if (j == ROUTE_NAME) {
                     textview.setText(journey.getRoute().toString());
                 } else if (j == DISTANCE) {
                     int distance = journey.getRoute().getCityDistance()
@@ -147,14 +134,11 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
         }
     }
 
-    private void addJourneysOnSelectedDay(List<Journey> journeysOnSelectedDay,
-                                          int year,
-                                          int month,
-                                          int day) {
+    private void addJourneysOnSelectedDay(List<Journey> journeysOnSelectedDay) {
         for (Journey journey : journeyManager.getJourneyList()) {
-            boolean isSameDate = journey.getYear() == year
-                    && journey.getMonth() == month
-                    && journey.getDay() == day;
+            boolean isSameDate = journey.getDate().equals(date);
+            Log.d("DCFPActivty", journey.getDate() + " = " + date);
+            Log.d("DCFPActivty", isSameDate + "");
             if (isSameDate) {
                 journeysOnSelectedDay.add(journey);
             }
@@ -167,9 +151,7 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = PieChartActivity.makeIntent(DisplayCarbonFootPrintActivity.this);
-                intent.putExtra(PASS_YEAR_DATA, year);
-                intent.putExtra(PASS_MONTH_DATA, month);
-                intent.putExtra(PASS_DAY_DATA, day);
+                intent.putExtra(PASS_DATE_DATA, date);
                 intent.putExtra(CHANGE_TO_GRAPHS, 0);
                 startActivity(intent);
                 finish();

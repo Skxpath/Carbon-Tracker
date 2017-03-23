@@ -1,6 +1,7 @@
 package alex.carbon_tracker.Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,11 +11,8 @@ import java.util.List;
 
 public class JourneyManager {
     private List<Journey> journeyList = new ArrayList<>();
-    private String currentDate;
 
-    private int selectedYear;
-    private int selectedMonth;
-    private int selectedDay;
+    private Date date;
 
     //Getter for total carbon emissions for: vehicles, natural gas, electricity, public transportation
     private boolean hasDate;
@@ -47,6 +45,13 @@ public class JourneyManager {
         return carbonEmissionsPublicTranportation_inKG;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
     public boolean hasDate() {
         return hasDate;
     }
@@ -57,38 +62,6 @@ public class JourneyManager {
 
     public int getSize() {
         return journeyList.size();
-    }
-
-    public int getSelectedYear() {
-        return selectedYear;
-    }
-
-    public void setSelectedYear(int selectedYear) {
-        this.selectedYear = selectedYear;
-    }
-
-    public int getSelectedMonth() {
-        return selectedMonth;
-    }
-
-    public void setSelectedMonth(int selectedMonth) {
-        this.selectedMonth = selectedMonth;
-    }
-
-    public int getSelectedDay() {
-        return selectedDay;
-    }
-
-    public void setSelectedDay(int selectedDay) {
-        this.selectedDay = selectedDay;
-    }
-
-    public String getCurrentDate() {
-        return currentDate;
-    }
-
-    public void setCurrentDate(String currentDate) {
-        this.currentDate = currentDate;
     }
 
     public List<Journey> getJourneyList() {
@@ -112,15 +85,19 @@ public class JourneyManager {
         for (int i = 0; i < journeyList.size(); i++) {
             Journey journey = getJourney(i);
             if (journey.hasVehicle()) {
-                descriptions[i] = String.format("Journey No.%d\nRoute Nickname: %s\nTransportation: %s",
+                descriptions[i] = String.format("Journey No.%d\nRoute Nickname: %s\nTransportation: %s\n",
                         i + 1,
                         journey.getRoute().getNickname(),
-                        journey.getUserVehicle().getNickname());
+                        journey.getUserVehicle().getNickname())
+                        + "Date: " + journey.getDate();
+
             } else {
-                descriptions[i] = String.format("Journey No.%d\nRoute Nickname: %s\nTransportation: %s",
+                descriptions[i] = String.format("Journey No.%d\nRoute Nickname: %s\nTransportation: %s\n",
                         i + 1,
                         journey.getRoute().getNickname(),
-                        journey.getTransportation().getType());
+                        journey.getTransportation().getType())
+                        + "Date: " + journey.getDate();
+
             }
         }
         return descriptions;

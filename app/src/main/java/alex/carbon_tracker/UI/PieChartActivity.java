@@ -15,12 +15,12 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
-import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
 
 /*
@@ -34,15 +34,13 @@ public class PieChartActivity extends AppCompatActivity {
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
 
     public static final String CHANGE_TO_TABLE = "Change to table";
-    public static final String DISPLAY_DATA_DAY = "Pass data day from pie chart";
+    public static final String DISPLAY_DATA_DATE = "Pass data day from pie chart";
 
     private boolean handleDay = false;
 
     private Intent i = this.getIntent();
 
-    private int year;
-    private int month;
-    private int day;
+    private Date date;
 
     private List<String> journeyNumbers = new ArrayList<>();
     private List<Double> journeyCO2Emissions = new ArrayList<>();
@@ -64,9 +62,7 @@ public class PieChartActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
 
         if (intent.hasExtra(DisplayCarbonFootPrintActivity.CHANGE_TO_GRAPHS)) {
-            year = (int) extras.get(DisplayCarbonFootPrintActivity.PASS_YEAR_DATA);
-            month = (int) extras.get(DisplayCarbonFootPrintActivity.PASS_MONTH_DATA);
-            day = (int) extras.get(DisplayCarbonFootPrintActivity.PASS_DAY_DATA);
+            date = (Date) extras.get(DisplayCarbonFootPrintActivity.PASS_DATE_DATA);
             handleDay = true;
         }
 
@@ -104,21 +100,17 @@ public class PieChartActivity extends AppCompatActivity {
 
     private void setupPieChartForDay() {
         List<PieEntry> pieEntries = new ArrayList<>();
-        addJourneysOnSelectedDay(year, month, day);
+        addJourneysOnSelectedDay(date);
         for (int i = 0; i < journeyCO2Emissions.size(); i++) {
             PieEntry pieEntry = createNewPieEntry(journeyCO2Emissions.get(i).floatValue(), journeyNumbers.get(i));
             pieEntries.add(pieEntry);
         }
     }
 
-    private void addJourneysOnSelectedDay(int year,
-                                          int month,
-                                          int day) {
+    private void addJourneysOnSelectedDay(Date date) {
         for (int i = 0; i < journeyManager.getJourneyList().size(); i++) {
             Journey journey = journeyManager.getJourney(i);
-            boolean isSameDate = journey.getYear() == year
-                    && journey.getMonth() == month
-                    && journey.getDay() == day;
+            boolean isSameDate = journey.getDate().equals(date);
             if (isSameDate) {
                 journeyNumbers.add("Journey No." + (i + 1));
                 journeyCO2Emissions.add(journey.getCarbonEmitted());
@@ -137,11 +129,9 @@ public class PieChartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = DisplayCarbonFootPrintActivity.makeIntent(PieChartActivity.this);
-                intent.putExtra(DisplayCarbonFootPrintActivity.PASS_YEAR_DATA, year);
-                intent.putExtra(DisplayCarbonFootPrintActivity.PASS_MONTH_DATA, month);
-                intent.putExtra(DisplayCarbonFootPrintActivity.PASS_DAY_DATA, day);
+                intent.putExtra(DisplayCarbonFootPrintActivity.PASS_DATE_DATA, date);
                 intent.putExtra(CHANGE_TO_TABLE, 0);
-                intent.putExtra(DISPLAY_DATA_DAY, 0);
+                intent.putExtra(DISPLAY_DATA_DATE, 0);
                 startActivity(intent);
                 finish();
             }

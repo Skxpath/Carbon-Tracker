@@ -58,24 +58,25 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".UI.SelectTransportationModeActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.SelectDateActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.MenuActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.UtilitylistActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.DateListActivity">
-            android:screenOrientation="portrait"/>
+            android:name=".UI.DateListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.LineGraphActivity"
-            android:screenOrientation="portrait"
-            <activity android:name=".UI.AddUtilityBillActivity"
-            <activity android:name=".UI.AddUtilityBillPart2"/>
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".UI.AddUtilityBillActivity"/>
+        <activity android:name=".UI.AddUtilityBillPart2" />
     </application>
 
 </manifest>
