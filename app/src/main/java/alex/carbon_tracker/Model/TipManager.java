@@ -17,18 +17,21 @@ public class TipManager {
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
 
     private int totalTransportationJourneys = 0;
+
     private double totalEmissionsTransportation = 0;
+
     private int totalVehicleJourneys = 0;
-    private int totalEmissionsVehicle = 0;
-    private int totalEmissionsVehicleAndTransportation = 0;
+
+    private double totalEmissionsVehicle = 0;
+    private double totalEmissionsVehicleAndTransportation = 0;
 
     private int totalJourneys = 0;
 
-    private int totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
-    private int totalEmissionsNaturalgas = 0;
-    private int totalEmissionsElectricity = 0;
+    private double totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
+    private double totalEmissionsNaturalgas = 0;
+    private double totalEmissionsElectricity = 0;
 
-    private int totalEmissionsOverall = 0;
+    private double totalEmissionsOverall = 0;
 
     private int identifier = 0;
 
@@ -123,17 +126,22 @@ public class TipManager {
         makeVehicleTip(updatedTipString(1));
         makeVehicleTip(updatedTipString(2));
         makeVehicleTip(updatedTipString(3));
+
         makeTransportationTip(updatedTipString(4));
         makeTransportationTip(updatedTipString(5));
+
         makeNaturalGasTip(updatedTipString(6));
         makeElectricityTip(updatedTipString(7));
         makeElectricityTip(updatedTipString(8));
+
         makeVehicleTip(updatedTipString(9));
         makeElectricityTip(updatedTipString(10));
         makeNaturalGasTip(updatedTipString(11));
         makeElectricityTip(updatedTipString(12));
         makeNaturalGasTip(updatedTipString(13));
         makeElectricityTip(updatedTipString(14));
+
+        makeVehicleTip(updatedTipString(15));
     }
 
     private String updatedTipString(int identifier) {
@@ -198,6 +206,9 @@ public class TipManager {
             case 14:
                 return "You have generated " + totalEmissionsNaturalgasAndElectricity + " kg of CO2 in utilities. " +
                         "By spending less time at home, you can reduce the emissions you create by using house utilities!";
+            case 15:
+                return "You have generated " + totalEmissionsVehicle + " kg of CO2 through vehicle trips." +
+                        " If you would like to make the investment, consider switching to an electric car!";
             default:
                 return "This tip was overwritten because no case for it was given! Tip #: " + identifier;
         }

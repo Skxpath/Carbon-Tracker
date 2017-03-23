@@ -11,20 +11,23 @@ public class EmissionsManager implements TipManagerObserver {
 private CarbonTrackerModel carbonTrackerModel;
 
     private double totalEmissionsTransportation = 0;
-    private int totalEmissionsVehicle = 0;
+    private double totalEmissionsVehicle = 0;
+
     private int totalTransportationJourneys = 0;
     private int totalVehicleJourneys = 0;
-    private int totalEmissionsVehicleAndTransportation = 0;
+
+    private double totalEmissionsVehicleAndTransportation = 0;
 
     private int totalJourneys = 0;
 
-    private int totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
-    private int totalEmissionsNaturalgas = 0;
-    private int totalEmissionsElectricity = 0;
+    private double totalEmissionsNaturalgas = 0;
+    private double totalEmissionsElectricity = 0;
 
-    private int totalEmissionsOverall = 0;
+    private double totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
 
-    public int getTotalEmissionsVehicle() {
+    private double totalEmissionsOverall = 0;
+
+    public double getTotalEmissionsVehicle() {
         return totalEmissionsVehicle;
     }
 
@@ -36,7 +39,7 @@ private CarbonTrackerModel carbonTrackerModel;
         return totalTransportationJourneys;
     }
 
-    public int getTotalEmissionsVehicleAndTransportation() {
+    public double getTotalEmissionsVehicleAndTransportation() {
         return totalEmissionsVehicleAndTransportation;
     }
 
@@ -44,19 +47,19 @@ private CarbonTrackerModel carbonTrackerModel;
         return totalVehicleJourneys;
     }
 
-    public int getTotalEmissionsNaturalgas() {
+    public double getTotalEmissionsNaturalgas() {
         return totalEmissionsNaturalgas;
     }
 
-    public int getTotalEmissionsElectricity() {
+    public double getTotalEmissionsElectricity() {
         return totalEmissionsElectricity;
     }
 
-    public int getTotalEmissionsOverall() {
+    public double getTotalEmissionsOverall() {
         return totalEmissionsOverall;
     }
 
-    public int getTotalEmissionsNaturalgasAndElectricity() {
+    public double getTotalEmissionsNaturalgasAndElectricity() {
         return totalEmissionsNaturalgasAndElectricity;
     }
 
@@ -64,15 +67,24 @@ private CarbonTrackerModel carbonTrackerModel;
         return totalJourneys;
     }
 
+    //Stackoverflow: http://stackoverflow.com/questions/22186778/using-math-round-to-round-to-one-decimal-place
+    private static double roundToOneDecimalPlace(double value) {
+        int scale = (int) Math.pow(10, 1);
+        return (double) Math.round(value * scale) / scale;
+    }
+
     @Override
     public void update() {
         carbonTrackerModel = CarbonTrackerModel.getInstance();
-        totalEmissionsTransportation =  carbonTrackerModel.getJourneyManager().totalCarbonEmissionsPublicTransportation();
+
+        totalEmissionsTransportation = roundToOneDecimalPlace(carbonTrackerModel.getJourneyManager().totalCarbonEmissionsPublicTransportation());
         Log.d("EmissionsManager", "Total emi for trans = " + totalEmissionsTransportation);
-        totalEmissionsVehicle = (int) carbonTrackerModel.getJourneyManager().totalCarbonEmissionsVehicle();
+        totalEmissionsVehicle = roundToOneDecimalPlace(carbonTrackerModel.getJourneyManager().totalCarbonEmissionsVehicle());
+
         totalTransportationJourneys = carbonTrackerModel.getJourneyManager().totalTransportationJourneys();
         totalVehicleJourneys = carbonTrackerModel.getJourneyManager().totalVehicleJourneys();
-        totalEmissionsVehicleAndTransportation = (int)carbonTrackerModel.getJourneyManager().totalCarbonEmissionsJourneys();
+
+        totalEmissionsVehicleAndTransportation = roundToOneDecimalPlace(carbonTrackerModel.getJourneyManager().totalCarbonEmissionsJourneys());
 
         totalEmissionsNaturalgasAndElectricity = 0; //Add etc.
         totalEmissionsNaturalgas = 0;
@@ -80,6 +92,6 @@ private CarbonTrackerModel carbonTrackerModel;
 
         totalJourneys = carbonTrackerModel.getJourneyManager().totalJourneys();
 
-        totalEmissionsOverall = totalEmissionsVehicleAndTransportation+totalEmissionsNaturalgasAndElectricity;
+        totalEmissionsOverall = roundToOneDecimalPlace(totalEmissionsVehicleAndTransportation+totalEmissionsNaturalgasAndElectricity);
     }
 }
