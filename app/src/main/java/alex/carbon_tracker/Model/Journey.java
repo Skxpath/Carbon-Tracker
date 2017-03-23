@@ -1,7 +1,5 @@
 package alex.carbon_tracker.Model;
 
-import java.util.Date;
-
 /**
  * Journey class that uses route and vehicle classes to
  * make Journey instances.
@@ -36,6 +34,10 @@ public class Journey {
 
     public boolean hasVehicle() {
         return (vehicle != null);
+    }
+
+    public boolean hasTransportation() {
+        return (vehicle == null);
     }
 
     public void setCarbonEmitted(double carbonEmitted) {

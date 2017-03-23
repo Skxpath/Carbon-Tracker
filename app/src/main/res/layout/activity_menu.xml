@@ -56,4 +56,27 @@
         android:layout_marginBottom="69dp"
         android:layout_above="@+id/graphListButton"
         android:layout_toStartOf="@+id/textView14" />
+
+    <Button
+        android:text="@string/tipsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tipsButton"
+        android:layout_alignBaseline="@+id/graphListButton"
+        android:layout_alignBottom="@+id/graphListButton"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView19"
+        android:maxLines="6"
+        android:scrollHorizontally="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:text=""
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

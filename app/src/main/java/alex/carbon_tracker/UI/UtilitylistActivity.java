@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,9 @@ import alex.carbon_tracker.Model.UtilityBill;
 import alex.carbon_tracker.Model.UtilityBillManager;
 import alex.carbon_tracker.R;
 
+/*UtilityListActivity which displays the users
+* utility bills and consumption
+* */
 public class UtilitylistActivity extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
@@ -50,8 +54,8 @@ public class UtilitylistActivity extends AppCompatActivity {
         for (UtilityBill bill : utilityList) {
             int i = utilityDescriptionsList.size() + 1;
             String description = String.format("Utility Bill No. %d\n" +
-                    "Gas Consumption: %f\n" +
-                    "Electricity Consumption: %f",
+                            "Gas Consumption: %f\n" +
+                            "Electricity Consumption: %f",
                     i,
                     bill.getHouseholdGasConsumption(),
                     bill.getHouseholdElectricalConsumption()
@@ -77,6 +81,7 @@ public class UtilitylistActivity extends AppCompatActivity {
     public static Intent makeIntent(Context context) {
         return new Intent(context, UtilitylistActivity.class);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

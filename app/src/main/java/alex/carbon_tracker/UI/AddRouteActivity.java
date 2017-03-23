@@ -119,6 +119,8 @@ public class AddRouteActivity extends AppCompatActivity {
                     }
 
                     Intent intent = JourneyListActivity.makeIntent(AddRouteActivity.this);
+
+                    Toast.makeText(AddRouteActivity.this, carbonTrackerModel.getTipManager().getTip(), Toast.LENGTH_LONG).show();
                     startActivity(intent);
                     finish();
                 } else {

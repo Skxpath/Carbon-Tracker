@@ -1,7 +1,10 @@
 package alex.carbon_tracker.Model;
 
 /**
- * Holds a fuelTypeNumber
+ * Transportation class that holds
+ * emissions values for different transportation types
+ * and helps JourneyManager differ between different
+ * types in it's display and calculation.
  */
 
 public class Transportation {

@@ -33,8 +33,6 @@ import alex.carbon_tracker.R;
 public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
 
     public static final int COL_SIZE = 5;
-    private CarbonTrackerModel carbonTrackerModel;
-    private JourneyManager journeyManager ;
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
 
