@@ -1,6 +1,7 @@
 package alex.carbon_tracker.Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class UtilityBillManager {
         //need to add a sort function to make bill with oldest end date first index and be sorted chronologically such that bill with newest end date is last index
         //need to get date working properly first
         getBills().add(bill);
+        Collections.sort(bills);
     }
 
     public UtilityBill getMostRecentBill() {
