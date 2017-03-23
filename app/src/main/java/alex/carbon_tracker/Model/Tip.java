@@ -2,12 +2,13 @@ package alex.carbon_tracker.Model;
 
 /**
  * Created by Alex on 3/18/2017.
+ * <p>
+ * Tip class to store info about individual tips
+ * displayed to the user
  */
-
 public class Tip implements TipManagerObserver, Comparable<Tip> {
 
-
-    private final String tip;
+    private String tip;
     private final TipEnum key;
 
     public int getCounter() {
@@ -17,31 +18,33 @@ public class Tip implements TipManagerObserver, Comparable<Tip> {
     private int counter = 0;
     private double emissions = 0;
 
-    //Do not display tip if displayed within the last COOLDOWN_LENGTH tips.
-    private final int COOLDOWN_LENGTH = 7;
+    private int identifier = 0;
 
-    public Tip(String tip, TipEnum key) {
+    private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+
+    public Tip(String tip, TipEnum key, int identifier) {
         this.tip = tip;
         this.key = key;
-        checkEmissions(key);
+        this.identifier = identifier;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
     }
 
     private void checkEmissions(TipEnum key) {
         switch (key) {
             case VEHICLE_TIPS:
-                setEmissions(100);
-                break;
-            case MISC_TIPS:
-                setEmissions(0);
+                setEmissions(carbonTrackerModel.getEmissionsManager().getTotalEmissionsVehicle());
                 break;
             case NATURALGAS_TIPS:
-                setEmissions(10);
+                setEmissions(carbonTrackerModel.getEmissionsManager().getTotalEmissionsNaturalgas());
                 break;
             case TRANSPORTATION_TIPS:
-                setEmissions(5);
+                setEmissions(carbonTrackerModel.getEmissionsManager().getTotalEmissionsTransportation());
                 break;
             case ELECTRICITY_TIPS:
-                setEmissions(7);
+                setEmissions(carbonTrackerModel.getEmissionsManager().getTotalEmissionsElectricity());
                 break;
         }
     }
@@ -65,6 +68,7 @@ public class Tip implements TipManagerObserver, Comparable<Tip> {
     }
 
     private void updateCooldowns() {
+        int COOLDOWN_LENGTH = 7;
         if ((counter != 0) && (counter <= COOLDOWN_LENGTH)) {
             counter++;
         }
@@ -74,15 +78,15 @@ public class Tip implements TipManagerObserver, Comparable<Tip> {
     }
 
     public boolean checkCooldowns() {
-        if (counter == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return counter == 0;
     }
 
     public String getTip() {
         return tip;
+    }
+
+    public int getIdentifier() {
+        return identifier;
     }
 
     @Override

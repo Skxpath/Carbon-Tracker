@@ -9,6 +9,9 @@ import android.widget.Button;
 
 import alex.carbon_tracker.R;
 
+/*SelectTransportationModeActivity which allows the user
+* to select a transportation mode for their journey.
+* */
 public class SelectTransportationModeActivity extends AppCompatActivity {
 
     public static final double WALK_CARBON_EMISSION_GRAMS = 0.0;
@@ -43,6 +46,7 @@ public class SelectTransportationModeActivity extends AppCompatActivity {
             }
         });
     }
+
     private void setupSelectBusButton() {
         Button button = (Button) findViewById(R.id.buttonSelectBus);
         button.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +60,7 @@ public class SelectTransportationModeActivity extends AppCompatActivity {
             }
         });
     }
+
     private void setupSelectSkyTrainButton() {
         Button button = (Button) findViewById(R.id.buttonSelectSkyTrain);
         button.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +73,7 @@ public class SelectTransportationModeActivity extends AppCompatActivity {
             }
         });
     }
+
     private void setupSelectCarButton() {
         Button button = (Button) findViewById(R.id.buttonSelectVehicle);
         button.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +85,6 @@ public class SelectTransportationModeActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     public static Intent makeIntent(Context context) {

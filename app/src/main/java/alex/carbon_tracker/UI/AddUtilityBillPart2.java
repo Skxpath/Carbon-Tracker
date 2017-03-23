@@ -18,6 +18,9 @@ import alex.carbon_tracker.Model.UtilityBill;
 import alex.carbon_tracker.Model.UtilityBillManager;
 import alex.carbon_tracker.R;
 
+/*Second screen of AddUtilityBill for the user to enter
+* the values for their Utility Bill.
+* */
 public class AddUtilityBillPart2 extends AppCompatActivity {
 
     CarbonTrackerModel model = CarbonTrackerModel.getInstance();
@@ -59,6 +62,7 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
                     Date endDate = new Date(endDateVal);
                     manager.addBill(new UtilityBill(gasConsumption, electricalConsumption, startDate, endDate, householdSize));
                     Intent intent = new Intent(AddUtilityBillPart2.this, UtilitylistActivity.class);
+                    Toast.makeText(AddUtilityBillPart2.this, model.getTipManager().getTip(), Toast.LENGTH_LONG).show();
                     startActivity(intent);
                     finish();
                 } else {

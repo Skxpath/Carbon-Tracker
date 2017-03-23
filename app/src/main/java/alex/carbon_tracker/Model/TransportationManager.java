@@ -1,17 +1,16 @@
 package alex.carbon_tracker.Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Chester on 2017-03-18.
+ * <p>
+ * TransportationManager class to manage
+ * the different forms of Transportation.
  */
 
 public class TransportationManager {
     private Transportation currTransportation;
 
     public TransportationManager() {
-
     }
 
     public Transportation getCurrTransportation() {

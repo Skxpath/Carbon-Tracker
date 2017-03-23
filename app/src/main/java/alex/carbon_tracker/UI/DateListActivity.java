@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -22,6 +23,10 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.R;
 
+/*DateListActivity to show a calender for the dates
+* which lets the user choose when they made
+* their bill or journey.
+* */
 public class DateListActivity extends AppCompatActivity {
 
     public static final String CHANGE_TO_GRAPHS = "Change to graphs from date list";
@@ -48,7 +53,7 @@ public class DateListActivity extends AppCompatActivity {
     }
 
     private void setupLastMonthButton() {
-        Button button = (Button)findViewById(R.id.lastMonthGraphButton);
+        Button button = (Button) findViewById(R.id.lastMonthGraphButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +112,7 @@ public class DateListActivity extends AppCompatActivity {
     public static Intent makeIntent(Context context) {
         return new Intent(context, DateListActivity.class);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

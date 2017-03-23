@@ -13,7 +13,7 @@ public class UserVehicleManager {
     private UserVehicle currentVehicle;
 
     public void testing() {
-        UserVehicle userVehicle = new UserVehicle("Test", "123", 67,"f","df","gas",6,66,66.6);
+        UserVehicle userVehicle = new UserVehicle("Test", "123", 67, "f", "df", "gas", 6, 66, 66.6);
         vehicleList.add(userVehicle);
     }
 
@@ -45,12 +45,12 @@ public class UserVehicleManager {
         vehicleList.add(userVehicle);
     }
 
-    public void delete(int index){
+    public void delete(int index) {
         vehicleList.remove(index);
     }
 
-    public  void replaceUserVehicle(UserVehicle vehicle,int index){
-        vehicleList.set(index,vehicle);
+    public void replaceUserVehicle(UserVehicle vehicle, int index) {
+        vehicleList.set(index, vehicle);
     }
 
     public String[] getUserVehicleDescriptions() {

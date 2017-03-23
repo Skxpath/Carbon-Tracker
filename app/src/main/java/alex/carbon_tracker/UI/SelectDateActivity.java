@@ -20,6 +20,9 @@ import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.UtilityBill;
 import alex.carbon_tracker.R;
 
+/*SelectDateActivity which allows
+* the user to select a date for their
+* Journey*/
 public class SelectDateActivity extends AppCompatActivity {
 
     public static final String DATE_PICKER = "datePicker";

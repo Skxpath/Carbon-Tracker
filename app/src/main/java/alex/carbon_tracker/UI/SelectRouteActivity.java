@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import alex.carbon_tracker.Model.CarbonCalculator;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
@@ -71,11 +72,13 @@ public class SelectRouteActivity extends AppCompatActivity {
 
         selectRoute();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         SaveData.storeSharePreference(this);
     }
+
     private void getExtrasFromIntent(Intent intent) {
         Bundle extras = intent.getExtras();
         if (intent.hasExtra(SelectTransportationModeActivity.SELECT_BUS)) {
@@ -158,7 +161,7 @@ public class SelectRouteActivity extends AppCompatActivity {
                             journeyManager.getDate());
                     journeyManager.add(journey);
                 }
-
+                Toast.makeText(SelectRouteActivity.this, carbonTrackerModel.getTipManager().getTip(), Toast.LENGTH_LONG).show();
                 finish();
             }
         });

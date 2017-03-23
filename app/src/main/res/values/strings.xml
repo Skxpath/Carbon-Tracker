@@ -53,7 +53,7 @@
     <string name="add_selected_date">Add Selected Date</string>
     <string name="no_date_selected_yet">No date selected yet</string>
     <string name="current_selected_date">Current Selected Date:</string>
-
+    <string name="tipsButton">New Tip</string>
 
 
 </resources>
