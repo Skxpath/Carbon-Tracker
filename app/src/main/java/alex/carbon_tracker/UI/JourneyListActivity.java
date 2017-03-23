@@ -81,6 +81,7 @@ public class JourneyListActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, v.getId(), 0, "Delete");
         menu.add(0, v.getId(), 0, "Edit Transportation");
+        menu.add(0,v.getId(),0,"Edit Route");
     }
 
     @Override
@@ -95,17 +96,16 @@ public class JourneyListActivity extends AppCompatActivity {
             intent.putExtra("editJourney",true);
             intent.putExtra("journeyPosition", currentJourneyPosition);
             startActivity(intent);
-
-
-
-
-
-
-
-
-
             return true;
-        } else {
+        }
+        else if (item.getTitle().equals("Edit Route")){
+            Intent intent = SelectRouteActivity.makeIntent(this);
+            intent.putExtra("editJourney",true);
+            intent.putExtra("journeyPosition",currentJourneyPosition);
+            startActivity(intent);
+        return true;
+        }
+        else {
             return false;
         }
 

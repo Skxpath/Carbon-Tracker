@@ -26,6 +26,8 @@ public class SelectTransportationModeActivity extends AppCompatActivity {
     public static final String SELECT_WALK = "Walk";
     public static final String SELECT_BUS = "Bus";
     public static final String SELECT_SKY_TRAIN = "Sky Train";
+    public static final String EDIT_JOURNEY = "editJourney";
+    public static final String JOURNEY_POSITION = "journeyPosition";
     private boolean isEditingJourney = false;
     private int editJourneyPosition;
     CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
@@ -45,9 +47,9 @@ public class SelectTransportationModeActivity extends AppCompatActivity {
 
     private void getIntentFromJourney() {
         Intent intent = getIntent();
-        isEditingJourney = intent.getBooleanExtra("editJourney", false);
+        isEditingJourney = intent.getBooleanExtra(EDIT_JOURNEY, false);
         if (isEditingJourney) {
-            editJourneyPosition = intent.getIntExtra("journeyPosition", 0);
+            editJourneyPosition = intent.getIntExtra(JOURNEY_POSITION, 0);
         }
     }
 

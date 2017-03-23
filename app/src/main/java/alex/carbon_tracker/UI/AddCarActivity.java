@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import alex.carbon_tracker.Model.CarbonCalculator;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
@@ -48,6 +50,7 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
     private double getCarFuelTypeNumber = 0;
 
     private List<String> carMakeList;
+    private int editJourneyPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +75,14 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateEditText(R.id.carNicknameEditText)) {
+                //checking if we are editing the journey
+                if (getIntent().getBooleanExtra("editJourney", false) && validateEditText(R.id.carNicknameEditText)) {
+                    editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
+                    addCarToTheModel();
+                    finish();
+                }
+                // adding new journey
+                else if (validateEditText(R.id.carNicknameEditText)) {
                     addCarToTheModel();
                     Intent intent = SelectRouteActivity.makeIntent(AddCarActivity.this);
                     startActivity(intent);
@@ -105,7 +115,28 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
                         newVehicle.getHighwayDrive(),
                         getCarFuelTypeNumber);
                 userVehicleManager.add(newUserVehicle);
-                userVehicleManager.setCurrentVehicle(newUserVehicle);
+                if (getIntent().getBooleanExtra("editJourney", false)) {
+                    // resetting the carbon emission
+                    Route userCurrentRoute = carbonTrackerModel.getJourneyManager().
+                            getJourney(editJourneyPosition).getRoute();
+
+                    double distanceTravelledCity = userCurrentRoute.getCityDistance();
+                    double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
+
+                    double gasType = newVehicle.getFuelTypeNumber();
+                    int milesPerGallonCity = newVehicle.getCityDrive();
+                    int milesPerGallonHighway = newVehicle.getHighwayDrive();
+
+                    double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity,
+                            distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
+                    //setting the new  vehicle and carbon emission value
+                    carbonTrackerModel.getJourneyManager().getJourney(editJourneyPosition).setVehicle(newUserVehicle);
+                    carbonTrackerModel.getJourneyManager().getJourney(editJourneyPosition).setCarbonEmitted(CO2Emissions);
+
+
+                } else {
+                    userVehicleManager.setCurrentVehicle(newUserVehicle);
+                }
                 break;
             }
         }

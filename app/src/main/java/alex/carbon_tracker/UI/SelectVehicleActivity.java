@@ -77,9 +77,19 @@ public class SelectVehicleActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = AddCarActivity.makeIntent(SelectVehicleActivity.this);
-                startActivity(intent);
-                finish();
+                if(getIntent().getBooleanExtra("editJourney",false)){
+                    editJourneyPosition = getIntent().getIntExtra("journeyPosition",0);
+                    Intent intent = AddCarActivity.makeIntent(SelectVehicleActivity.this);
+                    intent.putExtra("editJourney",true);
+                    intent.putExtra("journeyPosition",editJourneyPosition);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Intent intent = AddCarActivity.makeIntent(SelectVehicleActivity.this);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }

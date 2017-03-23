@@ -59,6 +59,7 @@ public class DateListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = LineGraphActivity.makeIntent(DateListActivity.this);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -80,6 +81,7 @@ public class DateListActivity extends AppCompatActivity {
                 intent.putExtra(CHANGE_TO_GRAPHS, 0);
 
                 startActivity(intent);
+                finish();
             }
 
 

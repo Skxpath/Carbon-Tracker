@@ -52,7 +52,7 @@ public class LineGraphActivity extends AppCompatActivity {
         int day = carbonTrackerModel.getJourneyManager().getSelectedDay();
         for (int i = 0; i < 28; i++) {
             float x = 0;
-            for(int j = 0;j<carbonTrackerModel.getJourneyManager().getJourneyList().size();j++){
+            for (int j = 0; j < carbonTrackerModel.getJourneyManager().getJourneyList().size(); j++) {
             }
 
         }
