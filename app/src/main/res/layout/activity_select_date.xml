@@ -52,8 +52,16 @@
         android:layout_height="48dp"
         android:id="@+id/buttonSelectDate"
         android:text="@string/select_date"
-        android:layout_below="@+id/textViewSelectADate"
-        android:layout_alignParentEnd="true"
-        android:layout_width="170dp" />
+        android:layout_width="170dp"
+        android:layout_alignBottom="@+id/textViewSelectADate"
+        android:layout_alignStart="@+id/buttonAddSelectedDate"
+        android:layout_marginBottom="13dp" />
+
+    <CalendarView
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:id="@+id/calendarViewJourneyDate"
+        android:layout_alignTop="@+id/textViewSelectADate"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

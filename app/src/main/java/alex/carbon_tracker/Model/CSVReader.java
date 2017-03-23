@@ -110,6 +110,5 @@ public class CSVReader {
                 vehicleManager.add(vehicle);
             }
         }
-        // Log.d("MenuActivity", "Just created: " + vehicle.toString());
     }
 }

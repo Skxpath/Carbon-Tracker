@@ -51,7 +51,9 @@ public class Vehicle {
         return fuelType;
     }
 
-    public double getFuelTypeNumber() { return fuelTypeNumber; }
+    public double getFuelTypeNumber() {
+        return fuelTypeNumber;
+    }
 
     public String getTransmission() {
         return transmission;

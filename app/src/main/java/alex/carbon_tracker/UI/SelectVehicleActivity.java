@@ -21,7 +21,7 @@ import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
 /*
-* Select Transportation Mode activity which allows
+* SelectVehicleActivity activity which allows
 * the user to select a car for a journey, or add a new
 * personal car that does not exist on the list.
 * */

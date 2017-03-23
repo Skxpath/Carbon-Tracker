@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
@@ -18,15 +20,26 @@ import alex.carbon_tracker.Model.UtilityBill;
 import alex.carbon_tracker.Model.UtilityBillManager;
 import alex.carbon_tracker.R;
 
+/*Second screen of AddUtilityBill for the user to enter
+* the values for their Utility Bill.
+* */
 public class AddUtilityBillPart2 extends AppCompatActivity {
 
     CarbonTrackerModel model = CarbonTrackerModel.getInstance();
     UtilityBillManager manager = model.getUtilityBillManager();
-
+    int selectedYear;
+    int selectedMonth;
+    int selectedDay;
+    int selectedYear2;
+    int selectedMonth2;
+    int selectedDay2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_utility_bill_part2);
+
+        setupOnClickCalendar(R.id.startDateCalendar);
+        setupOnClickCalendar2(R.id.endDateCalendar);
 
         UtilityBill mostRecentBill = manager.getMostRecentBill();
 
@@ -53,12 +66,25 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 long startDateVal = getDateFromCalendar(R.id.startDateCalendar);
-                long endDateVal = getDateFromCalendar(R.id.endDateCalendar);
-                if (startDateVal < endDateVal) {
-                    Date startDate = new Date(startDateVal);
-                    Date endDate = new Date(endDateVal);
+                long endDateVal = getDateFromCalendar2(R.id.endDateCalendar);
+                Date startDate;
+                Date endDate;
+                CalendarView startDateCalendar = (CalendarView) findViewById(R.id.startDateCalendar);
+                CalendarView endDateCalendar = (CalendarView) findViewById(R.id.endDateCalendar);
+                if (startDateVal < 0) {
+                    startDate = new Date(startDateCalendar.getDate());
+                } else {
+                    startDate = new Date(startDateVal);
+                }
+                if (endDateVal < 0) {
+                    endDate  = new Date(endDateCalendar.getDate());
+                } else {
+                    endDate  = new Date(endDateVal);
+                }
+                if (startDate.getTime() < endDate.getTime()) {
                     manager.addBill(new UtilityBill(gasConsumption, electricalConsumption, startDate, endDate, householdSize));
                     Intent intent = new Intent(AddUtilityBillPart2.this, UtilitylistActivity.class);
+                    Toast.makeText(AddUtilityBillPart2.this, model.getTipManager().getTip(), Toast.LENGTH_LONG).show();
                     startActivity(intent);
                     finish();
                 } else {
@@ -67,11 +93,49 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
             }
         });
     }
-
+    private void setupOnClickCalendar(int id) {
+        final CalendarView calendarView = (CalendarView) findViewById(id);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                selectedYear = year;
+                selectedMonth = month;
+                selectedDay = dayOfMonth + 1;
+            }
+        });
+    }
+    private void setupOnClickCalendar2(int id) {
+        final CalendarView calendarView = (CalendarView) findViewById(id);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                selectedYear2 = year;
+                selectedMonth2 = month;
+                selectedDay2 = dayOfMonth + 1;
+            }
+        });
+    }
     private long getDateFromCalendar(int id) {
-        CalendarView calendarView = (CalendarView) findViewById(id);
-        Date date = new Date(calendarView.getDate());
-        return calendarView.getDate();
+        final CalendarView calendarView = (CalendarView) findViewById(id);
+        GregorianCalendar gc = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
+        gc.clear();
+        gc.set(selectedYear, selectedMonth, selectedDay);
+
+        long date_InMilSec = gc.getTimeInMillis();
+
+        Log.d("selectDateActivity", date_InMilSec + "*************************************");
+        return date_InMilSec;
+    }
+    private long getDateFromCalendar2(int id) {
+        final CalendarView calendarView = (CalendarView) findViewById(id);
+        GregorianCalendar gc = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
+        gc.clear();
+        gc.set(selectedYear2, selectedMonth2, selectedDay2);
+
+        long date_InMilSec = gc.getTimeInMillis();
+
+        Log.d("selectDateActivity", date_InMilSec + "*************************************");
+        return date_InMilSec;
     }
 
 }

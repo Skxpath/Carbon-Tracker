@@ -15,6 +15,9 @@ import alex.carbon_tracker.Model.Transportation;
 import alex.carbon_tracker.R;
 import alex.carbon_tracker.Model.Route;
 
+/*SelectTransportationModeActivity which allows the user
+* to select a transportation mode for their journey.
+* */
 public class SelectTransportationModeActivity extends AppCompatActivity {
 
     private static final String WALK = "Walk";
@@ -95,6 +98,7 @@ public class SelectTransportationModeActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void resetTheVehicle(double emissionInGram, String transportation) {
         editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);

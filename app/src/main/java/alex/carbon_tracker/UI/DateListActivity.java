@@ -12,7 +12,9 @@ import android.widget.Button;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -21,24 +23,22 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.R;
 
+/*DateListActivity to show a calender for the dates
+* which lets the user choose when they made
+* their bill or journey.
+* */
 public class DateListActivity extends AppCompatActivity {
 
     public static final String CHANGE_TO_GRAPHS = "Change to graphs from date list";
-    public static final String SELECTED_YEAR = "Selected Year";
-    public static final String SELECTED_MONTH = "Selected Month";
-    public static final String SELECTED_DAY = "Selected Day";
+    public static final String SELECTED_DATE = "Selected Date";
     public static final String DISPLAY_DATA_YEAR = "Display Data Year";
     public static final String DISPLAY_DATA_MONTH = "Display Data Month";
     public static final String DISPLAY_DATA_DAY = "Display Data Day";
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
-
-    private int year;
-    private int month;
-    private int day;
-
-    private List<DateYMD> dateList = new ArrayList<>();
+// Todo: change these to date and be able to send that date to display...Activity
+    private List<Date> dateList = new ArrayList<>();
     private List<String> dateListDescriptions = new ArrayList<>();
 
     @Override
@@ -53,7 +53,7 @@ public class DateListActivity extends AppCompatActivity {
     }
 
     private void setupLastMonthButton() {
-        Button button = (Button)findViewById(R.id.lastMonthGraphButton);
+        Button button = (Button) findViewById(R.id.lastMonthGraphButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,14 +69,10 @@ public class DateListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DateYMD date = dateList.get(i);
-                year = date.getYear();
-                month = date.getMonth();
-                day = date.getDay();
+                Date date = dateList.get(i);
+
                 Intent intent = DisplayCarbonFootPrintActivity.makeIntent(DateListActivity.this);
-                intent.putExtra(SELECTED_YEAR, year);
-                intent.putExtra(SELECTED_MONTH, month);
-                intent.putExtra(SELECTED_DAY, day);
+                intent.putExtra(SELECTED_DATE, date);
                 intent.putExtra(DISPLAY_DATA_DAY, 0);
                 intent.putExtra(CHANGE_TO_GRAPHS, 0);
 
@@ -96,27 +92,28 @@ public class DateListActivity extends AppCompatActivity {
 
 
 
-    private List<DateYMD> createDateList(JourneyManager journeyManager) {
+    private void createDateList(JourneyManager journeyManager) {
         HashSet hashSet = new HashSet();
         int journeyListSize = journeyManager.getSize();
         for (int i = 0; i < journeyListSize; i++) {
             Journey journey = journeyManager.getJourney(i);
-            int year = journey.getYear();
-            int month = journey.getMonth();
-            int day = journey.getDay();
-            String description = month + "/" + day + "/" + year;
-            DateYMD date = new DateYMD(year, month, day);
+            Date journeyDate = journey.getDate();
+//            int year = journey.getYear(journeyDate);
+//            int month = journey.getMonth(journeyDate);
+//            int day = journey.getDay(journeyDate);
+//            String description = month + "/" + day + "/" + year;
+            String description = journeyDate + "";
             if (hashSet.add(description)) {
                 dateListDescriptions.add(description);
-                dateList.add(date);
+                dateList.add(journeyDate);
             }
         }
-        return dateList;
     }
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, DateListActivity.class);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

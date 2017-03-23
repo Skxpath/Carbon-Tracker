@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import alex.carbon_tracker.Model.CarbonCalculator;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
@@ -34,10 +35,6 @@ import alex.carbon_tracker.R;
 *  */
 public class SelectRouteActivity extends AppCompatActivity {
 
-    public static final int REQUEST_CODE_ADD_ROUTE = 101;
-    public static final int REQUEST_CODE_EDIT_ROUTE = 102;
-
-    public static final String ROUTE_INDEX = "routeIndex";
     public static final String SELECTED_VEHICLE = "Vehicle";
     public static final String SELECTED_NON_VEHICLE = "Non Vehicle";
 
@@ -65,6 +62,7 @@ public class SelectRouteActivity extends AppCompatActivity {
 
         ListView routeList = (ListView) findViewById(R.id.routeListView);
         setCurrentRoutePosition();
+
         Intent intent = getIntent();
         getExtrasFromIntent(intent);
         registerForContextMenu(routeList);
@@ -194,10 +192,13 @@ public class SelectRouteActivity extends AppCompatActivity {
                     }
                     // if creating a new journey
                     else {
-                        Journey journey = new Journey(userCurrentVehicle, userCurrentRoute, CO2Emissions,
-                                journeyManager.getSelectedYear(), journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
+                        Journey journey = new Journey(userCurrentVehicle,
+                                userCurrentRoute,
+                                CO2Emissions,
+                                journeyManager.getDate());
                         journeyManager.add(journey);
                     }
+
                 } else {
                     if (isEditingJourney) {
                         transportation = journeyManager.getJourney(editJourneyPosition).getTransportation();
@@ -207,11 +208,16 @@ public class SelectRouteActivity extends AppCompatActivity {
                         journeyManager.getJourney(editJourneyPosition).setRoute(routeManager.getRoute(i));
                         journeyManager.getJourney(editJourneyPosition).setCarbonEmitted(CO2Emissions);
                     } else {
-                        Journey journey = new Journey(transportation, userCurrentRoute, CO2Emissions,
-                                journeyManager.getSelectedYear(), journeyManager.getSelectedMonth(), journeyManager.getSelectedDay());
+                        Journey journey = new Journey(transportation,
+                                userCurrentRoute,
+                                CO2Emissions,
+                                journeyManager.getDate());
                         journeyManager.add(journey);
                     }
+
+
                 }
+                Toast.makeText(SelectRouteActivity.this, carbonTrackerModel.getTipManager().getTip(), Toast.LENGTH_LONG).show();
                 finish();
             }
         });

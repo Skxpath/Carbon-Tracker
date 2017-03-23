@@ -25,9 +25,8 @@ import alex.carbon_tracker.Model.VehicleManager;
 import alex.carbon_tracker.R;
 
 /*
-* Main Activity class page which allows the
-* user to view either their carbon footprint
-* or add a new journey to the system
+* JourneyListActivity class page which allows the
+* user to add a new journey to the system
 * */
 public class JourneyListActivity extends AppCompatActivity {
 
@@ -41,6 +40,7 @@ public class JourneyListActivity extends AppCompatActivity {
 
         carbonTrackerModel = CarbonTrackerModel.getInstance();
         journeyManager = carbonTrackerModel.getJourneyManager();
+        Log.d("JLAct", journeyManager.totalCarbonEmissionsPublicTransportation() + "");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_list);
 
@@ -64,7 +64,6 @@ public class JourneyListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = SelectDateActivity.makeIntent(JourneyListActivity.this);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -127,7 +126,6 @@ public class JourneyListActivity extends AppCompatActivity {
         super.onResume();
         journeyListView();
     }
-
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, JourneyListActivity.class);

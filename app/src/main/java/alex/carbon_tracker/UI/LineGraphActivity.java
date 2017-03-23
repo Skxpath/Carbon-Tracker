@@ -25,6 +25,10 @@ import alex.carbon_tracker.R;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/*LineGraphActivity class that displays
+* the last 28 and 365 days of utility data
+* in a graphical
+* form*/
 public class LineGraphActivity extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
@@ -46,18 +50,9 @@ public class LineGraphActivity extends AppCompatActivity {
 
 
     private void setupBarChart() {
-        CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+
         final LineChart lineChart = (LineChart) findViewById(R.id.chart);
         ArrayList<Entry> entries = new ArrayList<>();
-        int day = carbonTrackerModel.getJourneyManager().getSelectedDay();
-        for (int i = 0; i < 28; i++) {
-            float x = 0;
-            for (int j = 0; j < carbonTrackerModel.getJourneyManager().getJourneyList().size(); j++) {
-            }
-
-        }
-
-
         entries.add(new Entry(0, 5.6f));
         entries.add(new Entry(1, 8.4f));
         entries.add(new Entry(2, 6));

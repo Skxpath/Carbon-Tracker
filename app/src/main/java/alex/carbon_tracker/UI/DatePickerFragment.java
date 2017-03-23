@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -44,10 +45,10 @@ public class DatePickerFragment extends DialogFragment
         textView.setText("Year: " + selectedYear
                 + " Month: " + selectedMonth
                 + " Day: " + selectedDay);
-        journeyManager.setSelectedYear(selectedYear);
-        journeyManager.setSelectedMonth(selectedMonth);
-        journeyManager.setSelectedDay(selectedDay);
-
-        journeyManager.setHasDate(true);
+//        journeyManager.setSelectedYear(selectedYear);
+//        journeyManager.setSelectedMonth(selectedMonth);
+//        journeyManager.setSelectedDay(selectedDay);
+//
+//        journeyManager.setHasDate(true);
     }
 }

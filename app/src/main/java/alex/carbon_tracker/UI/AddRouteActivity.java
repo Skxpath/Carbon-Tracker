@@ -112,12 +112,11 @@ public class AddRouteActivity extends AppCompatActivity {
                             Journey journey = new Journey(userCurrentVehicle,
                                     userCurrentRoute,
                                     CO2Emissions,
-                                    journeyManager.getSelectedYear(),
-                                    journeyManager.getSelectedMonth(),
-                                    journeyManager.getSelectedDay());
+                                    journeyManager.getDate());
                             journeyManager.add(journey);
-                            Log.i("hii", "whyyyyyyyyyy bad");
                         }
+
+
                     } else {
                         Transportation transportation;
                         if (getIntent().getBooleanExtra("editJourney1",false)) {
@@ -139,15 +138,16 @@ public class AddRouteActivity extends AppCompatActivity {
                             Journey journey = new Journey(transportation,
                                     userCurrentRoute,
                                     CO2Emissions,
-                                    journeyManager.getSelectedYear(),
-                                    journeyManager.getSelectedMonth(),
-                                    journeyManager.getSelectedDay());
-                            Log.i("hello", "whyyyyyyyyyyyyyyyyyy for transport");
+                                    journeyManager.getDate());
                             journeyManager.add(journey);
                         }
+
+
                     }
 
                     Intent intent = JourneyListActivity.makeIntent(AddRouteActivity.this);
+
+                    Toast.makeText(AddRouteActivity.this, carbonTrackerModel.getTipManager().getTip(), Toast.LENGTH_LONG).show();
                     startActivity(intent);
                     finish();
                 } else {
@@ -165,6 +165,7 @@ public class AddRouteActivity extends AppCompatActivity {
         EditText highwayDistEditText = (EditText) findViewById(R.id.highwayDistanceEditText);
         highwayDistance = Integer.parseInt(highwayDistEditText.getText().toString());
         routeName = getEditTextAsString(R.id.routeNameEditText);
+
         Route route = new Route(cityDistance, highwayDistance, routeName);
         routeManager.addRoute(route);
         routeManager.setCurrentRoute(route);

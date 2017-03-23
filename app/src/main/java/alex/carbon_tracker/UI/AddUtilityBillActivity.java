@@ -13,6 +13,10 @@ import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.UtilityBillManager;
 import alex.carbon_tracker.R;
 
+/*
+* AddUtilityBillActivity which allows the user
+* to add a Utility Bill.
+* */
 public class AddUtilityBillActivity extends AppCompatActivity {
     CarbonTrackerModel model = CarbonTrackerModel.getInstance();
     UtilityBillManager manager = model.getUtilityBillManager();
@@ -20,6 +24,7 @@ public class AddUtilityBillActivity extends AppCompatActivity {
     boolean gasConsumptionFieldIsFilled = true;
     boolean electricalConsumptionFieldIsFilled = true;
     boolean householdSizeFieldIsFilled = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +36,10 @@ public class AddUtilityBillActivity extends AppCompatActivity {
         EditText electricalConsumptionEditText;
         electricalConsumptionEditText = (EditText) findViewById(R.id.electricalConsumptionEditText);
         float consumption;
-        if(electricalConsumptionEditText.getText().toString().isEmpty()) {
+        if (electricalConsumptionEditText.getText().toString().isEmpty()) {
             electricalConsumptionFieldIsFilled = false;
             consumption = manager.getMostRecentBill().getHouseholdElectricalConsumption();
-        }
-        else {
+        } else {
             electricalConsumptionFieldIsFilled = true;
             consumption = Float.parseFloat(electricalConsumptionEditText.getText().toString());
         }
@@ -46,30 +50,30 @@ public class AddUtilityBillActivity extends AppCompatActivity {
         EditText gasConsumptionEditText;
         gasConsumptionEditText = (EditText) findViewById(R.id.gasConsumptionEditText);
         float consumption;
-        if(gasConsumptionEditText.getText().toString().isEmpty()) {
+        if (gasConsumptionEditText.getText().toString().isEmpty()) {
             gasConsumptionFieldIsFilled = false;
             consumption = manager.getMostRecentBill().getHouseholdGasConsumption();
-        }
-        else {
+        } else {
             gasConsumptionFieldIsFilled = true;
             consumption = Float.parseFloat(gasConsumptionEditText.getText().toString());
         }
         return consumption;
     }
-    private int getHouseholdSizeEditText(){
+
+    private int getHouseholdSizeEditText() {
         EditText householdSizeEditText;
         householdSizeEditText = (EditText) findViewById(R.id.householdSizeEditText);
         int householdSize = 1;
-        if(householdSizeEditText.getText().toString().isEmpty()){
+        if (householdSizeEditText.getText().toString().isEmpty()) {
             householdSizeFieldIsFilled = false;
             householdSize = 1;
-        }
-        else {
+        } else {
             householdSizeFieldIsFilled = true;
             householdSize = Integer.parseInt(householdSizeEditText.getText().toString());
         }
         return householdSize;
     }
+
     private void setupBtn() {
         Button nextBtn;
         nextBtn = (Button) findViewById(R.id.nextBtn);
@@ -81,15 +85,14 @@ public class AddUtilityBillActivity extends AppCompatActivity {
                 float gasConsumption = getGasConsumptionEditText();
                 float electricalConsumption = getElectricalConsumptionEditText();
 
-                if((electricalConsumptionFieldIsFilled || gasConsumptionFieldIsFilled) && householdSizeFieldIsFilled){
-                    Intent intent = new Intent(AddUtilityBillActivity.this,AddUtilityBillPart2.class);
+                if ((electricalConsumptionFieldIsFilled || gasConsumptionFieldIsFilled) && householdSizeFieldIsFilled) {
+                    Intent intent = new Intent(AddUtilityBillActivity.this, AddUtilityBillPart2.class);
                     intent.putExtra("householdSize", householdSize);
                     intent.putExtra("gasConsumption", gasConsumption);
                     intent.putExtra("electricalConsumption", electricalConsumption);
                     startActivity(intent);
                     finish();
-                }
-                else {
+                } else {
                     Toast.makeText(AddUtilityBillActivity.this, "Invalid Field Values! Please Re-Input!", Toast.LENGTH_LONG).show();
                 }
             }

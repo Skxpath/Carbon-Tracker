@@ -1,17 +1,6 @@
 package alex.carbon_tracker.Model;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-
-import alex.carbon_tracker.UI.WelcomeScreenActivity;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Carbon Tracker Model class which acts as a facade class for the
@@ -20,28 +9,25 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class CarbonTrackerModel {
     private static CarbonTrackerModel ourInstance = new CarbonTrackerModel();
-
-    private  JourneyManager journeyManager;
-    private  RouteManager routeManager;
+    private static EmissionsManager emissionsManager;
+    private JourneyManager journeyManager;
+    private RouteManager routeManager;
     private static VehicleManager vehicleManager;
-    private  UserVehicleManager userVehicleManager;
+    private UserVehicleManager userVehicleManager;
     private static TipManager tipManager;
-
-    private  UtilityBillManager utilityBillManager;
+    private UtilityBillManager utilityBillManager;
     private TransportationManager transportationManager;
-
 
     public UserVehicleManager getUserVehicleManager() {
         return userVehicleManager;
     }
 
     public static void getSavedModel(Context context) {
-        if (SaveData.getSharePreference(context) != null) {
+       if (SaveData.getSharePreference(context) != null) {
             ourInstance = SaveData.getSharePreference(context);
         } else {
             ourInstance = new CarbonTrackerModel();
         }
-
     }
 
     public static CarbonTrackerModel getInstance() {
@@ -53,19 +39,25 @@ public class CarbonTrackerModel {
     }
 
     private CarbonTrackerModel() {
+        emissionsManager = new EmissionsManager();
         utilityBillManager = new UtilityBillManager();
         journeyManager = new JourneyManager();
         routeManager = new RouteManager();
         vehicleManager = new VehicleManager();
         userVehicleManager = new UserVehicleManager();
         transportationManager = new TransportationManager();
-
         tipManager = new TipManager();
         transportationManager = new TransportationManager();
-
-        //userVehicleManager.testing();
+        tipManager.addObserver(emissionsManager);
     }
-    public  UtilityBillManager getUtilityBillManager() { return  utilityBillManager; }
+
+    public UtilityBillManager getUtilityBillManager() {
+        return utilityBillManager;
+    }
+
+    public EmissionsManager getEmissionsManager() {
+        return emissionsManager;
+    }
 
     public JourneyManager getJourneyManager() {
         return journeyManager;

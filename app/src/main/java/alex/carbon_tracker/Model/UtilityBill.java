@@ -1,12 +1,16 @@
 package alex.carbon_tracker.Model;
 
+import java.util.Comparator;
 import java.util.Date;
 
 /**
  * Created by Eli on 2017-03-18.
+ * <p>
+ * UtilityBill class to store different
+ * UtilityBill instances the user enters.
  */
 
-public class UtilityBill {
+public class UtilityBill implements Comparable<UtilityBill>{
     private float householdGasConsumption;
     private float householdElectricalConsumption;
     private Date startDate;
@@ -16,6 +20,7 @@ public class UtilityBill {
     private float personalGasConsumption;
     private double emissionsForElectricity;
     private double emissionsForGas;
+
     public UtilityBill(float gasConsumption, float electricalConsumption, Date startDate, Date endDate, int householdSize) {
         this.householdGasConsumption = gasConsumption;
         this.householdElectricalConsumption = electricalConsumption;
@@ -48,9 +53,9 @@ public class UtilityBill {
         return householdSize;
     }
 
-    public float calculatePersonalConsumption (float householdConsumption){
+    public float calculatePersonalConsumption(float householdConsumption) {
         float personalConsumption;
-        personalConsumption =  householdConsumption/getHouseholdSize();
+        personalConsumption = householdConsumption / getHouseholdSize();
         return personalConsumption;
     }
 
@@ -75,7 +80,7 @@ public class UtilityBill {
         //1,000,000 kilowatts per gigawatt
         int KILOWATTS_TO_GIGAWATTS = 1000000;
         int KILOGRAMS_OF_CO2_PER_GIGAWATT = 9000;
-        float gigaWatts = this.getHouseholdElectricalConsumption()/KILOWATTS_TO_GIGAWATTS;
+        float gigaWatts = this.getHouseholdElectricalConsumption() / KILOWATTS_TO_GIGAWATTS;
         this.emissionsForElectricity = gigaWatts * KILOGRAMS_OF_CO2_PER_GIGAWATT;
     }
 
@@ -85,11 +90,21 @@ public class UtilityBill {
         this.emissionsForGas = KILOGRAMS_OF_CO2_PER_GJ * getHouseholdGasConsumption();
     }
 
-    float getDailyConsumption (float totalConsumption){
+    float getDailyConsumption(float totalConsumption) {
         int elapsedDays;
         //not sure if my math here is correct. got it online
-        elapsedDays = (int)(((getEndDate().getTime() - getStartDate().getTime())/ (1000*60*60*24)));
-        float dailyConsumption = totalConsumption/(float)elapsedDays;
-        return  dailyConsumption;
+        elapsedDays = (int) (((getEndDate().getTime() - getStartDate().getTime()) / (1000 * 60 * 60 * 24)));
+        float dailyConsumption = totalConsumption / (float) elapsedDays;
+        return dailyConsumption;
+    }
+    @Override
+    public int compareTo(UtilityBill o) {
+        if (getEndDate().getTime() == o.getEndDate().getTime()) {
+            return 0;
+        } else if (getEndDate().getTime() > o.getEndDate().getTime()) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }
