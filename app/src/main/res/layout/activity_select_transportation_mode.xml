@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@mipmap/background2"
     tools:context="alex.carbon_tracker.UI.SelectTransportationModeActivity">
 
 
@@ -34,36 +35,40 @@
         android:id="@+id/buttonSelectBus"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:layout_width="140dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape" />
 
     <Button
         android:text="@string/skytrain"
-        android:layout_width="140dp"
-        android:layout_height="48dp"
         android:layout_marginTop="10dp"
         android:id="@+id/buttonSelectSkyTrain"
         android:layout_below="@+id/buttonSelectBus"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape" />
 
     <Button
         android:text="@string/DisplayVehicle"
         android:id="@+id/buttonSelectVehicle"
-        android:layout_height="48dp"
-        android:layout_width="140dp"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/buttonSelectSkyTrain"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape" />
 
     <Button
         android:text="@string/walk"
-        android:layout_width="140dp"
-        android:layout_height="48dp"
         android:id="@+id/buttonSelectWalk"
         android:layout_above="@+id/buttonSelectBus"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape" />
 
 
 </RelativeLayout>

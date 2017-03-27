@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@mipmap/background2"
     tools:context="alex.carbon_tracker.UI.AddUtilityBillActivity">
     <ImageView
         android:layout_width="400dp"
@@ -87,11 +88,12 @@
         android:layout_alignStart="@+id/electricalConsumptionEditText" />
 
     <Button
-        android:text="Next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="@string/next"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/nextBtn" />
+        android:id="@+id/nextBtn"
+        android:background="@drawable/button_shape" />
 
 </RelativeLayout>

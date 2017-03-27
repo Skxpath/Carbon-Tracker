@@ -9,48 +9,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@mipmap/background2"
     tools:context="alex.carbon_tracker.UI.MenuActivity">
-
-    <TextView
-        android:text="MainMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
-        android:id="@+id/textView14" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/carbontrackerlogo5"
+        app:srcCompat="@mipmap/logo3"
         android:id="@+id/imageView6"
-        android:layout_below="@+id/textView14"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
-
-    <Button
-        android:text="@string/ViewJourneys"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/journeyListButton"
-        android:layout_alignBaseline="@+id/utilityListButton"
-        android:layout_alignBottom="@+id/utilityListButton"
-        android:layout_alignEnd="@+id/imageView6"
-        android:layout_marginEnd="30dp" />
-
-    <Button
-        android:text="@string/viewUtility"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/utilityListButton"
-        android:layout_marginBottom="69dp"
-        android:layout_above="@+id/graphListButton"
-        android:layout_toStartOf="@+id/textView14" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/textView19"
         android:maxLines="6"
         android:scrollHorizontally="true"
@@ -60,22 +31,72 @@
         android:focusableInTouchMode="true"
         android:text=""
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_height="100dp" />
+
+    <Button
+        android:text="@string/ViewJourneys"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:id="@+id/journeyListButton"
+        android:layout_marginEnd="38dp"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="20dp"
+        android:background="@drawable/button_shape"
+        android:shadowColor="#ED0C0C"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_alignBottom="@+id/utilityListButton"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="@string/viewUtility"
+        android:layout_width="120dp"
+        android:id="@+id/utilityListButton"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="20dp"
+        android:background="@drawable/button_shape"
+        android:shadowColor="#ED0C0C"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/graphListButton" />
+
+    <Button
+        android:text="@string/tipsButton"
+        android:layout_height="50dp"
+        android:id="@+id/tipsButton"
+        android:layout_width="120dp"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="20dp"
+        android:background="@drawable/button_shape"
+        android:shadowColor="#ED0C0C"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:elevation="0dp"
+        android:layout_alignTop="@+id/graphListButton"
+        android:layout_alignStart="@+id/journeyListButton" />
 
     <Button
         android:text="@string/ViewGraph"
         android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/graphListButton"
-        android:layout_marginBottom="92dp"
-        android:layout_above="@+id/textView19"
-        android:layout_alignStart="@+id/utilityListButton" />
-
-    <Button
-        android:text="@string/tipsButton"
-        android:layout_height="wrap_content"
-        android:id="@+id/tipsButton"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="20dp"
+        android:background="@drawable/button_shape"
+        android:shadowColor="#ED0C0C"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
         android:layout_below="@+id/utilityListButton"
-        android:layout_alignEnd="@+id/journeyListButton"
-        android:layout_width="120dp" />
+        android:layout_toStartOf="@+id/textView14"
+        android:layout_marginTop="26dp" />
+
 </RelativeLayout>

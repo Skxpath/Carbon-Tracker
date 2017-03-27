@@ -83,7 +83,8 @@ public class AddRouteActivity extends AppCompatActivity {
                     double distanceTravelledCity = userCurrentRoute.getCityDistance();
                     double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
 
-                    if(!journeyManager.getJourney(editJourneyPosition).hasVehicle()){
+                    if(getIntent().getBooleanExtra("editJourney1",false) &&
+                            !journeyManager.getJourney(editJourneyPosition).hasVehicle()){
                         isVehicle = false;
                     }
 

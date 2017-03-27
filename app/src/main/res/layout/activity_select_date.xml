@@ -9,15 +9,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@mipmap/background2"
     tools:context="alex.carbon_tracker.UI.SelectDateActivity">
 
     <Button
         android:text="@string/add_selected_date"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/buttonAddSelectedDate" />
+        android:id="@+id/buttonAddSelectedDate"
+        android:layout_width="120dp"
+        android:background="@drawable/button_shape" />
 
     <ImageView
         android:layout_width="400dp"
@@ -37,17 +39,6 @@
         android:layout_width="1dp"
         android:layout_height="1dp" />
 
-    <TextView
-        android:text="@string/current_selected_date"
-        android:layout_height="20dp"
-        android:id="@+id/textViewSelectADate"
-        android:gravity="center_horizontal"
-        android:textSize="14sp"
-        android:layout_marginTop="107dp"
-        android:layout_below="@+id/imageView6"
-        android:layout_alignParentStart="true"
-        android:layout_width="140dp" />
-
     <Button
         android:id="@+id/buttonSelectDate"
         android:text="@string/select_date"
@@ -61,7 +52,17 @@
         android:layout_width="wrap_content"
         android:layout_height="300dp"
         android:id="@+id/calendarViewJourneyDate"
-        android:layout_alignTop="@+id/textViewSelectADate"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/buttonAddSelectedDate"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/current_selected_date"
+        android:layout_height="20dp"
+        android:id="@+id/textViewSelectADate"
+        android:gravity="center_horizontal"
+        android:textSize="14sp"
+        android:layout_width="140dp"
+        android:layout_alignTop="@+id/calendarViewJourneyDate"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

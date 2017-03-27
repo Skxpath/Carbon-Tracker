@@ -60,6 +60,7 @@
     <string name="NaturalGasString">Natural Gas</string>
     <string name="ElecUsage">Electricity Usage</string>
     <string name="UtilBillStrintg">Utility Bill</string>
+    <string name="next">Next</string>
 
 
 </resources>

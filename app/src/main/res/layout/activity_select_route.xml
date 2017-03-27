@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@mipmap/background2"
     tools:context="alex.carbon_tracker.UI.SelectRouteActivity">
 
 
@@ -30,8 +31,6 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/addRouteButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
@@ -39,7 +38,10 @@
         android:layout_marginRight="20dp"
         android:minWidth="48dip"
         android:minHeight="48dp"
-        android:text="@string/SelectRouteAddRouteButton" />
+        android:text="@string/SelectRouteAddRouteButton"
+        android:background="@drawable/button_shape"
+        android:layout_width="100dp"
+        android:layout_height="40dp" />
 
     <ListView
         android:layout_width="500dp"

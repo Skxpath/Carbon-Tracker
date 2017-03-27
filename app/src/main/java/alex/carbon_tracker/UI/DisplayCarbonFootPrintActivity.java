@@ -149,7 +149,7 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                     String carbonEmitted = String.format("%.5f", journey.getCarbonEmitted());
                     textview.setText(carbonEmitted);
                 } else if (j == NAT_GAS) {
-                    if (utilityBills != null) {
+                    if (utilityBills.size()!= 0) {
                         billGas = utilityBills.get(0).getEmissionsForGas();
                         textview.setText(roundToOneDecimalPlace(billGas) + "");
                     } else {
@@ -157,7 +157,7 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                         textview.setText(billGas + "");
                     }
                 } else if (j == ELEC) {
-                    if (utilityBills != null) {
+                    if (utilityBills.size()!= 0) {
                         billElec = utilityBills.get(0).getEmissionsForElectricity();
                         textview.setText(roundToOneDecimalPlace(billElec) + "");
                     } else {
