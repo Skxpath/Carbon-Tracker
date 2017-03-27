@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@mipmap/background2"
     tools:context="alex.carbon_tracker.UI.AddRouteActivity">
 
     <TextView
@@ -78,8 +79,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:layout_width="100dp"
-        android:layout_height="48dp" />
+        android:layout_height="48dp"
+        android:background="@drawable/button_shape"
+        android:layout_width="120dp" />
 
     <TextView
         android:text="@string/RouteName"

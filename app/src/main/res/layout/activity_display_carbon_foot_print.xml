@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@mipmap/background2"
     tools:context="alex.carbon_tracker.UI.DisplayCarbonFootPrintActivity">
 
     <TextView
@@ -21,12 +22,13 @@
         android:layout_marginBottom="10dp" />
 
     <Button
-        android:text="Go To Graph"
-        android:layout_height="48dp"
+        android:text="@string/viewGraph"
         android:id="@+id/buttonToGraph"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_width="150dp" />
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape" />
 
     <TableLayout
         android:layout_width="match_parent"

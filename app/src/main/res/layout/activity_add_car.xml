@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/white"
+    android:background="@mipmap/background2"
     android:id="@+id/activity_add_car"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -106,13 +106,14 @@
 
     <Button
         android:text="@string/CarSubmitButton"
-        android:layout_width="100dp"
-        android:layout_height="48dp"
         android:id="@+id/addCarOkButton"
         android:layout_marginRight="20dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape" />
 
     <RelativeLayout
         android:layout_width="100dp"
