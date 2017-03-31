@@ -18,52 +18,11 @@
         android:layout_height="250dp"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:text="Date"
-        android:id="@+id/textView21"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:layout_below="@+id/chart"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="CO2 EMISSION :"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView20"
-        android:typeface="serif"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="24sp"
-        android:textColor="@color/colorAccent"
-        android:layout_below="@+id/textView21"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView20"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="11dp"
-        android:id="@+id/emissionValueText1"
-        android:textSize="24sp"
-        android:typeface="serif" />
-
-    <TextView
-        android:text="Journey Type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView18"
-        android:textSize="24sp"
-        android:layout_below="@+id/textView20"
-        android:layout_alignParentStart="true" />
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/journeylistForGraph"
-        android:layout_below="@+id/textView18"
+        android:layout_below="@+id/chart"
         android:layout_alignParentStart="true" />
 
 

@@ -17,6 +17,12 @@ public class CarbonTrackerModel {
     private static TipManager tipManager;
     private UtilityBillManager utilityBillManager;
     private TransportationManager transportationManager;
+    private DateManager dateManager;
+
+    public DateManager getDateManager() {
+        return dateManager;
+    }
+
 
     public UserVehicleManager getUserVehicleManager() {
         return userVehicleManager;
@@ -49,6 +55,7 @@ public class CarbonTrackerModel {
         tipManager = new TipManager();
         transportationManager = new TransportationManager();
         tipManager.addObserver(emissionsManager);
+        dateManager = new DateManager();
     }
 
     public UtilityBillManager getUtilityBillManager() {

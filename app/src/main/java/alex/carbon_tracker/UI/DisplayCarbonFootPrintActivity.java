@@ -150,16 +150,20 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                     textview.setText(carbonEmitted);
                 } else if (j == NAT_GAS) {
                     if (utilityBills.size()!= 0) {
-                        billGas = utilityBills.get(0).getEmissionsForGas();
-                        textview.setText(roundToOneDecimalPlace(billGas) + "");
+                        for(int x = 0; x<utilityBills.size();x++ ) {
+                            billGas = utilityBills.get(x).getEmissionsForGas();
+                            textview.setText(roundToOneDecimalPlace(billGas) + "");
+                        }
                     } else {
                         billGas = 0;
                         textview.setText(billGas + "");
                     }
                 } else if (j == ELEC) {
                     if (utilityBills.size()!= 0) {
-                        billElec = utilityBills.get(0).getEmissionsForElectricity();
-                        textview.setText(roundToOneDecimalPlace(billElec) + "");
+                        for(int x = 0; x<utilityBills.size();x++ ) {
+                            billElec += utilityBills.get(x).getEmissionsForElectricity();
+                            textview.setText(roundToOneDecimalPlace(billElec) + "");
+                        }
                     } else {
                         billElec = 0;
                         textview.setText(billElec + "");

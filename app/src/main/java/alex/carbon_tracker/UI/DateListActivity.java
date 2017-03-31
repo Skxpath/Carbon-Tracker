@@ -104,6 +104,7 @@ public class DateListActivity extends AppCompatActivity {
             if (hashSet.add(description)) {
                 dateListDescriptions.add(description);
                 dateList.add(journeyDate);
+                CarbonTrackerModel.getInstance().getDateManager();
             }
         }
     }
