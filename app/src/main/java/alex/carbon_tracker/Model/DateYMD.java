@@ -25,6 +25,9 @@ public class DateYMD {
     public Journey getJourney(int i) {
         return journeys.getJourney(i);
     }
+    public void deleteJourney(int i){
+        journeys.delete(i);
+    }
     public void setJourney(Journey journey){
     journeys.add(journey);
     }

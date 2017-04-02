@@ -37,6 +37,38 @@ public class DateManager {
         journeyDateList.add(dateYMD);
     }
 
+    public boolean deleteJourney(Journey journey) {
+        DateYMD dateYM = DateManager.getYMDFormat(journey.getDate());
+        for (int i = 0; i < getJourneyDateList().size(); i++) {
+           if(dateYM.getDay() == getJourneyDateList().get(i).getDay()&&dateYM.getMonth()==getJourneyDateList().get(i).getMonth()
+                   && dateYM.getYear()==getJourneyDateList().get(i).getYear()){
+               for(int j = 0;j<journeyDateList.get(i).getJourneys().getSize();j++){
+                   Journey journey1 = journeyDateList.get(i).getJourney(j);
+                   if(journey.equals(journey1)){
+                       journeyDateList.get(i).getJourneys().delete(j);
+                       for(int g =0;g<journeyDateList.get(i).getJourneys().getSize();g++){
+                           Log.i("list123",journeyDateList.get(i).getJourney(g).getCarbonEmitted()+" ");
+                       }
+                       Log.i("xx","deleted ");
+                       return  true;
+                   }
+               }
+           }
+           /*
+            DateYMD dateYMD = getJourneyDateList().get(i);
+            for (int j = 0; j < dateYMD.getJourneys().getSize(); j++) {
+                Journey journey1 = dateYMD.getJourney(j);
+                if (journey1.equals(journey)) {
+                    dateYMD.getJourneys().delete(j);
+                    return true;
+                }
+            }
+            */
+        }
+
+        return false;
+    }
+
     public void deleteDate(int dateNumber) {
         journeyDateList.remove(dateNumber);
     }
@@ -56,7 +88,7 @@ public class DateManager {
         return dateYMD;
     }
 
-    public DateYMD getSmallestDateFor28Days() {
+    public static DateYMD getSmallestDateFor28Days() {
         DateYMD todayDate = DateManager.getYMDFormat(new Date());
         DateYMD smallestDate = todayDate;
         if (smallestDate.getDay() - 28 <= 0) {
@@ -71,7 +103,7 @@ public class DateManager {
 
         return smallestDate;
     }
-    public List<DateYMD> datefilterfor28Days(DateYMD smallestDate){
+    public static List<DateYMD> datefilterfor28Days(DateYMD smallestDate){
         List<DateYMD> dateYMDList = new ArrayList<>();
         DateYMD currentDate = DateManager.getYMDFormat(new Date());
         for(int i = 0; i <28;i++){
