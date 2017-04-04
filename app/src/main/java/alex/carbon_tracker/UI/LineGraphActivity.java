@@ -131,7 +131,7 @@ public class LineGraphActivity extends AppCompatActivity {
         lineChart.animateY(3000);
 
         TextView text = (TextView) findViewById(R.id.xAxisGraph);
-        text.setText("Current Month -------->");
+        text.setText(R.string.xAxisLabelForYearGraph);
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
@@ -220,7 +220,7 @@ public class LineGraphActivity extends AppCompatActivity {
         lineChart.getAxisRight().setEnabled(false);
         lineChart.animateY(3000);
         TextView text = (TextView) findViewById(R.id.xAxisGraph);
-        text.setText("                             <----------------- Current Date");
+        text.setText(R.string.xAxisLabelForMonthGraph);
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
