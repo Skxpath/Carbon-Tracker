@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 public class MyGraphValueFormater implements IValueFormatter {
     private DecimalFormat df;
     public MyGraphValueFormater(){
-        df = new DecimalFormat("###,###,###");
+        df = new DecimalFormat("###,###,###.##");
     }
 
     @Override

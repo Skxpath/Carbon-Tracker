@@ -112,22 +112,113 @@ public class DateManager {
                     DateYMD dateYMD = new DateYMD(smallestDate.getYear(),smallestDate.getMonth(),smallestDate.getDay());
                     dateYMD.setDay(dateYMD.getDay()+i);
                     dateYMDList.add(dateYMD);
-                    Log.i("date1", dateYMD.getDay()+" "+dateYMD.getMonth()+" "+dateYMD.getYear() +" "+ i);
                 }
                 else{
                     DateYMD dateYMD = new DateYMD(currentDate.getYear(),currentDate.getMonth(),currentDate.getDay());
                     dateYMD.setMonth(dateYMD.getMonth()-1);
+                    if(dateYMD.getMonth()<=0){
+                        dateYMD.setYear(dateYMD.getYear()-1);
+                    }
                     dateYMD.setDay(dateYMD.getDay()+2+i);
                     if(dateYMD.getDay() >30){
                         dateYMD.setDay(1);
                         dateYMD.setMonth(dateYMD.getMonth()+1);
                     }
                     dateYMDList.add(dateYMD);
-                    Log.i("date2", dateYMD.getDay()+" "+dateYMD.getMonth()+" "+dateYMD.getYear());
                 }
 
             }
+            else{
+                DateYMD dateYMD = new DateYMD(currentDate.getYear()-1,currentDate.getMonth(),currentDate.getDay());
+                dateYMD.setMonth(12);
+                dateYMD.setDay(dateYMD.getDay()+2-i);
+                if(dateYMD.getDay() >30){
+                    dateYMD.setDay(1);
+                    dateYMD.setMonth(dateYMD.getMonth()+1);
+                }
+                dateYMDList.add(dateYMD);
+            }
         }
+        return dateYMDList;
+    }
+    public static DateYMD getSmallestDateMonth(DateYMD currentDate){
+        DateYMD smallestDate = currentDate;
+            smallestDate.setMonth(smallestDate.getMonth() - 1);
+            if (smallestDate.getMonth() <= 0) {
+                smallestDate.setMonth(12);
+            }
+        return smallestDate;
+    }
+
+
+    public static List<DateYMD> datefilterforMonth( DateYMD currentDate){
+        List<DateYMD> dateYMDList = new ArrayList<>();
+        Log.i("current", currentDate.getDay()+" "+currentDate.getMonth()+" "+currentDate.getYear() +" ");
+        for(int i =0; i<30;i++){
+            DateYMD dateYMD = new DateYMD(currentDate.getYear(),currentDate.getMonth(),currentDate.getDay());
+            dateYMD.setDay(dateYMD.getDay()-i);
+            if(dateYMD.getDay()<=0){
+                break;
+               /* dateYMD.setMonth(dateYMD.getMonth()-1);
+                if(dateYMD.getMonth()<=0){
+                    dateYMD.setMonth(12);
+                    dateYMD.setYear(dateYMD.getYear()-1);
+                }
+                dateYMD.setDay(30+currentDate.getDay()-i);
+          */
+            }
+            dateYMDList.add(dateYMD);
+        }
+        for(int i =0; i< dateYMDList.size();i++){
+            Log.i("date123", dateYMDList.get(i).getDay()+" "+dateYMDList.get(i).getMonth()+" "+dateYMDList.get(i).getYear()+" "+i);
+        }
+
+
+
+
+
+        /*
+        Log.i("current", currentDate.getDay()+" "+currentDate.getMonth()+" "+currentDate.getYear() +" ");
+        Log.i("smallest",smallestDate.getDay()+" "+smallestDate.getMonth()+" "+smallestDate.getYear());
+        //   DateYMD currentDate = DateManager.getYMDFormat(new Date());
+        for(int i = 0; i <30;i++){
+            if(smallestDate.getYear() == currentDate.getYear()){
+                if(smallestDate.getMonth() == currentDate.getMonth()){
+                    DateYMD dateYMD = new DateYMD(currentDate.getYear(),currentDate.getMonth(),currentDate.getDay());
+                    dateYMD.setDay(dateYMD.getDay()-i);
+                    if(dateYMD.getDay() <=0){
+                        dateYMD.setDay(30);
+                        dateYMD.setMonth(dateYMD.getMonth()-1);
+                    }
+                    dateYMDList.add(dateYMD);
+                    Log.i("date!", dateYMD.getDay()+" "+dateYMD.getMonth()+" "+dateYMD.getYear() +" "+ i);
+                }
+                else{
+                    DateYMD dateYMD = new DateYMD(smallestDate.getYear(),smallestDate.getMonth(),smallestDate.getDay());
+                    dateYMD.setDay(dateYMD.getDay()+30-i);
+                    if(dateYMD.getDay() <=0){
+                        dateYMD.setDay(30);
+                    }
+                    dateYMDList.add(dateYMD);
+                    Log.i("date!!", dateYMD.getDay()+" "+dateYMD.getMonth()+" "+dateYMD.getYear());
+                }
+
+            }
+            else{
+                DateYMD dateYMD = new DateYMD(currentDate.getYear()-1,currentDate.getMonth(),currentDate.getDay());
+                dateYMD.setMonth(12);
+                dateYMD.setDay(dateYMD.getDay()-i);
+                if(dateYMD.getDay() >30){
+                    dateYMD.setDay(1);
+                    dateYMD.setMonth(dateYMD.getMonth()+1);
+                }
+                dateYMDList.add(dateYMD);
+            }
+        }
+        Log.i("size",dateYMDList.size()+"");
+        for(int i =0; i< dateYMDList.size();i++){
+            Log.i("date123", dateYMDList.get(i).getDay()+" "+dateYMDList.get(i).getMonth()+" "+dateYMDList.get(i).getYear());
+        }*/
         return dateYMDList;
     }
 }
