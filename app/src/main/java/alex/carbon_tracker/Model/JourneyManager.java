@@ -22,6 +22,10 @@ public class JourneyManager {
         return totalCarbonEmissionsPublicTransportation() + totalCarbonEmissionsVehicle();
     }
 
+    public int journeyListSize() {
+        return journeyList.size();
+    }
+
     public int totalJourneys() {
         return totalVehicleJourneys() + totalTransportationJourneys();
     }
