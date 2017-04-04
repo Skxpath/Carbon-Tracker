@@ -54,11 +54,10 @@ public class LineGraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_line_graph);
         Intent intent = getIntent();
-        boolean whichGraph = intent.getBooleanExtra("yearGraph",false);
-        if(!whichGraph) {
+        boolean whichGraph = intent.getBooleanExtra("yearGraph", false);
+        if (!whichGraph) {
             setupBarChartForMonth();
-        }
-        else {
+        } else {
             setupBarChartForYear();
         }
     }
@@ -91,18 +90,18 @@ public class LineGraphActivity extends AppCompatActivity {
                     }
                 }
             }
-           // if (co2Em != 0) {
-            Log.i("zzzzz",currentDate.getMonth()+"");
+            // if (co2Em != 0) {
+            Log.i("zzzzz", currentDate.getMonth() + "");
             Entry entry = new Entry(i, co2Em);
-                entries.add(entry);
-                monthforEntry.add(currentDate.getMonth());
-                yearForEntry.add(currentDate.getYear());
-           // }
-            currentDate =allBetweenDates.get(allBetweenDates.size()-1);
+            entries.add(entry);
+            monthforEntry.add(currentDate.getMonth());
+            yearForEntry.add(currentDate.getYear());
+            // }
+            currentDate = allBetweenDates.get(allBetweenDates.size() - 1);
             currentDate.setDay(30);
-            currentDate.setMonth(currentDate.getMonth()-1);
-            if(currentDate.getMonth()<=0){
-                currentDate.setYear(currentDate.getYear()-1);
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            if (currentDate.getMonth() <= 0) {
+                currentDate.setYear(currentDate.getYear() - 1);
                 currentDate.setMonth(12);
             }
 
@@ -117,6 +116,7 @@ public class LineGraphActivity extends AppCompatActivity {
 
         dataset.setValueTextSize(10f);
         dataset.setCircleColorHole(Color.BLACK);
+        dataset.setDrawFilled(true);
         LineData data = new LineData(dataset);
         data.setValueFormatter(new MyGraphValueFormater());
         lineChart.setBackgroundColor(Color.DKGRAY);
@@ -126,13 +126,16 @@ public class LineGraphActivity extends AppCompatActivity {
         lineChart.notifyDataSetChanged();
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries,false));
+        xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries, false,yearForEntry));
         lineChart.getAxisRight().setEnabled(false);
         lineChart.animateY(3000);
+
+        TextView text = (TextView) findViewById(R.id.xAxisGraph);
+        text.setText("Current Month -------->");
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                setupInfo(e, entries, monthforEntry,yearForEntry,false,MONTH);
+                setupInfo(e, entries, monthforEntry, yearForEntry, false, MONTH);
             }
 
             @Override
@@ -144,15 +147,15 @@ public class LineGraphActivity extends AppCompatActivity {
     }
 
     private void setupUtilityText() {
-        TextView text = (TextView)findViewById(R.id.utilityText);
+        TextView text = (TextView) findViewById(R.id.utilityText);
         DecimalFormat df = new DecimalFormat("###,###.##");
-        text.setText("Total Natural Gas used: "+ df.format(utilityManager.totalCarbonEmissionsNaturalGas()/28) + "KG"+
-                "\n"+ "Total Electricity Used: " +df.format(utilityManager.totalCarbonEmissionsElectricity()/28)+"KG");
+        text.setText("Total Natural Gas used: " + df.format(utilityManager.totalCarbonEmissionsNaturalGas() / 28) + "KG" +
+                "\n" + "Total Electricity Used: " + df.format(utilityManager.totalCarbonEmissionsElectricity() / 28) + "KG");
     }
 
     private float getUtilityBill() {
-        return ((float)( utilityManager.totalCarbonEmissionsElectricity()+
-                utilityManager.totalCarbonEmissionsNaturalGas())/28);
+        return ((float) (utilityManager.totalCarbonEmissionsElectricity() +
+                utilityManager.totalCarbonEmissionsNaturalGas()) / 28);
     }
 
     @Override
@@ -189,7 +192,7 @@ public class LineGraphActivity extends AppCompatActivity {
             }
 
             {
-                Entry entry = new Entry(allBetweenDates.get(j).getDay()+allBetweenDates.get(j).getMonth()*30, co2Em);
+                Entry entry = new Entry(allBetweenDates.get(j).getDay() + allBetweenDates.get(j).getMonth() * 30, co2Em);
                 entries.add(entry);
                 monthforEntry.add(allBetweenDates.get(j).getMonth());
             }
@@ -200,25 +203,28 @@ public class LineGraphActivity extends AppCompatActivity {
         lineChart.clear();
         LineDataSet dataset = new LineDataSet(entries, "CO2 in KG");
         dataset.setDrawCircleHole(true);
+        dataset.setDrawFilled(true);
 
         dataset.setValueTextSize(5f);
         dataset.setCircleColorHole(Color.BLACK);
         LineData data = new LineData(dataset);
         data.setValueFormatter(new MyGraphValueFormater());
-        //lineChart.setBackgroundColor(Color.DKGRAY);
+        lineChart.setBackgroundColor(Color.rgb(43,79,51));
         dataset.setColors(Color.BLUE); //
         lineChart.setData(data);
         lineChart.invalidate();
+        lineChart.setMinimumHeight(0);
         lineChart.notifyDataSetChanged();
         XAxis xAxis = lineChart.getXAxis();
-       // xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries,true));
+        xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries, true,null));
         lineChart.getAxisRight().setEnabled(false);
         lineChart.animateY(3000);
+        TextView text = (TextView) findViewById(R.id.xAxisGraph);
+        text.setText("                             <----------------- Current Date");
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                setupInfo(e, entries, monthforEntry,null,true,0);
+                setupInfo(e, entries, monthforEntry, null, true, 0);
             }
 
             @Override
@@ -230,16 +236,12 @@ public class LineGraphActivity extends AppCompatActivity {
     }
 
 
-
-
-    public void setupInfo(Entry entry, ArrayList<Entry> entries, ArrayList<Integer> months,ArrayList<Integer> years,boolean isMonth,int currentMonth) {
+    public void setupInfo(Entry entry, ArrayList<Entry> entries, ArrayList<Integer> months, ArrayList<Integer> years, boolean isMonth, int currentMonth) {
         JourneyManager smallJM = new JourneyManager();
-        if(isMonth) {
-            TextView text = (TextView)findViewById(R.id.xAxisGraph);
-            text.setText("                             <----------------- Current Date");
+        if (isMonth) {
             for (int i = 0; i < entries.size(); i++) {
                 if (entry.getX() == entries.get(i).getX()) {
-                    int day = (int) entry.getX()-(months.get(i)*30);
+                    int day = (int) entry.getX() - (months.get(i) * 30);
                     int month = months.get(i);
                     for (int j = 0; j < journeyManager.getSize(); j++) {
                         DateYMD date = DateManager.getYMDFormat(journeyManager.getJourney(j).getDate());
@@ -250,22 +252,19 @@ public class LineGraphActivity extends AppCompatActivity {
 
                 }
             }
-        }
-        else{
-            TextView text = (TextView)findViewById(R.id.xAxisGraph);
-            text.setText("Current Date -------->");
-            for(int i =0; i<entries.size();i++){
-                    if (entry.getX()+currentMonth == entries.get(i).getX()+4){
-                        int month = months.get(i);
-                        int year = years.get(i);
-                        for(int j =0;j<journeyManager.getSize();j++){
-                            DateYMD date = DateManager.getYMDFormat(journeyManager.getJourney(j).getDate());
-                            if(date.getMonth() == month && date.getYear() == year){
-                                smallJM.add(journeyManager.getJourney(j));
-                            }
+        } else {
+            for (int i = 0; i < entries.size(); i++) {
+                if (entry.getX() + currentMonth == entries.get(i).getX() + 4) {
+                    int month = months.get(i);
+                    int year = years.get(i);
+                    for (int j = 0; j < journeyManager.getSize(); j++) {
+                        DateYMD date = DateManager.getYMDFormat(journeyManager.getJourney(j).getDate());
+                        if (date.getMonth() == month && date.getYear() == year) {
+                            smallJM.add(journeyManager.getJourney(j));
                         }
                     }
                 }
+            }
         }
         String[] list1 = smallJM.getJourneyDescriptions();
 
