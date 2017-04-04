@@ -47,18 +47,25 @@ public class DateListActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_list);
-        setupLastMonthButton();
+        setupLastMonthButton(R.id.lastYearGraphButton);
+        setupLastMonthButton(R.id.lastMonthGraphButton);
         createDateList(journeyManager);
         setupOnItemClickListener();
         populateListView();
     }
 
-    private void setupLastMonthButton() {
-        Button button = (Button) findViewById(R.id.lastMonthGraphButton);
+    private void setupLastMonthButton(final int id) {
+        Button button = (Button) findViewById(id);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = LineGraphActivity.makeIntent(DateListActivity.this);
+                if(id==R.id.lastYearGraphButton) {
+                intent.putExtra("yearGraph",true);
+                }
+                else{
+                    intent.putExtra("monthGraph",true);
+                }
                 startActivity(intent);
                 finish();
             }
@@ -104,6 +111,7 @@ public class DateListActivity extends AppCompatActivity {
             if (hashSet.add(description)) {
                 dateListDescriptions.add(description);
                 dateList.add(journeyDate);
+                CarbonTrackerModel.getInstance().getDateManager();
             }
         }
     }

@@ -114,6 +114,7 @@ public class AddRouteActivity extends AppCompatActivity {
                                     userCurrentRoute,
                                     CO2Emissions,
                                     journeyManager.getDate());
+                            carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(),journey);
                             journeyManager.add(journey);
                         }
 
@@ -140,6 +141,8 @@ public class AddRouteActivity extends AppCompatActivity {
                                     userCurrentRoute,
                                     CO2Emissions,
                                     journeyManager.getDate());
+                            // adding date to datemanager
+                            carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(),journey);
                             journeyManager.add(journey);
                         }
 

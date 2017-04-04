@@ -1,5 +1,8 @@
 package alex.carbon_tracker.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Holds a year, month, and day as ints
  */
@@ -7,11 +10,26 @@ public class DateYMD {
     private int year;
     private int month;
     private int day;
+    JourneyManager  journeys = new JourneyManager();
+
+    public JourneyManager getJourneys() {
+        return journeys;
+    }
 
     public DateYMD(int year, int month, int day) {
         this.year = year;
         this.month = month;
         this.day = day;
+    }
+
+    public Journey getJourney(int i) {
+        return journeys.getJourney(i);
+    }
+    public void deleteJourney(int i){
+        journeys.delete(i);
+    }
+    public void setJourney(Journey journey){
+    journeys.add(journey);
     }
 
     public int getYear() {

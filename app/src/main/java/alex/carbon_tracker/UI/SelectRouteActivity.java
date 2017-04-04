@@ -121,12 +121,10 @@ public class SelectRouteActivity extends AppCompatActivity {
                     intent.putExtra("journeyPosition", editJourneyPosition);
                     intent.putExtra("editJourney1",true);
                     if (isVehicle) {
-                        Log.i("vehicle","good");
                         intent.putExtra(SelectRouteActivity.SELECTED_VEHICLE,0);
                     } else {
                         intent.putExtra(SelectRouteActivity.SELECTED_NON_VEHICLE, 0);
                     }
-                    Log.i("start","heere");
                     startActivity(intent);
                     finish();
                 }
@@ -196,6 +194,7 @@ public class SelectRouteActivity extends AppCompatActivity {
                                 userCurrentRoute,
                                 CO2Emissions,
                                 journeyManager.getDate());
+                        carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(),journey);
                         journeyManager.add(journey);
                     }
 
@@ -212,6 +211,7 @@ public class SelectRouteActivity extends AppCompatActivity {
                                 userCurrentRoute,
                                 CO2Emissions,
                                 journeyManager.getDate());
+                        carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(),journey);
                         journeyManager.add(journey);
                     }
 
