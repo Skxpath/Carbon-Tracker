@@ -1,24 +1,17 @@
 package alex.carbon_tracker.UI;
 
-import android.content.Context;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-
 import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.JourneyManager;
-import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.VehicleManager;
 import alex.carbon_tracker.R;
 
@@ -33,6 +26,9 @@ public class WelcomeScreenActivity extends AppCompatActivity {
     private CarbonTrackerModel carbonTrackerModel;
     private VehicleManager vehicleManager;
 
+    public static final int day = 1000 * 60 * 60 * 24; //Milliseconds in a day
+    public boolean setNotificationTimerFlag = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -45,6 +41,8 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         ImageView welcomeImg = (ImageView) findViewById(R.id.smokeImgView);
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.welcome_anim);
         welcomeImg.startAnimation(myFadeInAnimation);
+
+        setupNotifications();
 
         myFadeInAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -72,6 +70,60 @@ public class WelcomeScreenActivity extends AppCompatActivity {
             }
         });
     }
+
+    //https://www.tutorialspoint.com/java/util/timer_schedule_period.htm
+    //https://www.tutorialspoint.com/android/android_notifications.htm
+    private void setupNotifications() {
+
+        Intent intent = new Intent();
+        PendingIntent pIntent = PendingIntent.getActivity(WelcomeScreenActivity.this, 0, intent, 0);
+      Notification noti = new Notification.Builder(WelcomeScreenActivity.this)
+                        .setSmallIcon(R.mipmap.carbontrackerlogo5)
+                        .setContentTitle("Notifications Example")
+                        .setContentText("This is a test notification")
+              .setTicker("TickerTitle")
+              .setContentIntent(pIntent).getNotification();
+
+        noti.flags = Notification.FLAG_AUTO_CANCEL;
+        NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        nm.notify(0,noti);
+
+  /*      Intent notificationIntent = new Intent(this, MenuActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        ("ServiceCast") NotificationManager2 manager = (NotificationManager2) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());*/
+    }
+
+
+
+/*    private void NotificationTimer() {
+
+        class NotificationTimer extends TimerTask {
+
+            public void run() {
+                CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
+                carbonTrackerModel.getNotificationManager().getNotification();
+            }
+
+        }
+
+        Timer timer = new Timer();
+        Calendar date = Calendar.getInstance();
+
+        date.set(Calendar.HOUR, 21);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        // Schedule to run every day at 9pm
+        timer.schedule(
+                new NotificationTimer(),
+                date.getTime(),
+                day);
+    }*/
 
     @Override
     protected void onDestroy() {

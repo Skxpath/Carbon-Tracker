@@ -18,6 +18,8 @@ public class JourneyManager {
     //Getter for total carbon emissions for: vehicles, natural gas, electricity, public transportation
     private boolean hasDate;
 
+    private int totalJourneysToday = 0;
+
     public double totalCarbonEmissionsJourneys() {
         return totalCarbonEmissionsPublicTransportation() + totalCarbonEmissionsVehicle();
     }
@@ -101,8 +103,20 @@ public class JourneyManager {
     }
 
     public void add(Journey journey) {
+    //updateJourneysToday(journey);
+        totalJourneysToday++;
         journeyList.add(journey);
     }
+
+  /*  //http://stackoverflow.com/questions/24745217/checking-if-a-date-object-occurred-within-the-past-24-hours
+    private void updateJourneysToday(Journey journey) {
+        final long DAY = 24 * 60 * 60 * 1000;
+
+    if (journey.getDate().getTime() > System.currentTimeMillis() - DAY) {
+        totalJourneysToday++;
+    }*/
+
+  //  }
 
     public void delete(int index) {
         journeyList.remove(index);
@@ -137,4 +151,7 @@ public class JourneyManager {
         return descriptions;
     }
 
+    public int getTotalJourneysToday() {
+        return totalJourneysToday;
+    }
 }

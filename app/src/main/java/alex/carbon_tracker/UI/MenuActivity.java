@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
@@ -32,8 +36,8 @@ public class MenuActivity extends AppCompatActivity {
         setupButton(newTipID);
 
         updateTipTextview();
-
     }
+
 
     private void setupButton(final int buttonID) {
         final Button button = (Button) findViewById(buttonID);
