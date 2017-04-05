@@ -12,12 +12,13 @@ import java.text.DecimalFormat;
 
 public class MyGraphValueFormater implements IValueFormatter {
     private DecimalFormat df;
-    public MyGraphValueFormater(){
+
+    public MyGraphValueFormater() {
         df = new DecimalFormat("###,###,###.##");
     }
 
     @Override
     public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-        return df.format(value)+ "KG";
+        return df.format(value) + "KG";
     }
 }

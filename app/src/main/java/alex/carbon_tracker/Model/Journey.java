@@ -1,7 +1,5 @@
 package alex.carbon_tracker.Model;
 
-import android.util.Log;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;

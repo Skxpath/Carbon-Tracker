@@ -1,10 +1,9 @@
 package alex.carbon_tracker.UI;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -21,9 +20,9 @@ import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.RouteManager;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.Transportation;
 import alex.carbon_tracker.Model.TransportationManager;
-import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
@@ -115,20 +114,19 @@ public class SelectRouteActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (getIntent().getBooleanExtra("editJourney", false)) {
-                    Log.i("select","its true");
+                    Log.i("select", "its true");
                     editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
                     Intent intent = AddRouteActivity.makeIntent(SelectRouteActivity.this);
                     intent.putExtra("journeyPosition", editJourneyPosition);
-                    intent.putExtra("editJourney1",true);
+                    intent.putExtra("editJourney1", true);
                     if (isVehicle) {
-                        intent.putExtra(SelectRouteActivity.SELECTED_VEHICLE,0);
+                        intent.putExtra(SelectRouteActivity.SELECTED_VEHICLE, 0);
                     } else {
                         intent.putExtra(SelectRouteActivity.SELECTED_NON_VEHICLE, 0);
                     }
                     startActivity(intent);
                     finish();
-                }
-                else {
+                } else {
                     Intent intent1 = AddRouteActivity.makeIntent(SelectRouteActivity.this);
                     if (isVehicle) {
                         intent1.putExtra(SelectRouteActivity.SELECTED_VEHICLE, 0);
@@ -194,7 +192,7 @@ public class SelectRouteActivity extends AppCompatActivity {
                                 userCurrentRoute,
                                 CO2Emissions,
                                 journeyManager.getDate());
-                        carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(),journey);
+                        carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(), journey);
                         journeyManager.add(journey);
                     }
 
@@ -211,7 +209,7 @@ public class SelectRouteActivity extends AppCompatActivity {
                                 userCurrentRoute,
                                 CO2Emissions,
                                 journeyManager.getDate());
-                        carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(),journey);
+                        carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(), journey);
                         journeyManager.add(journey);
                     }
 

@@ -18,8 +18,14 @@ public class JourneyManager {
     //Getter for total carbon emissions for: vehicles, natural gas, electricity, public transportation
     private boolean hasDate;
 
+    private int totalJourneysToday = 0;
+
     public double totalCarbonEmissionsJourneys() {
         return totalCarbonEmissionsPublicTransportation() + totalCarbonEmissionsVehicle();
+    }
+
+    public int journeyListSize() {
+        return journeyList.size();
     }
 
     public int totalJourneys() {
@@ -76,6 +82,7 @@ public class JourneyManager {
     public void setDate(Date date) {
         this.date = date;
     }
+
     public boolean hasDate() {
         return hasDate;
     }
@@ -97,6 +104,7 @@ public class JourneyManager {
     }
 
     public void add(Journey journey) {
+        totalJourneysToday++;
         journeyList.add(journey);
     }
 
@@ -133,4 +141,11 @@ public class JourneyManager {
         return descriptions;
     }
 
+    public int getTotalJourneysToday() {
+        return totalJourneysToday;
+    }
+
+    public void setTotalJourneysToday(int totalJourneysToday) {
+        this.totalJourneysToday = totalJourneysToday;
+    }
 }

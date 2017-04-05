@@ -1,12 +1,10 @@
 package alex.carbon_tracker.UI;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -21,10 +19,8 @@ import java.util.Date;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.DateYMD;
 import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
-import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.Model.UtilityBill;
 import alex.carbon_tracker.Model.UtilityBillManager;
 import alex.carbon_tracker.R;
@@ -149,8 +145,8 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                     String carbonEmitted = String.format("%.5f", journey.getCarbonEmitted());
                     textview.setText(carbonEmitted);
                 } else if (j == NAT_GAS) {
-                    if (utilityBills.size()!= 0) {
-                        for(int x = 0; x<utilityBills.size();x++ ) {
+                    if (utilityBills.size() != 0) {
+                        for (int x = 0; x < utilityBills.size(); x++) {
                             billGas = utilityBills.get(x).getEmissionsForGas();
                             textview.setText(roundToOneDecimalPlace(billGas) + "");
                         }
@@ -159,8 +155,8 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                         textview.setText(billGas + "");
                     }
                 } else if (j == ELEC) {
-                    if (utilityBills.size()!= 0) {
-                        for(int x = 0; x<utilityBills.size();x++ ) {
+                    if (utilityBills.size() != 0) {
+                        for (int x = 0; x < utilityBills.size(); x++) {
                             billElec += utilityBills.get(x).getEmissionsForElectricity();
                             textview.setText(roundToOneDecimalPlace(billElec) + "");
                         }

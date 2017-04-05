@@ -2,14 +2,13 @@ package alex.carbon_tracker.UI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.Toast;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -18,7 +17,6 @@ import java.util.TimeZone;
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
-import alex.carbon_tracker.Model.UtilityBill;
 import alex.carbon_tracker.R;
 
 /*SelectDateActivity which allows
@@ -55,8 +53,8 @@ public class SelectDateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 CalendarView calendarView = (CalendarView) findViewById(R.id.calendarViewJourneyDate);
                 long dateVal = getDateFromCalendar(R.id.calendarViewJourneyDate);
-                if (getIntent().getBooleanExtra("editJourney",false)){
-                    Journey journey = journeyManager.getJourney(getIntent().getIntExtra("journeyPosition",0));
+                if (getIntent().getBooleanExtra("editJourney", false)) {
+                    Journey journey = journeyManager.getJourney(getIntent().getIntExtra("journeyPosition", 0));
                     Date date;
                     if (dateVal < 0) {
                         date = new Date(calendarView.getDate());
@@ -65,8 +63,7 @@ public class SelectDateActivity extends AppCompatActivity {
                     }
                     journey.setDate(date);
                     finish();
-                }
-                else {
+                } else {
                     if (dateVal < 0) {
                         Date date = new Date(calendarView.getDate());
                         journeyManager.setDate(date);
