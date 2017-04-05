@@ -103,20 +103,9 @@ public class JourneyManager {
     }
 
     public void add(Journey journey) {
-    //updateJourneysToday(journey);
         totalJourneysToday++;
         journeyList.add(journey);
     }
-
-  /*  //http://stackoverflow.com/questions/24745217/checking-if-a-date-object-occurred-within-the-past-24-hours
-    private void updateJourneysToday(Journey journey) {
-        final long DAY = 24 * 60 * 60 * 1000;
-
-    if (journey.getDate().getTime() > System.currentTimeMillis() - DAY) {
-        totalJourneysToday++;
-    }*/
-
-  //  }
 
     public void delete(int index) {
         journeyList.remove(index);
@@ -153,5 +142,9 @@ public class JourneyManager {
 
     public int getTotalJourneysToday() {
         return totalJourneysToday;
+    }
+
+    public void setTotalJourneysToday(int totalJourneysToday) {
+        this.totalJourneysToday = totalJourneysToday;
     }
 }

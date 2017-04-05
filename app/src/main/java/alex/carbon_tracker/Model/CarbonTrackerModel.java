@@ -17,7 +17,7 @@ public class CarbonTrackerModel {
     private static TipManager tipManager;
     private UtilityBillManager utilityBillManager;
     private TransportationManager transportationManager;
-    private NotificationManager2 notificationManager;
+    private NotifManager notificationManager;
 
     public UserVehicleManager getUserVehicleManager() {
         return userVehicleManager;
@@ -50,7 +50,7 @@ public class CarbonTrackerModel {
         tipManager = new TipManager();
         transportationManager = new TransportationManager();
         tipManager.addObserver(emissionsManager);
-        notificationManager = new NotificationManager2();
+        notificationManager = new NotifManager();
     }
 
     public UtilityBillManager getUtilityBillManager() {
@@ -77,7 +77,7 @@ public class CarbonTrackerModel {
         return tipManager;
     }
 
-    public NotificationManager2 getNotificationManager() {
+    public NotifManager getNotificationManager() {
         return notificationManager;
     }
 }

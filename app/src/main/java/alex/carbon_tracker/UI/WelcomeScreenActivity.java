@@ -1,17 +1,23 @@
 package alex.carbon_tracker.UI;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.Notif;
 import alex.carbon_tracker.Model.VehicleManager;
 import alex.carbon_tracker.R;
 
@@ -20,6 +26,9 @@ import alex.carbon_tracker.R;
 * in the background while welcoming the user into
 * the application. The buffer time is necessary
 * to allow the program to function properly.
+*
+* Also manages notification functionality.
+*
 * */
 public class WelcomeScreenActivity extends AppCompatActivity {
 
@@ -27,7 +36,6 @@ public class WelcomeScreenActivity extends AppCompatActivity {
     private VehicleManager vehicleManager;
 
     public static final int day = 1000 * 60 * 60 * 24; //Milliseconds in a day
-    public boolean setNotificationTimerFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +50,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.welcome_anim);
         welcomeImg.startAnimation(myFadeInAnimation);
 
-        setupNotifications();
+        displayNotifications();
 
         myFadeInAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -71,59 +79,107 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         });
     }
 
-    //https://www.tutorialspoint.com/java/util/timer_schedule_period.htm
-    //https://www.tutorialspoint.com/android/android_notifications.htm
     private void setupNotifications() {
 
-        Intent intent = new Intent();
-        PendingIntent pIntent = PendingIntent.getActivity(WelcomeScreenActivity.this, 0, intent, 0);
-      Notification noti = new Notification.Builder(WelcomeScreenActivity.this)
-                        .setSmallIcon(R.mipmap.carbontrackerlogo5)
-                        .setContentTitle("Notifications Example")
-                        .setContentText("This is a test notification")
-              .setTicker("TickerTitle")
-              .setContentIntent(pIntent).getNotification();
+        Intent intent;
 
-        noti.flags = Notification.FLAG_AUTO_CANCEL;
-        NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        nm.notify(0,noti);
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-  /*      Intent notificationIntent = new Intent(this, MenuActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
+        CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
 
-        // Add as notification
-        ("ServiceCast") NotificationManager2 manager = (NotificationManager2) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());*/
+        Notif currentNotification = carbonTrackerModel.getNotificationManager().getNotification();
+
+        int notificationLogo = R.mipmap.carbontrackerlogo5;
+
+        String notificationHeaderString = getString(R.string.carbonTracker);
+        String notificationMessage = currentNotification.getNotificationString();
+
+        switch (currentNotification.getNotificationType()) {
+
+            case JOURNEY_TIPS:
+                intent = new Intent(this, SelectDateActivity.class);
+                makeNotification(intent, nm, notificationLogo, notificationHeaderString, notificationMessage);
+                break;
+            case UTILITY_TIPS:
+                intent = new Intent(this, AddUtilityBillActivity.class);
+                makeNotification(intent, nm, notificationLogo, notificationHeaderString, notificationMessage);
+                break;
+            case DEFAULT_TIPS:
+                intent = new Intent(this, SelectDateActivity.class);
+                makeNotification(intent, nm, notificationLogo, notificationHeaderString, notificationMessage);
+                break;
+        }
+    }
+
+    private void makeNotification(Intent intent, NotificationManager nm, int notificationLogo, String notificationHeaderString, String notificationMessage) {
+        PendingIntent pIntent;
+        NotificationCompat.Builder noti;
+        pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        noti = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                .setSmallIcon(notificationLogo)
+                .setContentTitle(notificationHeaderString)
+                .setContentText(notificationMessage)
+                .setAutoCancel(true)
+                .setContentIntent(pIntent);
+
+
+
+        nm.notify(0, noti.build());
     }
 
 
+    private void displayNotifications() {
 
-/*    private void NotificationTimer() {
+        Timer timer = setupNotificationTimer();
+        setupJourneyCounterResetter(timer);
+    }
 
-        class NotificationTimer extends TimerTask {
+    private void setupJourneyCounterResetter(Timer timer) {
+        class JourneysTodayCounterResetter extends TimerTask {
 
             public void run() {
                 CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-                carbonTrackerModel.getNotificationManager().getNotification();
+                System.out.println("Total journeys before wipe: " + carbonTrackerModel.getJourneyManager().getTotalJourneysToday());
+                carbonTrackerModel.getJourneyManager().setTotalJourneysToday(0);
+                System.out.println("Total journeys after wipe: " + carbonTrackerModel.getJourneyManager().getTotalJourneysToday());
             }
+        }
 
+        Calendar resetDate = Calendar.getInstance();
+
+        resetDate.set(Calendar.HOUR_OF_DAY, 0);
+        resetDate.set(Calendar.MINUTE, 0);
+        resetDate.add(Calendar.DAY_OF_MONTH, 1);
+
+        timer.schedule(
+                new JourneysTodayCounterResetter(),
+                resetDate.getTime(),
+                day);
+    }
+
+    @NonNull
+    private Timer setupNotificationTimer() {
+        class NotificationTimer extends TimerTask {
+
+            public void run() {
+                System.out.println("Displayed notification!");
+                setupNotifications();
+            }
         }
 
         Timer timer = new Timer();
         Calendar date = Calendar.getInstance();
 
-        date.set(Calendar.HOUR, 21);
+     date.set(Calendar.HOUR_OF_DAY, 21);
         date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
+
         // Schedule to run every day at 9pm
         timer.schedule(
                 new NotificationTimer(),
-                date.getTime(),
+               date.getTime(),
                 day);
-    }*/
+        return timer;
+    }
 
     @Override
     protected void onDestroy() {

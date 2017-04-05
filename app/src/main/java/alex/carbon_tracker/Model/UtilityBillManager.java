@@ -57,7 +57,6 @@ public class UtilityBillManager {
     public boolean getIfUtilityBillEnteredWithin45Days() {
 
         final long DAY = 24 * 60 * 60 * 1000;
-
-        return System.currentTimeMillis() - getMostRecentBill().getEndDate().getTime() <= DAY * 45;
+        return !bills.isEmpty() && System.currentTimeMillis() - getMostRecentBill().getEndDate().getTime() <= DAY * 45;
     }
 }
