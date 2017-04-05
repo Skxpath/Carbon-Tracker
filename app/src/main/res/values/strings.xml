@@ -63,6 +63,8 @@
     <string name="next">Next</string>
     <string name="viewGraph">View Graph</string>
     <string name="carbonTracker">Carbon Tracker</string>
+    <string name="xAxisLabelForYearGraph"><![CDATA[Current Month -------->]]></string>
+    <string name="xAxisLabelForMonthGraph"><![CDATA["                             <----------------- Current Date"]]></string>
 
 
 </resources>

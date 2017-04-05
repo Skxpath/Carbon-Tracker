@@ -87,6 +87,9 @@ public class JourneyListActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         if (item.getTitle().equals("Delete")) {
+
+            carbonTrackerModel.getDateManager().deleteJourney
+                    (carbonTrackerModel.getJourneyManager().getJourney(currentJourneyPosition));
             carbonTrackerModel.getJourneyManager().delete(currentJourneyPosition);
             journeyListView();
             return true;
