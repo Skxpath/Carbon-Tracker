@@ -64,6 +64,10 @@
     <string name="viewGraph">View Graph</string>
     <string name="xAxisLabelForYearGraph"><![CDATA[Current Month -------->]]></string>
     <string name="xAxisLabelForMonthGraph"><![CDATA["                             <----------------- Current Date"]]></string>
+    <string name="kgUnits">KG</string>
+    <string name="co2EmissionInKG">CO2 Emission (KG)</string>
+    <string name="targetCo2Emission">Target CO2 Emission</string>
+    <string name="avgCo2EmissionperDay">Avg Co2 Emision Per Day</string>
 
 
 </resources>

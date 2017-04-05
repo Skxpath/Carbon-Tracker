@@ -47,7 +47,17 @@ public class Xaxisformatter implements IAxisValueFormatter {
                     int date =(value1 - monthNumber.get(i) * 30);
                     if(date>30){
                         date = date-30;
-                        return date + " " + mMonths[monthNumber.get(i)];
+                        try {
+                            return date + " " + mMonths[monthNumber.get(i)];
+                        }
+                        catch (ArrayIndexOutOfBoundsException ex){
+                           if(monthNumber.get(i) >=12) {
+                               return date + " " + mMonths[0];
+                           }
+                            else{
+                                return date+" "+ mMonths[11];
+                           }
+                        }
                     }
                     return date + " " + mMonths[monthNumber.get(i)-1];
                 }

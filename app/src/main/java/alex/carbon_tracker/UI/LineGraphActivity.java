@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -16,8 +18,6 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -27,13 +27,12 @@ import alex.carbon_tracker.Model.DateManager;
 import alex.carbon_tracker.Model.DateYMD;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.MyGraphValueFormater;
+import alex.carbon_tracker.Model.UtilityBill;
 import alex.carbon_tracker.Model.UtilityBillManager;
 import alex.carbon_tracker.Model.Xaxisformatter;
 import alex.carbon_tracker.R;
 
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -90,9 +89,9 @@ public class LineGraphActivity extends AppCompatActivity {
                                 .getJourney(k).getCarbonEmitted();
                     }
                 }
+
             }
             // if (co2Em != 0) {
-            Log.i("zzzzz", currentDate.getMonth() + "");
             Entry entry = new Entry(i, co2Em);
             entries1.add(new Entry(i,CO2_EMSSION2013_PER_PERSON/365));
             entries.add(entry);
@@ -115,24 +114,41 @@ public class LineGraphActivity extends AppCompatActivity {
 
         LineDataSet dataset = new LineDataSet(entries, "CO2 in KG");
         dataset.setDrawCircleHole(true);
-        LineDataSet dataSet1 = new LineDataSet(entries1,"Basline");
-        dataSet1.setDrawFilled(true);
         dataset.setValueTextSize(10f);
         dataset.setCircleColorHole(Color.BLACK);
         dataset.setDrawFilled(true);
-        LineData data = new LineData(dataset,dataSet1);
+        LineData data = new LineData(dataset);
         data.setValueFormatter(new MyGraphValueFormater());
         lineChart.setBackgroundColor(Color.DKGRAY);
-        dataset.setColors(Color.BLUE); //
-        lineChart.setData(data);
-        lineChart.invalidate();
+
         lineChart.notifyDataSetChanged();
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries, false,yearForEntry));
-        lineChart.getAxisRight().setEnabled(false);
-        lineChart.animateY(3000);
 
+        xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries, false,yearForEntry));
+
+        LimitLine limitLineForAvgCo2 = new LimitLine(CO2_EMSSION2013_PER_PERSON/12, getString(R.
+                string.avgCo2EmissionperDay));
+        limitLineForAvgCo2.setTextSize(12f);
+        limitLineForAvgCo2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
+        limitLineForAvgCo2.setLineWidth(3f);
+
+        LimitLine targetLimitLine = new LimitLine((CO2_EMSSION2013_PER_PERSON/12)*0.7f,getString(R.
+                string.targetCo2Emission));
+        targetLimitLine.setTextSize(12f);
+        targetLimitLine.setLineColor(Color.GREEN);
+        targetLimitLine.setLineWidth(3f);
+        targetLimitLine.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_BOTTOM);
+
+        YAxis yAxis = lineChart.getAxisLeft();
+        yAxis.addLimitLine(limitLineForAvgCo2);
+        yAxis.addLimitLine(targetLimitLine);
+        dataset.setColors(Color.BLUE); //
+        lineChart.setData(data);
+        lineChart.invalidate();
+        lineChart.getAxisRight().setEnabled(false);
+        lineChart.getDescription().setText("");
+        lineChart.animateY(3000);
         TextView text = (TextView) findViewById(R.id.xAxisGraph);
         text.setText(R.string.xAxisLabelForYearGraph);
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -149,19 +165,58 @@ public class LineGraphActivity extends AppCompatActivity {
 
     }
 
-    private void setupUtilityText() {
+    private void setupUtilityTextForLast28Days() {
         TextView text = (TextView) findViewById(R.id.utilityText);
         DecimalFormat df = new DecimalFormat("###,###.##");
-        text.setText("Total Natural Gas used: " + df.format(utilityManager.totalCarbonEmissionsNaturalGas() / 28) + "KG" +
-                "\n" + "Total Electricity Used: " + df.format(utilityManager.totalCarbonEmissionsElectricity() / 28) + "KG");
+        DateYMD smallesdate = DateManager.getSmallestDateFor28Days();
+        List<DateYMD> last28DaysList = DateManager.datefilterfor28Days(smallesdate);
+
+        float totalNaturalGas =0;
+        float totalElectricity =0;
+        for(int i =0;i<utilityManager.getBills().size();i++){
+            UtilityBill currentBill = utilityManager.getBills().get(i);
+            DateYMD startDate = DateManager.getYMDFormat(currentBill.getStartDate());
+            DateYMD endDate = DateManager.getYMDFormat(currentBill.getEndDate());
+            boolean isEnddateInThere = false;
+            for(int j =0;j<last28DaysList.size();j++){
+                if(endDate.getMonth() ==last28DaysList.get(j).getMonth() &&
+                        endDate.getYear() == last28DaysList.get(j).getYear()
+                        && last28DaysList.get(j).getDay() == endDate.getDay()){
+
+                    isEnddateInThere = true;
+                    j = last28DaysList.size();
+                }
+            }
+            if(isEnddateInThere){
+                for(int j =0;j<last28DaysList.size();j++){
+
+                    if(startDate.getMonth() ==last28DaysList.get(j).getMonth() &&
+                            startDate.getYear() == last28DaysList.get(j).getYear()
+                            && last28DaysList.get(j).getDay() == startDate.getDay()){
+
+                        totalElectricity += currentBill.getDailyConsumption((float) (currentBill.getEmissionsForElectricity()
+                                                        /currentBill.getHouseholdSize()));
+
+                        totalNaturalGas += currentBill.getDailyConsumption((float) (currentBill.getEmissionsForGas()
+                                /currentBill.getHouseholdSize()));
+
+                    }
+                }
+            }
+        }
+        text.setText("Total Carbon Emission From Natural Gas : " + df.format(totalNaturalGas) + getString(R.string.kgUnits) +
+                "\n" + "Total Carbon Emission From Electricity Used: " + df.format(totalElectricity) + getString(R.string.kgUnits));
     }
 
     private void getUtilityBillForMonth() {
 
+
         TextView text = (TextView) findViewById(R.id.utilityText);
         DecimalFormat df = new DecimalFormat("###,###.##");
-        text.setText("Total Natural Gas used: " + df.format(utilityManager.totalCarbonEmissionsNaturalGas() / 30) + "KG" +
-                "\n" + "Total Electricity Used: " + df.format(utilityManager.totalCarbonEmissionsElectricity() / 30) + "KG");
+        text.setText("Total Natural Gas used Per Month: " + df.format(utilityManager.totalCarbonEmissionsNaturalGas() / 12)
+                + " KG" +
+                "\n" + "Total Electricity Used Per Month: " + df.format(utilityManager.totalCarbonEmissionsElectricity() / 12)
+                + " KG");
     }
 
     @Override
@@ -207,7 +262,7 @@ public class LineGraphActivity extends AppCompatActivity {
 
         LineChart lineChart = (LineChart) findViewById(R.id.chart);
         lineChart.clear();
-        LineDataSet dataset = new LineDataSet(entries, "CO2 in KG");
+        LineDataSet dataset = new LineDataSet(entries, getString(R.string.co2EmissionInKG));
         dataset.setDrawCircleHole(true);
         dataset.setDrawFilled(true);
 
@@ -220,6 +275,23 @@ public class LineGraphActivity extends AppCompatActivity {
         lineChart.setData(data);
         lineChart.invalidate();
         lineChart.setMinimumHeight(0);
+
+
+        LimitLine limitLineForAvgCo2 = new LimitLine(CO2_EMSSION2013_PER_PERSON/365, getString(R.string.avgCo2EmissionperDay));
+        limitLineForAvgCo2.setTextSize(10f);
+        limitLineForAvgCo2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
+        limitLineForAvgCo2.setLineWidth(3f);
+
+        LimitLine targetLimitLine = new LimitLine((CO2_EMSSION2013_PER_PERSON/365)*0.7f,getString(R.string.targetCo2Emission));
+        targetLimitLine.setTextSize(10f);
+        targetLimitLine.setLineColor(Color.GREEN);
+        targetLimitLine.setLineWidth(3f);
+        targetLimitLine.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_BOTTOM);
+
+
+        YAxis yAxis = lineChart.getAxisLeft();
+        yAxis.addLimitLine(limitLineForAvgCo2);
+        yAxis.addLimitLine(targetLimitLine);
         lineChart.notifyDataSetChanged();
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries, true,null));
@@ -227,6 +299,7 @@ public class LineGraphActivity extends AppCompatActivity {
         lineChart.animateY(3000);
         TextView text = (TextView) findViewById(R.id.xAxisGraph);
         text.setText(R.string.xAxisLabelForMonthGraph);
+        lineChart.getDescription().setText("");
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
@@ -259,7 +332,7 @@ public class LineGraphActivity extends AppCompatActivity {
 
                 }
             }
-            setupUtilityText();
+            setupUtilityTextForLast28Days();
         } else {
             for (int i = 0; i < entries.size(); i++) {
                 if (entry.getX() + currentMonth == entries.get(i).getX() + currentMonth) {
