@@ -48,7 +48,7 @@ public class LineGraphActivity extends AppCompatActivity {
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
     private DateManager dateManager = carbonTrackerModel.getDateManager();
     private UtilityBillManager utilityManager = carbonTrackerModel.getUtilityBillManager();
-
+    final private int CO2_EMSSION2013_PER_PERSON = 13500;//KG
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +64,7 @@ public class LineGraphActivity extends AppCompatActivity {
 
     private void setupBarChartForYear() {
         final ArrayList<Entry> entries = new ArrayList<>();
+        final ArrayList<Entry> entries1 = new ArrayList<>();
         final ArrayList<Integer> monthforEntry = new ArrayList<>();
         final ArrayList<Integer> yearForEntry = new ArrayList<>();
         DateYMD currentDate = DateManager.getYMDFormat(new Date());
@@ -93,11 +94,12 @@ public class LineGraphActivity extends AppCompatActivity {
             // if (co2Em != 0) {
             Log.i("zzzzz", currentDate.getMonth() + "");
             Entry entry = new Entry(i, co2Em);
+            entries1.add(new Entry(i,CO2_EMSSION2013_PER_PERSON/365));
             entries.add(entry);
             monthforEntry.add(currentDate.getMonth());
             yearForEntry.add(currentDate.getYear());
             // }
-            currentDate = allBetweenDates.get(allBetweenDates.size() - 1);
+            currentDate = allBetweenDates.get(allBetweenDates.size()-1);
             currentDate.setDay(30);
             currentDate.setMonth(currentDate.getMonth() - 1);
             if (currentDate.getMonth() <= 0) {
@@ -113,11 +115,12 @@ public class LineGraphActivity extends AppCompatActivity {
 
         LineDataSet dataset = new LineDataSet(entries, "CO2 in KG");
         dataset.setDrawCircleHole(true);
-
+        LineDataSet dataSet1 = new LineDataSet(entries1,"Basline");
+        dataSet1.setDrawFilled(true);
         dataset.setValueTextSize(10f);
         dataset.setCircleColorHole(Color.BLACK);
         dataset.setDrawFilled(true);
-        LineData data = new LineData(dataset);
+        LineData data = new LineData(dataset,dataSet1);
         data.setValueFormatter(new MyGraphValueFormater());
         lineChart.setBackgroundColor(Color.DKGRAY);
         dataset.setColors(Color.BLUE); //
@@ -153,9 +156,12 @@ public class LineGraphActivity extends AppCompatActivity {
                 "\n" + "Total Electricity Used: " + df.format(utilityManager.totalCarbonEmissionsElectricity() / 28) + "KG");
     }
 
-    private float getUtilityBill() {
-        return ((float) (utilityManager.totalCarbonEmissionsElectricity() +
-                utilityManager.totalCarbonEmissionsNaturalGas()) / 28);
+    private void getUtilityBillForMonth() {
+
+        TextView text = (TextView) findViewById(R.id.utilityText);
+        DecimalFormat df = new DecimalFormat("###,###.##");
+        text.setText("Total Natural Gas used: " + df.format(utilityManager.totalCarbonEmissionsNaturalGas() / 30) + "KG" +
+                "\n" + "Total Electricity Used: " + df.format(utilityManager.totalCarbonEmissionsElectricity() / 30) + "KG");
     }
 
     @Override
@@ -236,7 +242,8 @@ public class LineGraphActivity extends AppCompatActivity {
     }
 
 
-    public void setupInfo(Entry entry, ArrayList<Entry> entries, ArrayList<Integer> months, ArrayList<Integer> years, boolean isMonth, int currentMonth) {
+    public void setupInfo(Entry entry, ArrayList<Entry> entries, ArrayList<Integer> months,
+                          ArrayList<Integer> years, boolean isMonth, int currentMonth) {
         JourneyManager smallJM = new JourneyManager();
         if (isMonth) {
             for (int i = 0; i < entries.size(); i++) {
@@ -252,9 +259,10 @@ public class LineGraphActivity extends AppCompatActivity {
 
                 }
             }
+            setupUtilityText();
         } else {
             for (int i = 0; i < entries.size(); i++) {
-                if (entry.getX() + currentMonth == entries.get(i).getX() + 4) {
+                if (entry.getX() + currentMonth == entries.get(i).getX() + currentMonth) {
                     int month = months.get(i);
                     int year = years.get(i);
                     for (int j = 0; j < journeyManager.getSize(); j++) {
@@ -265,6 +273,7 @@ public class LineGraphActivity extends AppCompatActivity {
                     }
                 }
             }
+            getUtilityBillForMonth();
         }
         String[] list1 = smallJM.getJourneyDescriptions();
 
@@ -272,7 +281,6 @@ public class LineGraphActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.jouney_list, list1);
         ListView list = (ListView) findViewById(R.id.journeylistForGraph);
         list.setAdapter(adapter);
-        setupUtilityText();
     }
 
     public static Intent makeIntent(Context context) {
