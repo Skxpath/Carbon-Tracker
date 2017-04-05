@@ -69,7 +69,7 @@ public class LineGraphActivity extends AppCompatActivity {
         final ArrayList<Integer> yearForEntry = new ArrayList<>();
         DateYMD currentDate = DateManager.getYMDFormat(new Date());
         final int MONTH = currentDate.getMonth();
-        List<DateYMD> allBetweenDates = DateManager.datefilterforMonth(currentDate);
+        List<DateYMD> allBetweenDates = DateManager.datefilterforMonth(currentDate,true);
         List<DateYMD> allJourneyDates = new ArrayList<>();
         HashSet hashset = new HashSet();
         for (int i = 0; i < carbonTrackerModel.getJourneyManager().getSize(); i++) {
@@ -108,7 +108,7 @@ public class LineGraphActivity extends AppCompatActivity {
             }
 
             allBetweenDates = new ArrayList<>();
-            allBetweenDates = DateManager.datefilterforMonth(currentDate);
+            allBetweenDates = DateManager.datefilterforMonth(currentDate,true);
         }
         LineChart lineChart = (LineChart) findViewById(R.id.chart);
         lineChart.clear();

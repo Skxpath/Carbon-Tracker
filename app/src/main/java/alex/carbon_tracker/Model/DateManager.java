@@ -146,12 +146,13 @@ public class DateManager {
             smallestDate.setMonth(smallestDate.getMonth() - 1);
             if (smallestDate.getMonth() <= 0) {
                 smallestDate.setMonth(12);
+                smallestDate.setYear(smallestDate.getYear()-1);
             }
         return smallestDate;
     }
 
 
-    public static List<DateYMD> datefilterforMonth( DateYMD currentDate){
+    public static List<DateYMD> datefilterforMonth( DateYMD currentDate,boolean isItForYearGraph){
         List<DateYMD> dateYMDList = new ArrayList<>();
         Log.i("current", currentDate.getDay()+" "+currentDate.getMonth()+" "+currentDate.getYear() +" ");
         int x=0;
@@ -159,15 +160,19 @@ public class DateManager {
             DateYMD dateYMD = new DateYMD(currentDate.getYear(),currentDate.getMonth(),currentDate.getDay());
             dateYMD.setDay(dateYMD.getDay()-i);
             if(dateYMD.getDay()<=0){
-                break;
-                /*dateYMD.setMonth(dateYMD.getMonth()-1);
+             if(isItForYearGraph) {
+                 break;
+             }
+              else {
+                dateYMD.setMonth(dateYMD.getMonth()-1);
                 if(dateYMD.getMonth()<=0){
                     dateYMD.setMonth(12);
                     dateYMD.setYear(dateYMD.getYear()-1);
                 }
                 dateYMD.setDay(30-x);
                 x++;
-                */
+
+             }
             }
             dateYMDList.add(dateYMD);
         }
