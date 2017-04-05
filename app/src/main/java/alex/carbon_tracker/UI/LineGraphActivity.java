@@ -3,8 +3,12 @@ package alex.carbon_tracker.UI;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -16,8 +20,6 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -30,13 +32,6 @@ import alex.carbon_tracker.Model.MyGraphValueFormater;
 import alex.carbon_tracker.Model.UtilityBillManager;
 import alex.carbon_tracker.Model.Xaxisformatter;
 import alex.carbon_tracker.R;
-
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 /*LineGraphActivity class that displays
 * the last 28 and 365 days of utility data
@@ -126,7 +121,7 @@ public class LineGraphActivity extends AppCompatActivity {
         lineChart.notifyDataSetChanged();
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries, false,yearForEntry));
+        xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries, false, yearForEntry));
         lineChart.getAxisRight().setEnabled(false);
         lineChart.animateY(3000);
 
@@ -209,14 +204,14 @@ public class LineGraphActivity extends AppCompatActivity {
         dataset.setCircleColorHole(Color.BLACK);
         LineData data = new LineData(dataset);
         data.setValueFormatter(new MyGraphValueFormater());
-        lineChart.setBackgroundColor(Color.rgb(43,79,51));
+        lineChart.setBackgroundColor(Color.rgb(43, 79, 51));
         dataset.setColors(Color.BLUE); //
         lineChart.setData(data);
         lineChart.invalidate();
         lineChart.setMinimumHeight(0);
         lineChart.notifyDataSetChanged();
         XAxis xAxis = lineChart.getXAxis();
-        xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries, true,null));
+        xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries, true, null));
         lineChart.getAxisRight().setEnabled(false);
         lineChart.animateY(3000);
         TextView text = (TextView) findViewById(R.id.xAxisGraph);

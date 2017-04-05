@@ -2,16 +2,13 @@ package alex.carbon_tracker.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Button;
-
-import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.SaveData;
+import android.widget.ListView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,9 +16,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import alex.carbon_tracker.Model.DateYMD;
+import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
+import alex.carbon_tracker.Model.SaveData;
 import alex.carbon_tracker.R;
 
 /*DateListActivity to show a calender for the dates
@@ -60,11 +58,10 @@ public class DateListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = LineGraphActivity.makeIntent(DateListActivity.this);
-                if(id==R.id.lastYearGraphButton) {
-                intent.putExtra("yearGraph",true);
-                }
-                else{
-                    intent.putExtra("monthGraph",true);
+                if (id == R.id.lastYearGraphButton) {
+                    intent.putExtra("yearGraph", true);
+                } else {
+                    intent.putExtra("monthGraph", true);
                 }
                 startActivity(intent);
                 finish();
@@ -97,7 +94,6 @@ public class DateListActivity extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.listViewDates);
         list.setAdapter(adapter);
     }
-
 
 
     private void createDateList(JourneyManager journeyManager) {

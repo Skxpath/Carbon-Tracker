@@ -1,6 +1,5 @@
 package alex.carbon_tracker.Model;
 
-import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -10,7 +9,7 @@ import java.util.Date;
  * UtilityBill instances the user enters.
  */
 
-public class UtilityBill implements Comparable<UtilityBill>{
+public class UtilityBill implements Comparable<UtilityBill> {
     private float householdGasConsumption;
     private float householdElectricalConsumption;
     private Date startDate;
@@ -95,6 +94,7 @@ public class UtilityBill implements Comparable<UtilityBill>{
         float dailyConsumption = totalConsumption / (float) elapsedDays;
         return dailyConsumption;
     }
+
     @Override
     public int compareTo(UtilityBill o) {
         if (getEndDate().getTime() == o.getEndDate().getTime()) {

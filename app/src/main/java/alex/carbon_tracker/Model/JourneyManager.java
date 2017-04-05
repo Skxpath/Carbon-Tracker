@@ -82,6 +82,7 @@ public class JourneyManager {
     public void setDate(Date date) {
         this.date = date;
     }
+
     public boolean hasDate() {
         return hasDate;
     }

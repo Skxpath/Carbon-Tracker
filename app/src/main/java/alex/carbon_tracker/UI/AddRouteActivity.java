@@ -2,9 +2,8 @@ package alex.carbon_tracker.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -83,14 +82,14 @@ public class AddRouteActivity extends AppCompatActivity {
                     double distanceTravelledCity = userCurrentRoute.getCityDistance();
                     double distanceTravelledHighway = userCurrentRoute.getHighwayDistance();
 
-                    if(getIntent().getBooleanExtra("editJourney1",false) &&
-                            !journeyManager.getJourney(editJourneyPosition).hasVehicle()){
+                    if (getIntent().getBooleanExtra("editJourney1", false) &&
+                            !journeyManager.getJourney(editJourneyPosition).hasVehicle()) {
                         isVehicle = false;
                     }
 
                     if (isVehicle) {
                         UserVehicle userCurrentVehicle;
-                        if (getIntent().getBooleanExtra("editJourney1",false)) {
+                        if (getIntent().getBooleanExtra("editJourney1", false)) {
                             editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
                             userCurrentVehicle = journeyManager.getJourney(editJourneyPosition).getUserVehicle();
                         } else {
@@ -105,7 +104,7 @@ public class AddRouteActivity extends AppCompatActivity {
                                 distanceTravelledHighway,
                                 milesPerGallonCity,
                                 milesPerGallonHighway);
-                        if (getIntent().getBooleanExtra("editJourney1",false)) {
+                        if (getIntent().getBooleanExtra("editJourney1", false)) {
                             journeyManager.getJourney(editJourneyPosition).setRoute(userCurrentRoute);
                             journeyManager.getJourney(editJourneyPosition).setCarbonEmitted(CO2Emissions);
                             finish();
@@ -114,14 +113,14 @@ public class AddRouteActivity extends AppCompatActivity {
                                     userCurrentRoute,
                                     CO2Emissions,
                                     journeyManager.getDate());
-                            carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(),journey);
+                            carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(), journey);
                             journeyManager.add(journey);
                         }
 
 
                     } else {
                         Transportation transportation;
-                        if (getIntent().getBooleanExtra("editJourney1",false)) {
+                        if (getIntent().getBooleanExtra("editJourney1", false)) {
                             editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
                             transportation = journeyManager.getJourney(editJourneyPosition).getTransportation();
                         } else {
@@ -131,18 +130,16 @@ public class AddRouteActivity extends AppCompatActivity {
                                 transportation.getCO2InKGperDistanceInKM(),
                                 distanceTravelledCity,
                                 distanceTravelledHighway);
-                        if (getIntent().getBooleanExtra("editJourney1",false)) {
+                        if (getIntent().getBooleanExtra("editJourney1", false)) {
                             journeyManager.getJourney(editJourneyPosition).setRoute(userCurrentRoute);
                             journeyManager.getJourney(editJourneyPosition).setCarbonEmitted(CO2Emissions);
-                        }
-                        else
-                        {
+                        } else {
                             Journey journey = new Journey(transportation,
                                     userCurrentRoute,
                                     CO2Emissions,
                                     journeyManager.getDate());
                             // adding date to datemanager
-                            carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(),journey);
+                            carbonTrackerModel.getDateManager().addDateJourney(journeyManager.getDate(), journey);
                             journeyManager.add(journey);
                         }
 

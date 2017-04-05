@@ -4,12 +4,10 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.JourneyManager;

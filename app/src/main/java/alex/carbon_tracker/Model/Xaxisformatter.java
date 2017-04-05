@@ -49,8 +49,7 @@ public class Xaxisformatter implements IAxisValueFormatter {
                 }
             }
 
-        }
-        else {
+        } else {
             if (value < 12) {
                 return mMonths[monthNumber.get((int) value1) - 1] + yearNumber.get(value1);
             }

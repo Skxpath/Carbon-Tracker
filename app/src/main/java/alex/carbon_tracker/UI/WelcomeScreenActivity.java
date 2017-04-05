@@ -112,19 +112,18 @@ public class WelcomeScreenActivity extends AppCompatActivity {
     }
 
     private void makeNotification(Intent intent, NotificationManager nm, int notificationLogo, String notificationHeaderString, String notificationMessage) {
-        PendingIntent pIntent;
-        NotificationCompat.Builder noti;
-        pIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        noti = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+        PendingIntent pendingIntent;
+        NotificationCompat.Builder notificationBuilder;
+        pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setSmallIcon(notificationLogo)
                 .setContentTitle(notificationHeaderString)
                 .setContentText(notificationMessage)
                 .setAutoCancel(true)
-                .setContentIntent(pIntent);
+                .setContentIntent(pendingIntent);
 
 
-
-        nm.notify(0, noti.build());
+        nm.notify(0, notificationBuilder.build());
     }
 
 
@@ -139,9 +138,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
 
             public void run() {
                 CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
-                System.out.println("Total journeys before wipe: " + carbonTrackerModel.getJourneyManager().getTotalJourneysToday());
                 carbonTrackerModel.getJourneyManager().setTotalJourneysToday(0);
-                System.out.println("Total journeys after wipe: " + carbonTrackerModel.getJourneyManager().getTotalJourneysToday());
             }
         }
 
@@ -162,21 +159,21 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         class NotificationTimer extends TimerTask {
 
             public void run() {
-                System.out.println("Displayed notification!");
                 setupNotifications();
             }
+
         }
 
         Timer timer = new Timer();
         Calendar date = Calendar.getInstance();
 
-     date.set(Calendar.HOUR_OF_DAY, 21);
+        date.set(Calendar.HOUR_OF_DAY, 21);
         date.set(Calendar.MINUTE, 0);
 
         // Schedule to run every day at 9pm
         timer.schedule(
                 new NotificationTimer(),
-               date.getTime(),
+                date.getTime(),
                 day);
         return timer;
     }

@@ -1,7 +1,9 @@
 package alex.carbon_tracker.Model;
 
 /**
- * Created by Aria on 4/3/2017.
+ * Created by Alex on 4/3/2017.
+ * <p>
+ * Notif class to represent a notification
  */
 
 public class Notif implements Comparable<Notif> {
@@ -12,7 +14,7 @@ public class Notif implements Comparable<Notif> {
     private NotifEnum notificationType;
 
     public Notif(String notificationString, NotifEnum notificationType) {
-   this.notificationString = notificationString;
+        this.notificationString = notificationString;
         this.notificationType = notificationType;
     }
 
