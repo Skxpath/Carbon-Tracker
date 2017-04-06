@@ -1,15 +1,14 @@
 package alex.carbon_tracker.UI;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -33,6 +32,7 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
     int selectedYear2;
     int selectedMonth2;
     int selectedDay2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +77,9 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
                     startDate = new Date(startDateVal);
                 }
                 if (endDateVal < 0) {
-                    endDate  = new Date(endDateCalendar.getDate());
+                    endDate = new Date(endDateCalendar.getDate());
                 } else {
-                    endDate  = new Date(endDateVal);
+                    endDate = new Date(endDateVal);
                 }
                 if (startDate.getTime() < endDate.getTime()) {
                     manager.addBill(new UtilityBill(gasConsumption, electricalConsumption, startDate, endDate, householdSize));
@@ -93,6 +93,7 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
             }
         });
     }
+
     private void setupOnClickCalendar(int id) {
         final CalendarView calendarView = (CalendarView) findViewById(id);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -104,6 +105,7 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
             }
         });
     }
+
     private void setupOnClickCalendar2(int id) {
         final CalendarView calendarView = (CalendarView) findViewById(id);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -115,6 +117,7 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
             }
         });
     }
+
     private long getDateFromCalendar(int id) {
         final CalendarView calendarView = (CalendarView) findViewById(id);
         GregorianCalendar gc = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
@@ -126,6 +129,7 @@ public class AddUtilityBillPart2 extends AppCompatActivity {
         Log.d("selectDateActivity", date_InMilSec + "*************************************");
         return date_InMilSec;
     }
+
     private long getDateFromCalendar2(int id) {
         final CalendarView calendarView = (CalendarView) findViewById(id);
         GregorianCalendar gc = new GregorianCalendar(TimeZone.getTimeZone("UTC"));

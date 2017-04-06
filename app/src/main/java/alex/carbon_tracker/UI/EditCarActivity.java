@@ -2,8 +2,8 @@ package alex.carbon_tracker.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -99,10 +99,9 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
                             && currentVehicle.getModel().equals(originalVehicle.getModel())
                             && (currentVehicle.getYear()) == (originalVehicle.getYear())
                             && currentVehicle.getNickname().equals(originalVehicle.getNickname())) {
-                        if(getIntent().getBooleanExtra("editJourney",false)==true){
+                        if (getIntent().getBooleanExtra("editJourney", false) == true) {
                             journey.setVehicle(newUserVehicle);
-                        }
-                        else {
+                        } else {
                             userVehicleManager.replaceUserVehicle(newUserVehicle, index);
                             journey.setVehicle(newUserVehicle);
                         }

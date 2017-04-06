@@ -1,4 +1,5 @@
 package alex.carbon_tracker.Model;
+
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -91,7 +92,7 @@ public class DateManager {
         } else {
             smallestDate.setDay(smallestDate.getDay() - 28);
         }
-            Log.i("small",smallestDate.getDay()+" "+smallestDate.getMonth());
+
         return smallestDate;
     }
     public static List<DateYMD> datefilterfor28Days(DateYMD smallestDate){
@@ -109,12 +110,11 @@ public class DateManager {
                     dateYMD.setDay(dateYMD.getDay()+i);
                   Log.i("qwer",dateYMD.getDay()+" "+dateYMD.getMonth()+" "+dateYMD.getYear());
                     dateYMDList.add(dateYMD);
-                }
-                else{
-                    DateYMD dateYMD = new DateYMD(currentDate.getYear(),currentDate.getMonth(),currentDate.getDay());
-                    dateYMD.setMonth(dateYMD.getMonth()-1);
-                    if(dateYMD.getMonth()<=0){
-                        dateYMD.setYear(dateYMD.getYear()-1);
+                } else {
+                    DateYMD dateYMD = new DateYMD(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay());
+                    dateYMD.setMonth(dateYMD.getMonth() - 1);
+                    if (dateYMD.getMonth() <= 0) {
+                        dateYMD.setYear(dateYMD.getYear() - 1);
                     }
                     dateYMD.setDay(dateYMD.getDay()+2+i);
                     if(dateYMD.getDay() >30){

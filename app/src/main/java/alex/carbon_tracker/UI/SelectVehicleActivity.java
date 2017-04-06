@@ -2,8 +2,8 @@ package alex.carbon_tracker.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -77,15 +77,14 @@ public class SelectVehicleActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getIntent().getBooleanExtra("editJourney",false)){
-                    editJourneyPosition = getIntent().getIntExtra("journeyPosition",0);
+                if (getIntent().getBooleanExtra("editJourney", false)) {
+                    editJourneyPosition = getIntent().getIntExtra("journeyPosition", 0);
                     Intent intent = AddCarActivity.makeIntent(SelectVehicleActivity.this);
-                    intent.putExtra("editJourney",true);
-                    intent.putExtra("journeyPosition",editJourneyPosition);
+                    intent.putExtra("editJourney", true);
+                    intent.putExtra("journeyPosition", editJourneyPosition);
                     startActivity(intent);
                     finish();
-                }
-                else {
+                } else {
                     Intent intent = AddCarActivity.makeIntent(SelectVehicleActivity.this);
                     startActivity(intent);
                     finish();
@@ -129,9 +128,8 @@ public class SelectVehicleActivity extends AppCompatActivity {
                             distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
                     //setting the new carbon emission value
                     carbonTrackerModel.getJourneyManager().getJourney(editJourneyPosition).setCarbonEmitted(CO2Emissions);
-                        finish();
-                }
-                else {
+                    finish();
+                } else {
                     userVehicleManager.setCurrentVehicle(userVehicleManager.getUserVehicle(i));
                     Intent intent1 = SelectRouteActivity.makeIntent(SelectVehicleActivity.this);
                     startActivity(intent1);
@@ -157,7 +155,7 @@ public class SelectVehicleActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-     if(!getIntent().getBooleanExtra("editJourney",false)){
+        if (!getIntent().getBooleanExtra("editJourney", false)) {
             menu.add(0, v.getId(), 0, "Delete");
             menu.add(0, v.getId(), 0, "Edit");
         }

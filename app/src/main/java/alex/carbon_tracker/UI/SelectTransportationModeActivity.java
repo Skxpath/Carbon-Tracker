@@ -2,8 +2,8 @@ package alex.carbon_tracker.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,7 +13,6 @@ import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.Route;
 import alex.carbon_tracker.Model.Transportation;
 import alex.carbon_tracker.R;
-import alex.carbon_tracker.Model.Route;
 
 /*SelectTransportationModeActivity which allows the user
 * to select a transportation mode for their journey.

@@ -17,6 +17,7 @@ public class CarbonTrackerModel {
     private static TipManager tipManager;
     private UtilityBillManager utilityBillManager;
     private TransportationManager transportationManager;
+    private static NotifManager notificationManager;
     private DateManager dateManager;
 
     public DateManager getDateManager() {
@@ -29,7 +30,7 @@ public class CarbonTrackerModel {
     }
 
     public static void getSavedModel(Context context) {
-       if (SaveData.getSharePreference(context) != null) {
+        if (SaveData.getSharePreference(context) != null) {
             ourInstance = SaveData.getSharePreference(context);
         } else {
             ourInstance = new CarbonTrackerModel();
@@ -55,6 +56,7 @@ public class CarbonTrackerModel {
         tipManager = new TipManager();
         transportationManager = new TransportationManager();
         tipManager.addObserver(emissionsManager);
+        notificationManager = new NotifManager();
         dateManager = new DateManager();
     }
 
@@ -82,4 +84,7 @@ public class CarbonTrackerModel {
         return tipManager;
     }
 
+    public NotifManager getNotificationManager() {
+        return notificationManager;
+    }
 }

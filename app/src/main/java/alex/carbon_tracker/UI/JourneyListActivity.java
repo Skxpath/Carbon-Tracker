@@ -2,8 +2,8 @@ package alex.carbon_tracker.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -13,15 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import alex.carbon_tracker.Model.CarbonTrackerModel;
-import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
 import alex.carbon_tracker.Model.SaveData;
-import alex.carbon_tracker.Model.VehicleManager;
 import alex.carbon_tracker.R;
 
 /*
@@ -81,7 +75,7 @@ public class JourneyListActivity extends AppCompatActivity {
         menu.add(0, v.getId(), 0, "Delete");
         menu.add(0, v.getId(), 0, "Edit Transportation");
         menu.add(0, v.getId(), 0, "Edit Route");
-        menu.add(0,v.getId(),0,"Edit Date");
+        menu.add(0, v.getId(), 0, "Edit Date");
     }
 
     @Override
@@ -106,15 +100,13 @@ public class JourneyListActivity extends AppCompatActivity {
             intent.putExtra("journeyPosition", currentJourneyPosition);
             startActivity(intent);
             return true;
-        }
-        else if(item.getTitle().equals("Edit Date")){
+        } else if (item.getTitle().equals("Edit Date")) {
             Intent intent = SelectDateActivity.makeIntent(this);
             intent.putExtra("editJourney", true);
             intent.putExtra("journeyPosition", currentJourneyPosition);
             startActivity(intent);
             return true;
-        }
-        else {
+        } else {
             return false;
         }
 
