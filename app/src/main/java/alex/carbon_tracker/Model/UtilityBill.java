@@ -87,7 +87,7 @@ public class UtilityBill implements Comparable<UtilityBill> {
         this.emissionsForGas = KILOGRAMS_OF_CO2_PER_GJ * getHouseholdGasConsumption();
     }
 
-    float getDailyConsumption(float totalConsumption) {
+    public float getDailyConsumption(float totalConsumption) {
         int elapsedDays;
         //not sure if my math here is correct. got it online
         elapsedDays = (int) (((getEndDate().getTime() - getStartDate().getTime()) / (1000 * 60 * 60 * 24)));

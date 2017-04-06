@@ -36,7 +36,6 @@ public class Xaxisformatter implements IAxisValueFormatter {
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
         int value1 = (int) value;
-        Log.i("vv", value1 + "");
         if (isGraphMonth) {
 
             String currentMonth = mMonths[0];
@@ -45,13 +44,28 @@ public class Xaxisformatter implements IAxisValueFormatter {
                     currentMonth = mMonths[monthNumber.get(i) - 1];
                     return (value1 - monthNumber.get(i) * 30) + " " + currentMonth;
                 } else {
-                    return (value1 - monthNumber.get(i) * 30) + " " + mMonths[monthNumber.get(i) - 1];
+                    int date =(value1 - monthNumber.get(i) * 30);
+                    if(date>30){
+                        date = date-30;
+                        try {
+                            return date + " " + mMonths[monthNumber.get(i)];
+                        }
+                        catch (ArrayIndexOutOfBoundsException ex){
+                           if(monthNumber.get(i) >=12) {
+                               return date + " " + mMonths[0];
+                           }
+                            else{
+                                return date+" "+ mMonths[11];
+                           }
+                        }
+                    }
+                    return date + " " + mMonths[monthNumber.get(i)-1];
                 }
             }
 
         } else {
             if (value < 12) {
-                return mMonths[monthNumber.get((int) value1) - 1] + yearNumber.get(value1);
+                return mMonths[monthNumber.get( value1)-1] + yearNumber.get(value1);
             }
             return value + "";
         }
