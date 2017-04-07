@@ -141,7 +141,6 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                 Journey journey = journeysOnSelectedDay.get(i);
                 tableLayout.setMinimumWidth(20);
                 TextView textview = new TextView(this);
-                Date journeyDate = journey.getDate();
                 if (j == ROUTE_NAME) {
                     textview.setText(journey.getRoute().toString());
                 } else if (j == DISTANCE) {
@@ -167,6 +166,9 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                     if (utilityBills.size() != 0) {
                         for (int x = 0; x < utilityBills.size(); x++) {
                             billGas = utilityBills.get(x).getEmissionsForGas();
+                            if (units == TREE_DAYS) {
+                                billGas = UnitConversion.convertDoubleToTreeUnits(billGas);
+                            }
                             textview.setText(roundToOneDecimalPlace(billGas) + "");
                         }
                     } else {
@@ -177,6 +179,9 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                     if (utilityBills.size() != 0) {
                         for (int x = 0; x < utilityBills.size(); x++) {
                             billElec += utilityBills.get(x).getEmissionsForElectricity();
+                            if (units == TREE_DAYS) {
+                                billElec = UnitConversion.convertDoubleToTreeUnits(billElec);
+                            }
                             textview.setText(roundToOneDecimalPlace(billElec) + "");
                         }
                     } else {
@@ -218,8 +223,6 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
     private void addJourneysOnSelectedDay(List<Journey> journeysOnSelectedDay) {
         for (Journey journey : journeyManager.getJourneyList()) {
             boolean isSameDate = journey.getDate().equals(date);
-            Log.d("DCFPActivty", journey.getDate() + " = " + date);
-            Log.d("DCFPActivty", isSameDate + "");
             if (isSameDate) {
                 journeysOnSelectedDay.add(journey);
             }

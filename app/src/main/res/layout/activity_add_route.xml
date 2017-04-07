@@ -59,7 +59,8 @@
         android:id="@+id/cityDistanceEditText"
         android:textSize="18sp"
         android:layout_below="@+id/ads"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:text="0" />
 
     <EditText
         android:layout_width="150dp"
@@ -69,7 +70,8 @@
         android:id="@+id/highwayDistanceEditText"
         android:layout_marginTop="24dp"
         android:layout_below="@+id/cityDistanceEditText"
-        android:layout_alignStart="@+id/cityDistanceEditText" />
+        android:layout_alignStart="@+id/cityDistanceEditText"
+        android:text="0" />
 
 
     <Button
