@@ -47,6 +47,9 @@ public class LineGraphActivity extends AppCompatActivity {
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
     private DateManager dateManager = carbonTrackerModel.getDateManager();
     private UtilityBillManager utilityManager = carbonTrackerModel.getUtilityBillManager();
+
+    //Todo Get settings
+
     final private int CO2_EMSSION2013_PER_PERSON = 13500;//KG
     @Override
     protected void onCreate(Bundle savedInstanceState) {
