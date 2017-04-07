@@ -44,28 +44,26 @@ public class Xaxisformatter implements IAxisValueFormatter {
                     currentMonth = mMonths[monthNumber.get(i) - 1];
                     return (value1 - monthNumber.get(i) * 30) + " " + currentMonth;
                 } else {
-                    int date =(value1 - monthNumber.get(i) * 30);
-                    if(date>30){
-                        date = date-30;
+                    int date = (value1 - monthNumber.get(i) * 30);
+                    if (date > 30) {
+                        date = date - 30;
                         try {
                             return date + " " + mMonths[monthNumber.get(i)];
-                        }
-                        catch (ArrayIndexOutOfBoundsException ex){
-                           if(monthNumber.get(i) >=12) {
-                               return date + " " + mMonths[0];
-                           }
-                            else{
-                                return date+" "+ mMonths[11];
-                           }
+                        } catch (ArrayIndexOutOfBoundsException ex) {
+                            if (monthNumber.get(i) >= 12) {
+                                return date + " " + mMonths[0];
+                            } else {
+                                return date + " " + mMonths[11];
+                            }
                         }
                     }
-                    return date + " " + mMonths[monthNumber.get(i)-1];
+                    return date + " " + mMonths[monthNumber.get(i) - 1];
                 }
             }
 
         } else {
             if (value < 12) {
-                return mMonths[monthNumber.get( value1)-1] + yearNumber.get(value1);
+                return mMonths[monthNumber.get(value1) - 1] + yearNumber.get(value1);
             }
             return value + "";
         }

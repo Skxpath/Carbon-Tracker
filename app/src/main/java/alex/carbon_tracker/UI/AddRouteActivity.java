@@ -70,7 +70,8 @@ public class AddRouteActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (validateParameters(R.id.cityDistanceEditText)
                         && validateParameters(R.id.highwayDistanceEditText)
-                        && validateParameters(R.id.routeNameEditText)) {
+                        && validateParameters(R.id.routeNameEditText)
+                        && checkBothNotEmpty(R.id.cityDistanceEditText, R.id.highwayDistanceEditText)) {
                     if (isEditingRoute) {
                         editRoute();
                     } else {
@@ -182,6 +183,17 @@ public class AddRouteActivity extends AppCompatActivity {
         Route route = new Route(newCityDistance, newHighwayDistance, routeName);
         routeManager.editRoute(route, index);
         routeManager.setCurrentRoute(route);
+    }
+
+    private boolean checkBothNotEmpty(int cityDistanceId, int highwayDistanceId) {
+        EditText cityText = (EditText) findViewById(cityDistanceId);
+        EditText highwayText = (EditText) findViewById(highwayDistanceId);
+        String cityString = cityText.getText().toString().trim();
+        String highwayString = highwayText.getText().toString().trim();
+        if (cityString.equals("0") && highwayString.equals("0")) {
+            return false;
+        }
+        return true;
     }
 
     private boolean validateParameters(int id) {

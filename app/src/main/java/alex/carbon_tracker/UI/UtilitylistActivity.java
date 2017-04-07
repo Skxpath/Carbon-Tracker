@@ -15,18 +15,27 @@ import java.util.Date;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.CarbonUnitsEnum;
 import alex.carbon_tracker.Model.SaveData;
+import alex.carbon_tracker.Model.Settings;
+import alex.carbon_tracker.Model.UnitConversion;
 import alex.carbon_tracker.Model.UtilityBill;
 import alex.carbon_tracker.Model.UtilityBillManager;
 import alex.carbon_tracker.R;
 
-/*UtilityListActivity which displays the users
+import static alex.carbon_tracker.Model.CarbonUnitsEnum.TREE_DAYS;
+
+/*
+* UtilityListActivity which displays the users
 * utility bills and consumption
 * */
 public class UtilitylistActivity extends AppCompatActivity {
 
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private UtilityBillManager utilityBillManager = carbonTrackerModel.getUtilityBillManager();
+
+    private Settings settings = carbonTrackerModel.getSettings();
+    private CarbonUnitsEnum units = settings.getCarbonUnit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +65,20 @@ public class UtilitylistActivity extends AppCompatActivity {
             SimpleDateFormat st = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat end = new SimpleDateFormat("yyyy-MM-dd");
             int i = utilityDescriptionsList.size() + 1;
+            double houseHoldNatGas = bill.getHouseholdGasConsumption();
+            double houseHoldElec = bill.getHouseholdElectricalConsumption();
+            if (units == TREE_DAYS) {
+                houseHoldNatGas = UnitConversion.convertDoubleToTreeUnits(houseHoldNatGas);
+                houseHoldElec = UnitConversion.convertDoubleToTreeUnits(houseHoldElec);
+            }
             String description = String.format(String.format("Utility Bill No. %d\n" +
                             "Gas Per Person: %.02f\n" +
                             "Electricity Per Person: %.02f\n" +
                             "Date: %s to %s\n" +
                             "HouseHold Size: %d",
                     i,
-                    bill.getHouseholdGasConsumption(),
-                    bill.getHouseholdElectricalConsumption(),
+                    houseHoldNatGas,
+                    houseHoldElec,
                     st.format(startDate),
                     end.format(endDate),
                     bill.getHouseholdSize())
