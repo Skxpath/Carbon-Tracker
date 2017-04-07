@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/utility_actionbar_icon"
+        android:title="Utility Bills"
+        android:icon="@mipmap/utility_bill_icon"
+        app:showAsAction="always"
+        >
+    </item>
+
+</menu>
