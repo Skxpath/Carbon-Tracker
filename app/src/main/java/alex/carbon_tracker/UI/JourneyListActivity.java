@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,7 +45,48 @@ public class JourneyListActivity extends AppCompatActivity {
         registerForContextMenu(journeyList);
         journeyListView();
         setupAddJourneyButton();
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.mipmap.carbontrackerlogo5);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
     }
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.graphs, menu);
+        menuInflater.inflate(R.menu.tips, menu);
+        menuInflater.inflate(R.menu.utility, menu);
+        menuInflater.inflate(R.menu.journey, menu);
+        menuInflater.inflate(R.menu.settings, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /*@Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.tips_actionbar_icon:
+                updateTipTextview();
+                return true;
+            case R.id.graphs_actionbar_icon:
+                Intent intent = DateListActivity.makeIntent(MenuActivity.this);
+                startActivity(intent);
+                return true;
+            case R.id.utility_actionbar_icon:
+                intent = UtilitylistActivity.makeIntent(MenuActivity.this);
+                startActivity(intent);
+                return true;
+            case R.id.journey_actionbar_icon:
+                intent = JourneyListActivity.makeIntent(MenuActivity.this);
+                startActivity(intent);
+                return true;
+            case R.id.settings_actionbar_icon:
+                intent = SettingsActivity.makeIntent(MenuActivity.this);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }*/
 
     @Override
     protected void onDestroy() {
