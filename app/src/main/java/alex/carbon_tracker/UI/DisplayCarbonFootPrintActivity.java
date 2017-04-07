@@ -19,11 +19,17 @@ import java.util.Date;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.CarbonUnitsEnum;
 import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
+import alex.carbon_tracker.Model.Settings;
+import alex.carbon_tracker.Model.UnitConversion;
 import alex.carbon_tracker.Model.UtilityBill;
 import alex.carbon_tracker.Model.UtilityBillManager;
 import alex.carbon_tracker.R;
+
+import static alex.carbon_tracker.Model.CarbonUnitsEnum.KILOGRAMS;
+import static alex.carbon_tracker.Model.CarbonUnitsEnum.TREE_DAYS;
 
 /*
 * Display Carbon Footprint Activity class which
@@ -55,6 +61,9 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
     private double billGas;
     private double billElec;
     private Date date;
+
+    private Settings settings = carbonTrackerModel.getSettings();
+    private CarbonUnitsEnum units = settings.getCarbonUnit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +110,11 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
             } else if (i == VEHICLE_NAME) {
                 text.setText(R.string.DisplayVehicle);
             } else if (i == CO2_EMISSION) {
-                text.setText(R.string.DisplayCO2);
+                if (units == KILOGRAMS) {
+                    text.setText("CO2 Emission in KG");
+                } else {
+                    text.setText("CO2 Emission in Tree-days");
+                }
             } else if (i == NAT_GAS) {
                 text.setText(R.string.natGas);
             } else if (i == ELEC) {
@@ -142,7 +155,13 @@ public class DisplayCarbonFootPrintActivity extends AppCompatActivity {
                         textview.setText(journey.getTransportation().getType());
                     }
                 } else if (j == CO2_EMISSION) {
-                    String carbonEmitted = String.format("%.5f", journey.getCarbonEmitted());
+                    double carbonJourney = journey.getCarbonEmitted();
+                    String carbonEmitted;
+                    if (units == TREE_DAYS) {
+                        carbonEmitted = String.format("%.5f", UnitConversion.convertDoubleToTreeUnits(carbonJourney));
+                    } else {
+                        carbonEmitted = String.format("%.5f", carbonJourney);
+                    }
                     textview.setText(carbonEmitted);
                 } else if (j == NAT_GAS) {
                     if (utilityBills.size() != 0) {

@@ -80,6 +80,7 @@
         <activity
             android:name=".UI.AddUtilityBillPart2"
             android:screenOrientation="portrait" />
+        <activity android:name=".UI.SettingsActivity"></activity>
     </application>
 
 </manifest>

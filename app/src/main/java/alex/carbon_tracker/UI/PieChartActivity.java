@@ -19,9 +19,15 @@ import java.util.Date;
 import java.util.List;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
+import alex.carbon_tracker.Model.CarbonUnitsEnum;
 import alex.carbon_tracker.Model.Journey;
 import alex.carbon_tracker.Model.JourneyManager;
+import alex.carbon_tracker.Model.Settings;
+import alex.carbon_tracker.Model.UnitConversion;
 import alex.carbon_tracker.R;
+
+import static alex.carbon_tracker.Model.CarbonUnitsEnum.KILOGRAMS;
+import static alex.carbon_tracker.Model.CarbonUnitsEnum.TREE_DAYS;
 
 /*
 * Pie Chart Activity which displays the pie
@@ -48,6 +54,8 @@ public class PieChartActivity extends AppCompatActivity {
     private List<Double> journeyCO2Emissions = new ArrayList<>();
     private double totalBill;
 
+    private Settings settings = carbonTrackerModel.getSettings();
+    private CarbonUnitsEnum units = settings.getCarbonUnit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +64,12 @@ public class PieChartActivity extends AppCompatActivity {
 
         getExtrasFromIntent(getIntent());
 
-//        setJourneyData();
         setupPieChart();
         setupChangeButton();
     }
 
     private void getExtrasFromIntent(Intent intent) {
         Bundle extras = intent.getExtras();
-
         if (intent.hasExtra(DisplayCarbonFootPrintActivity.CHANGE_TO_GRAPHS)) {
             date = (Date) extras.get(DisplayCarbonFootPrintActivity.PASS_DATE_DATA);
             billGas = (double) extras.get(DisplayCarbonFootPrintActivity.GAS_DATA);
@@ -71,7 +77,6 @@ public class PieChartActivity extends AppCompatActivity {
             totalBill = billGas + billElec;
             handleDay = true;
         }
-
     }
 
     private void setupPieChart() {
@@ -81,7 +86,15 @@ public class PieChartActivity extends AppCompatActivity {
             setupPieChartForDay();
         }
         for (int i = 0; i < journeyCO2Emissions.size(); i++) {
-            PieEntry pieEntry = createNewPieEntry(journeyCO2Emissions.get(i).floatValue(), journeyNumbers.get(i));
+
+            double CO2 = (double) journeyCO2Emissions.get(i).floatValue();
+            double CO2TreeUnits = UnitConversion.convertDoubleToTreeUnits(CO2);
+            PieEntry pieEntry;
+            if (units == TREE_DAYS) {
+                pieEntry = createNewPieEntry((float) CO2TreeUnits, journeyNumbers.get(i));
+            } else {
+                pieEntry = createNewPieEntry((float) CO2, journeyNumbers.get(i));
+            }
 
             pieEntries.add(pieEntry);
             Log.i("PieChartAct", "Value " + journeyCO2Emissions.get(i).floatValue());
@@ -100,7 +113,11 @@ public class PieChartActivity extends AppCompatActivity {
         PieChart chart = (PieChart) findViewById(R.id.pieChart);
 
         chart.setData(data);
-        chart.setCenterText(getString(R.string.CO2EmissionsinKG));
+        if (units == KILOGRAMS) {
+            chart.setCenterText(getString(R.string.CO2EmissionsinKG));
+        } else {
+            chart.setCenterText(getString(R.string.CO2EmissionsInTD));
+        }
         chart.animateY(1000);
         chart.setEntryLabelTextSize(13);
         chart.invalidate();
@@ -111,7 +128,14 @@ public class PieChartActivity extends AppCompatActivity {
         List<PieEntry> pieEntries = new ArrayList<>();
         addJourneysOnSelectedDay(date);
         for (int i = 0; i < journeyCO2Emissions.size(); i++) {
-            PieEntry pieEntry = createNewPieEntry(journeyCO2Emissions.get(i).floatValue(), journeyNumbers.get(i));
+            double CO2 = (double) journeyCO2Emissions.get(i).floatValue();
+            double CO2TreeUnits = UnitConversion.convertDoubleToTreeUnits(CO2);
+            PieEntry pieEntry;
+            if (units == TREE_DAYS) {
+                pieEntry = createNewPieEntry((float) CO2TreeUnits, journeyNumbers.get(i));
+            } else {
+                pieEntry = createNewPieEntry((float) CO2, journeyNumbers.get(i));
+            }
             pieEntries.add(pieEntry);
         }
     }

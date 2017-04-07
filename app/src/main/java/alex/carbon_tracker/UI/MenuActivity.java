@@ -26,10 +26,12 @@ public class MenuActivity extends AppCompatActivity {
         int utilityButtonID = findViewById(R.id.utilityListButton).getId();
         int graphListID = findViewById(R.id.graphListButton).getId();
         int newTipID = findViewById(R.id.tipsButton).getId();
+        int settingsID = findViewById(R.id.buttonGoToSettings).getId();
         setupButton(journeyListID);
         setupButton(utilityButtonID);
         setupButton(graphListID);
         setupButton(newTipID);
+        setupButton(settingsID);
 
         updateTipTextview();
     }
@@ -51,7 +53,9 @@ public class MenuActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else if (buttonID == findViewById(R.id.tipsButton).getId()) {
                     updateTipTextview();
-                    Log.i("test", "tipsbutton clicked");
+                } else if (buttonID == findViewById(R.id.buttonGoToSettings).getId()) {
+                    Intent intent = SettingsActivity.makeIntent(MenuActivity.this);
+                    startActivity(intent);
                 }
             }
 
