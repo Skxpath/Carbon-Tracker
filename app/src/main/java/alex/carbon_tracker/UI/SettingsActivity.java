@@ -62,6 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
         switch (id) {
             case R.id.buttonChangeUnitsToKG:
                 setupKGButton(button);
+
                 return;
 
             case R.id.buttonChangeUnitsToTrees:
@@ -77,10 +78,8 @@ public class SettingsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingsActivity.this, "Before " + settings.getCarbonUnit(), Toast.LENGTH_SHORT).show();
                 settings.setCarbonUnit(KILOGRAMS);
                 updateText(R.id.settingsUnitExample);
-                Toast.makeText(SettingsActivity.this, "After " + settings.getCarbonUnit(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -89,10 +88,8 @@ public class SettingsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingsActivity.this, "Before " + settings.getCarbonUnit(), Toast.LENGTH_SHORT).show();
                 settings.setCarbonUnit(TREE_DAYS);
                 updateText(R.id.settingsUnitExample);
-                Toast.makeText(SettingsActivity.this, "After " + settings.getCarbonUnit(), Toast.LENGTH_SHORT).show();
             }
         });
     }
