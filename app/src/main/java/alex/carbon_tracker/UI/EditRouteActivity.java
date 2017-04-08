@@ -25,6 +25,7 @@ EditRouteActivity to support editing
 * of a route
 * */
 public class EditRouteActivity extends AppCompatActivity {
+
     private CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
     private JourneyManager journeyManager = carbonTrackerModel.getJourneyManager();
     private UserVehicleManager userVehicleManager = carbonTrackerModel.getUserVehicleManager();
