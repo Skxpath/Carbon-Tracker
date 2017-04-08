@@ -12,10 +12,7 @@ public class UserVehicleManager {
     private List<UserVehicle> vehicleList = new ArrayList<>();
     private UserVehicle currentVehicle;
 
-    public void testing() {
-        UserVehicle userVehicle = new UserVehicle("Test", "123", 67, "f", "df", "gas", 6, 66, 66.6);
-        vehicleList.add(userVehicle);
-    }
+
 
     public UserVehicle getCurrentVehicle() {
         return currentVehicle;

@@ -8,9 +8,18 @@ package alex.carbon_tracker.Model;
 
 public class UserVehicle extends Vehicle {
     private String nickname;
+    private int iconID;
+    public int getIconID(){
 
+        return iconID;
+    }
+
+    public void setIconID(int id)
+    {
+        iconID = id;
+    }
     public UserVehicle(String make, String model, int year, String nickname, String transmission,
-                       String fuelType, int cityDrive, int highwayDrive, Double fuelTypeValue) {
+                       String fuelType, int cityDrive, int highwayDrive, Double fuelTypeValue, int iconID) {
         setMake(make);
         setModel(model);
         setYear(year);
@@ -20,6 +29,8 @@ public class UserVehicle extends Vehicle {
         setFuelTypeNumber(fuelTypeValue);
         setTransmission(transmission);
         setFuelType(fuelType);
+        setIconID(iconID);
+
     }
 
     public String getNickname() {
