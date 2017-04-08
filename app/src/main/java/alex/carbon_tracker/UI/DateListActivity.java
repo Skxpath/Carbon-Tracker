@@ -48,8 +48,10 @@ public class DateListActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_list);
-        setupLastMonthButton(R.id.lastYearGraphButton);
-        setupLastMonthButton(R.id.lastMonthGraphButton);
+        setupLineGraphButton(R.id.lastYearGraphButton);
+        setupLineGraphButton(R.id.lastMonthGraphButton);
+        setupPieGraphButton(R.id.buttonPieMonth);
+        setupPieGraphButton(R.id.buttonPieYear);
         createDateList(journeyManager);
         setupOnItemClickListener();
         populateListView();
@@ -64,6 +66,24 @@ public class DateListActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    private void setupPieGraphButton(final int id) {
+        Button button = (Button) findViewById(id);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = PieGraphMonthYear.makeIntent(DateListActivity.this);
+                if (id == R.id.lastYearGraphButton) {
+                    intent.putExtra("yearGraph", true);
+                } else {
+                    intent.putExtra("monthGraph", true);
+                }
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void setupLineGraphButton(final int id) {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
