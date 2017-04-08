@@ -24,22 +24,21 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-       /* int journeyListID = findViewById(R.id.journeyListButton).getId();
+        int journeyListID = findViewById(R.id.journeyListButton).getId();
         int utilityButtonID = findViewById(R.id.utilityListButton).getId();
         int graphListID = findViewById(R.id.graphListButton).getId();
         int newTipID = findViewById(R.id.tipsButton).getId();
-        int settingsID = findViewById(R.id.buttonGoToSettings).getId();*/
+
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setLogo(R.mipmap.carbontrackerlogo5);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
 
-       /* setupButton(journeyListID);
+        setupButton(journeyListID);
         setupButton(utilityButtonID);
         setupButton(graphListID);
         setupButton(newTipID);
-        setupButton(settingsID);*/
 
         setuphelpbutton();
         updateTipTextview();
@@ -96,8 +95,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-
-   /* private void setupButton(final int buttonID) {
+private void setupButton(final int buttonID) {
         final Button button = (Button) findViewById(buttonID);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,14 +111,11 @@ public class MenuActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else if (buttonID == findViewById(R.id.tipsButton).getId()) {
                     updateTipTextview();
-                } else if (buttonID == findViewById(R.id.buttonGoToSettings).getId()) {
-                    Intent intent = SettingsActivity.makeIntent(MenuActivity.this);
-                    startActivity(intent);
                 }
             }
 
         });
-    }*/
+    }
 
     private void updateTipTextview() {
         CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();
