@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -75,8 +78,29 @@ public class LineGraphActivity extends AppCompatActivity {
         if (units == TREE_DAYS) {
             CO2PerPerson = UnitConversion.convertDoubleToTreeUnits(CO2_EMISSION2013_PER_PERSON);
         }
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.mipmap.carbontrackerlogo5);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.back, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.back_actionbar_icon:
+                Intent intent = new Intent(this, DateListActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private void setupBarChartForYear() {
         final ArrayList<Entry> entries = new ArrayList<>();
         final ArrayList<Entry> entries1 = new ArrayList<>();
