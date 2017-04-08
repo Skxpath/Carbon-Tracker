@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Carbon Tracker</string>
+    <string name="app_name">CO2 Print</string>
     <string name="CarMake">Make</string>
     <string name="CarModel">Model</string>
     <string name="CarYear">Year</string>
