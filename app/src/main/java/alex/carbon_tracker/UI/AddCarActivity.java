@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -73,9 +76,31 @@ public class AddCarActivity extends AppCompatActivity implements AdapterView.OnI
         imagesID.add(R.drawable.truck);
         imagesID.add(R.drawable.van);
         // carIconId =imagesID.get(0);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.mipmap.carbontrackerlogo5);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         setUpCarIconDropDown();
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.back, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.back_actionbar_icon:
+                Intent intent = new Intent(this, JourneyListActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private void setUpCarIconDropDown() {
 
         List<String> carNames = new ArrayList<>();
