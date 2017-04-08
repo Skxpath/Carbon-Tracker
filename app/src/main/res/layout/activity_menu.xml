@@ -27,53 +27,6 @@
         android:textColor="@color/colorPrimaryDark"
         android:layout_height="100dp" />
 
-    <Button
-        android:text="@string/MainAddJourneyButton"
-        android:layout_width="100dp"
-        android:layout_height="75dp"
-        android:id="@+id/journeyListButton"
-        android:background="@drawable/button_shape"
-        android:layout_centerVertical="true"
-        />
-
-    <Button
-        android:text="@string/viewUtility"
-        android:layout_width="100dp"
-        android:layout_height="75dp"
-        android:id="@+id/utilityListButton"
-        android:background="@drawable/button_shape"
-
-        android:layout_above="@+id/textView19"
-        android:layout_toEndOf="@+id/textView19" />
-
-    <Button
-        android:text="@string/aboutButton"
-        android:layout_height="50dp"
-        android:id="@+id/aboutButton"
-        android:background="@drawable/button_shape"
-        android:layout_width="100dp"
-        android:layout_alignBottom="@+id/utilityListButton"
-        android:layout_alignStart="@+id/tipsButton" />
-
-    <Button
-        android:text="@string/tipsButton"
-        android:layout_width="100dp"
-        android:layout_height="75dp"
-        android:id="@+id/tipsButton"
-        android:background="@drawable/button_shape"
-        android:layout_alignTop="@+id/journeyListButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
-
-    <Button
-        android:text="@string/ViewGraph"
-        android:layout_width="100dp"
-        android:layout_height="75dp"
-        android:id="@+id/graphListButton"
-        android:background="@drawable/button_shape"
-        android:layout_alignBottom="@+id/aboutButton"
-        android:layout_alignParentEnd="true" />
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
