@@ -3,8 +3,6 @@ package alex.carbon_tracker.Model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static alex.carbon_tracker.Model.CarbonUnitsEnum.KILOGRAMS;
 /*
 
 *
@@ -104,12 +102,12 @@ public class TipManager {
         return true;
     }
 
-/*
+    /*
 
-    * First find which is largest carbon emission
-    * Then display a tip relative to the largest sub-emission inefficiency
-    *
-*/
+        * First find which is largest carbon emission
+        * Then display a tip relative to the largest sub-emission inefficiency
+        *
+    */
     private void generateAllTips() {
 
         //Each tip is assigned an identifier incrementing from 0.
@@ -243,7 +241,8 @@ package alex.carbon_tracker.Model;
  * <p>
  * TipManager class to manage and return string values for
  * different tips. Also updates tips after every change in the
- * application logic.*//*
+ * application logic.
+ *//*
 
 
 public class TipManager {

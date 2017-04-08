@@ -50,8 +50,9 @@ public class JourneyListActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
     }
+
     @Override
-    public boolean onCreateOptionsMenu (Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.graphs, menu);
         menuInflater.inflate(R.menu.tips, menu);

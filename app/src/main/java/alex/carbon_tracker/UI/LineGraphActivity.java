@@ -3,8 +3,11 @@ package alex.carbon_tracker.UI;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
@@ -35,10 +38,6 @@ import alex.carbon_tracker.Model.UtilityBill;
 import alex.carbon_tracker.Model.UtilityBillManager;
 import alex.carbon_tracker.Model.Xaxisformatter;
 import alex.carbon_tracker.R;
-
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import static alex.carbon_tracker.Model.CarbonUnitsEnum.KILOGRAMS;
 import static alex.carbon_tracker.Model.CarbonUnitsEnum.TREE_DAYS;
@@ -148,12 +147,12 @@ public class LineGraphActivity extends AppCompatActivity {
 
         xAxis.setValueFormatter(new Xaxisformatter(monthForEntry, entries, false, yearForEntry));
 
-        LimitLine limitLineForAvgCo2 = new LimitLine((float) CO2PerPerson  / 12, getString(R.string.avgCo2EmissionperDay));
+        LimitLine limitLineForAvgCo2 = new LimitLine((float) CO2PerPerson / 12, getString(R.string.avgCo2EmissionperDay));
         limitLineForAvgCo2.setTextSize(12f);
         limitLineForAvgCo2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         limitLineForAvgCo2.setLineWidth(3f);
 
-        LimitLine targetLimitLine = new LimitLine(((float) CO2PerPerson  / 12) * 0.7f, getString(R.string.targetCo2Emission));
+        LimitLine targetLimitLine = new LimitLine(((float) CO2PerPerson / 12) * 0.7f, getString(R.string.targetCo2Emission));
         targetLimitLine.setTextSize(12f);
         targetLimitLine.setLineColor(Color.GREEN);
         targetLimitLine.setLineWidth(3f);
@@ -325,7 +324,7 @@ public class LineGraphActivity extends AppCompatActivity {
         limitLineForAvgCo2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         limitLineForAvgCo2.setLineWidth(3f);
 
-        LimitLine targetLimitLine = new LimitLine(((float) CO2PerPerson  / 365) * 0.7f, getString(R.string.targetCo2Emission));
+        LimitLine targetLimitLine = new LimitLine(((float) CO2PerPerson / 365) * 0.7f, getString(R.string.targetCo2Emission));
         targetLimitLine.setTextSize(10f);
         targetLimitLine.setLineColor(Color.GREEN);
         targetLimitLine.setLineWidth(3f);

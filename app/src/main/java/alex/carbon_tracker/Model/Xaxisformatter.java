@@ -1,7 +1,5 @@
 package alex.carbon_tracker.Model;
 
-import android.util.Log;
-
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
@@ -11,6 +9,8 @@ import java.util.List;
 
 /**
  * Created by Sachin on 2017-04-01.
+ * <p>
+ * Formats the x axis on a graph.
  */
 
 public class Xaxisformatter implements IAxisValueFormatter {

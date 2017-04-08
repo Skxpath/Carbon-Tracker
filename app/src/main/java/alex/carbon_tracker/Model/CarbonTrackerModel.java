@@ -19,9 +19,11 @@ public class CarbonTrackerModel {
     private TransportationManager transportationManager;
     private static NotifManager notificationManager;
     private DateManager dateManager;
+
     public DateManager getDateManager() {
         return dateManager;
     }
+
     public UserVehicleManager getUserVehicleManager() {
         return userVehicleManager;
     }
