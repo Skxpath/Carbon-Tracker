@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@mipmap/background2"
     tools:context="alex.carbon_tracker.UI.SettingsActivity">
 
     <TextView
@@ -21,20 +22,12 @@
     <Button
         android:text="Kilograms"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_marginBottom="122dp"
         android:id="@+id/buttonChangeUnitsToKG"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Tree-Days"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonChangeUnitsToTrees"
-        android:layout_alignBaseline="@+id/buttonChangeUnitsToKG"
-        android:layout_alignBottom="@+id/buttonChangeUnitsToKG"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true"
+        android:background="@drawable/button_shape" />
 
     <TextView
         android:text="@string/settingsChangeUnits"
@@ -52,4 +45,13 @@
         android:layout_below="@+id/buttonChangeUnitsToTrees"
         android:layout_centerHorizontal="true"
         android:id="@+id/settingsUnitExample" />
+
+    <Button
+        android:text="Tree-Days"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:id="@+id/buttonChangeUnitsToTrees"
+        android:background="@drawable/button_shape"
+        android:layout_below="@+id/settingsPickUnit"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
