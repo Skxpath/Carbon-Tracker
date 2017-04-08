@@ -26,7 +26,10 @@
         android:id="@+id/utilityText"
         android:layout_below="@+id/xAxisGraph"
         android:layout_alignParentStart="true"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:text="@string/barchartinfotext"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
 
     <TextView
         android:layout_width="match_parent"
