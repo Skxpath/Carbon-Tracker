@@ -97,12 +97,11 @@ public class PieChartActivity extends AppCompatActivity {
             }
 
             pieEntries.add(pieEntry);
-            Log.i("PieChartAct", "Value " + journeyCO2Emissions.get(i).floatValue());
-            Log.i("PieChartAct", "No. " + journeyNumbers.get(i));
+            Log.d("PieChartAct", "Value " + journeyCO2Emissions.get(i).floatValue());
+            Log.d("PieChartAct", "No. " + journeyNumbers.get(i));
         }
 
         pieEntries.add(createNewPieEntry((float) totalBill, getString(R.string.UtilBillStrintg)));
-        //  pieEntries.add(createNewPieEntry((float) billElec, getString(R.string.ElecUsage)));
 
         PieDataSet dataSet = new PieDataSet(pieEntries, "");
 
@@ -121,7 +120,6 @@ public class PieChartActivity extends AppCompatActivity {
         chart.animateY(1000);
         chart.setEntryLabelTextSize(13);
         chart.invalidate();
-
     }
 
     private void setupPieChartForDay() {
