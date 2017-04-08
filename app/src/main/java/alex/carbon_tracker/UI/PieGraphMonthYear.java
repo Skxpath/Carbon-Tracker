@@ -127,7 +127,7 @@ public class PieGraphMonthYear extends AppCompatActivity {
         pieEntries.add(pieEntryOtherTransportation);
 
         for(int i =0;i<journeysWithVehicle.size();i++){
-            PieEntry pieEntry = new PieEntry((float) journeysWithVehicle.get(i).getCarbonEmitted(),
+            PieEntry pieEntry = new PieEntry((float) journeysWithVehicle.get(i).getCarbonEmitted(),"Vehicle: "+
                     journeysWithVehicle.get(i).getUserVehicle().getNickname().toString());
             pieEntries.add(pieEntry);
         }
