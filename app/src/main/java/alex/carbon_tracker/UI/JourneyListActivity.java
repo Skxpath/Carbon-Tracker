@@ -60,40 +60,21 @@ public class JourneyListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.graphs, menu);
-        menuInflater.inflate(R.menu.tips, menu);
-        menuInflater.inflate(R.menu.utility, menu);
-        menuInflater.inflate(R.menu.journey, menu);
-        menuInflater.inflate(R.menu.settings, menu);
+        menuInflater.inflate(R.menu.back, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case R.id.tips_actionbar_icon:
-                updateTipTextview();
-                return true;
-            case R.id.graphs_actionbar_icon:
-                Intent intent = DateListActivity.makeIntent(MenuActivity.this);
-                startActivity(intent);
-                return true;
-            case R.id.utility_actionbar_icon:
-                intent = UtilitylistActivity.makeIntent(MenuActivity.this);
-                startActivity(intent);
-                return true;
-            case R.id.journey_actionbar_icon:
-                intent = JourneyListActivity.makeIntent(MenuActivity.this);
-                startActivity(intent);
-                return true;
-            case R.id.settings_actionbar_icon:
-                intent = SettingsActivity.makeIntent(MenuActivity.this);
+            case R.id.back_actionbar_icon:
+                Intent intent = new Intent(this, MenuActivity.class);
                 startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }*/
+    }
 
     @Override
     protected void onDestroy() {
