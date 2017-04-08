@@ -57,20 +57,6 @@
         android:elevation="0dp"
         android:gravity="center_vertical" />
 
-    <EditText
-        android:inputType="text"
-        android:ems="10"
-        android:id="@+id/carNicknameEditText"
-        android:layout_marginBottom="49dp"
-        android:textSize="14sp"
-        android:layout_width="200dp"
-        android:layout_height="25dp"
-        android:hint="@string/CarVehicleNicknameHint"
-        android:background="@drawable/transparent_border"
-        android:layout_above="@+id/addCarOkButton"
-        android:layout_alignParentEnd="true"
-        android:gravity="center" />
-
     <TextView
         android:text="@string/CarHeader"
         android:layout_width="wrap_content"
@@ -104,17 +90,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp" />
 
-    <Button
-        android:text="@string/CarSubmitButton"
-        android:id="@+id/addCarOkButton"
-        android:layout_marginRight="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:background="@drawable/button_shape" />
-
     <RelativeLayout
         android:layout_width="100dp"
         android:layout_height="48dp"
@@ -139,5 +114,56 @@
         android:layout_alignTop="@+id/textView13"
         android:layout_toEndOf="@+id/textView13"
         android:id="@+id/carSpecificationDropDownMenu" />
+
+    <EditText
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/carNicknameEditText"
+        android:textSize="14sp"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:hint="@string/CarVehicleNicknameHint"
+        android:background="@drawable/transparent_border"
+        android:gravity="center"
+        android:layout_above="@+id/addCarOkButton"
+        android:layout_toEndOf="@+id/textView9"
+        android:layout_marginBottom="15dp" />
+
+    <Button
+        android:text="@string/CarSubmitButton"
+        android:id="@+id/addCarOkButton"
+        android:layout_marginRight="20dp"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/textView4" />
+
+    <TextView
+        android:text="@string/carIconText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/carSpecificationDropDownMenu"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp"
+        android:id="@+id/carImageText" />
+
+    <ImageView
+        android:layout_width="200dp"
+        app:srcCompat="@drawable/car_grey"
+        android:id="@+id/carIconImageView"
+
+        android:layout_height="100dp"
+        android:layout_above="@+id/textView9"
+        android:layout_below="@+id/spinner3"
+        android:layout_alignStart="@+id/carSpecificationDropDownMenu" />
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner3"
+        android:layout_alignTop="@+id/carImageText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/carIconImageView" />
 
 </RelativeLayout>

@@ -3,6 +3,7 @@ package alex.carbon_tracker.UI;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -10,10 +11,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
 import alex.carbon_tracker.Model.JourneyManager;
@@ -39,7 +45,7 @@ public class JourneyListActivity extends AppCompatActivity {
         Log.d("JLAct", journeyManager.totalCarbonEmissionsPublicTransportation() + "");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_list);
-
+        String[] journeyLists = journeyManager.getJourneyDescriptions();
         setCurrentJourneyPosition();
         ListView journeyList = (ListView) findViewById(R.id.journeyListView);
         registerForContextMenu(journeyList);
@@ -108,9 +114,32 @@ public class JourneyListActivity extends AppCompatActivity {
 
     private void journeyListView() {
         String[] journeyList = carbonTrackerModel.getJourneyManager().getJourneyDescriptions();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.jouney_list, journeyList);
+      ArrayAdapter<String> adapter = new MyListAdapter();
+        //  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.jouney_list, journeyList);
         ListView list = (ListView) findViewById(R.id.journeyListView);
         list.setAdapter(adapter);
+    }
+
+    private class MyListAdapter extends ArrayAdapter<String> {
+        public MyListAdapter() {
+            super(JourneyListActivity.this, R.layout.journey_icon, journeyManager.getJourneyDescriptions());
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View itemView = convertView;
+            if (itemView == null) {
+                itemView = getLayoutInflater().inflate(R.layout.journey_icon, parent, false);
+            }
+            String currentDistription = journeyManager.getJourneyDescriptions()[position];
+            int imageId = journeyManager.getJourney(position).getUserVehicle().getIconID();
+            ImageView imageView = (ImageView)itemView.findViewById(R.id.iconForList);
+            imageView.setImageResource(imageId);
+            TextView textView = (TextView)itemView.findViewById(R.id.journeyDisTextView);
+            textView.setText(currentDistription);
+        return itemView;
+        }
+
     }
 
     @Override
