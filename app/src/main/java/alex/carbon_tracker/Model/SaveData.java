@@ -30,8 +30,7 @@ public class SaveData {
         SharedPreferences preferences = context.getSharedPreferences("app", MODE_PRIVATE);
         Gson gson = new Gson();
         String carbonModel = preferences.getString("model17", null);
-        Type type = new TypeToken<CarbonTrackerModel>() {
-        }.getType();
+        Type type = new TypeToken<CarbonTrackerModel>() {}.getType();
         return gson.fromJson(carbonModel, type);
     }
 }

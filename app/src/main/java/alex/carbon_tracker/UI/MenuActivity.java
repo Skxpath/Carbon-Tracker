@@ -24,21 +24,21 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        int journeyListID = findViewById(R.id.journeyListButton).getId();
+        /*int journeyListID = findViewById(R.id.journeyListButton).getId();
         int utilityButtonID = findViewById(R.id.utilityListButton).getId();
         int graphListID = findViewById(R.id.graphListButton).getId();
         int newTipID = findViewById(R.id.tipsButton).getId();
-
+*/
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setLogo(R.mipmap.carbontrackerlogo5);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
 
-        setupButton(journeyListID);
+    /*    setupButton(journeyListID);
         setupButton(utilityButtonID);
         setupButton(graphListID);
-        setupButton(newTipID);
+        setupButton(newTipID);*/
 
         setuphelpbutton();
         updateTipTextview();
@@ -95,7 +95,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-private void setupButton(final int buttonID) {
+/*private void setupButton(final int buttonID) {
         final Button button = (Button) findViewById(buttonID);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +115,7 @@ private void setupButton(final int buttonID) {
             }
 
         });
-    }
+    }*/
 
     private void updateTipTextview() {
         CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();

@@ -75,6 +75,7 @@
     <string name="CO2EmissionsInTD">CO2 Emissions in Tree-days</string>
     <string name="linkinhelppage" ><a href="https://www.sfu.ca/computing.html">Link</a></string>
     <string name="aboutButton">About</string>
+    <string name="settings">Emission Unit Settings</string>
 
 
 </resources>

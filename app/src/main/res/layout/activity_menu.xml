@@ -35,5 +35,16 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:text="@string/aboutButton"
+        android:layout_height="50dp"
+        android:id="@+id/aboutButton"
+        android:background="@drawable/button_shape"
+        android:layout_width="100dp"
+        android:layout_marginBottom="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_above="@+id/textView19"
+        android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>

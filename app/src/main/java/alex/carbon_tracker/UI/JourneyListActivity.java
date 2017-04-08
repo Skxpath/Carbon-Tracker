@@ -113,9 +113,11 @@ public class JourneyListActivity extends AppCompatActivity {
                 itemView = getLayoutInflater().inflate(R.layout.journey_icon, parent, false);
             }
             String currentDistription = journeyManager.getJourneyDescriptions()[position];
-            int imageId = journeyManager.getJourney(position).getUserVehicle().getIconID();
-            ImageView imageView = (ImageView)itemView.findViewById(R.id.iconForList);
-            imageView.setImageResource(imageId);
+            if(journeyManager.getJourney(position).hasVehicle()) {
+                int imageId = journeyManager.getJourney(position).getUserVehicle().getIconID();
+                ImageView imageView = (ImageView) itemView.findViewById(R.id.iconForList);
+                imageView.setImageResource(imageId);
+            }
             TextView textView = (TextView)itemView.findViewById(R.id.journeyDisTextView);
             textView.setText(currentDistription);
         return itemView;
