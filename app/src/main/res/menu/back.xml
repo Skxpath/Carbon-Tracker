@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/back_actionbar_icon"
+        android:title="Back"
+        android:icon="@mipmap/back_icon"
+        app:showAsAction="always"
+        android:checkable="false">
+        android:orderInCategory="1"
+    </item>
+
+</menu>
