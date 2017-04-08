@@ -10,12 +10,9 @@ public class UserVehicle extends Vehicle {
     private String nickname;
     private int iconID;
     public int getIconID(){
-
         return iconID;
     }
-
-    public void setIconID(int id)
-    {
+    public void setIconID(int id){
         iconID = id;
     }
     public UserVehicle(String make, String model, int year, String nickname, String transmission,

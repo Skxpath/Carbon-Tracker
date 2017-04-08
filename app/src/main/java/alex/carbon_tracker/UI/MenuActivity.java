@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
@@ -22,20 +22,64 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        int journeyListID = findViewById(R.id.journeyListButton).getId();
+       /* int journeyListID = findViewById(R.id.journeyListButton).getId();
         int utilityButtonID = findViewById(R.id.utilityListButton).getId();
         int graphListID = findViewById(R.id.graphListButton).getId();
         int newTipID = findViewById(R.id.tipsButton).getId();
-        setupButton(journeyListID);
+        int settingsID = findViewById(R.id.buttonGoToSettings).getId();*/
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.mipmap.carbontrackerlogo5);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
+       /* setupButton(journeyListID);
         setupButton(utilityButtonID);
         setupButton(graphListID);
         setupButton(newTipID);
+        setupButton(settingsID);*/
 
         updateTipTextview();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.graphs, menu);
+        menuInflater.inflate(R.menu.tips, menu);
+        menuInflater.inflate(R.menu.utility, menu);
+        menuInflater.inflate(R.menu.journey, menu);
+        menuInflater.inflate(R.menu.settings, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-    private void setupButton(final int buttonID) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.tips_actionbar_icon:
+                updateTipTextview();
+                return true;
+            case R.id.graphs_actionbar_icon:
+                Intent intent = DateListActivity.makeIntent(MenuActivity.this);
+                startActivity(intent);
+                return true;
+            case R.id.utility_actionbar_icon:
+                intent = UtilitylistActivity.makeIntent(MenuActivity.this);
+                startActivity(intent);
+                return true;
+            case R.id.journey_actionbar_icon:
+                intent = JourneyListActivity.makeIntent(MenuActivity.this);
+                startActivity(intent);
+                return true;
+            case R.id.settings_actionbar_icon:
+                intent = SettingsActivity.makeIntent(MenuActivity.this);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+   /* private void setupButton(final int buttonID) {
         final Button button = (Button) findViewById(buttonID);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,12 +95,14 @@ public class MenuActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else if (buttonID == findViewById(R.id.tipsButton).getId()) {
                     updateTipTextview();
-                    Log.i("test", "tipsbutton clicked");
+                } else if (buttonID == findViewById(R.id.buttonGoToSettings).getId()) {
+                    Intent intent = SettingsActivity.makeIntent(MenuActivity.this);
+                    startActivity(intent);
                 }
             }
 
         });
-    }
+    }*/
 
     private void updateTipTextview() {
         CarbonTrackerModel carbonTrackerModel = CarbonTrackerModel.getInstance();

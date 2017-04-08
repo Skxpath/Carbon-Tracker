@@ -20,7 +20,8 @@ import alex.carbon_tracker.Model.UserVehicle;
 import alex.carbon_tracker.Model.UserVehicleManager;
 import alex.carbon_tracker.R;
 
-/*EditRouteActivity to support editing
+/*
+EditRouteActivity to support editing
 * of a route
 * */
 public class EditRouteActivity extends AppCompatActivity {

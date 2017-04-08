@@ -9,6 +9,9 @@ import java.util.List;
 
 /*
  * Created by Sachin on 2017-03-27.
+ *
+ * DateManager class to manage different dates.
+ *
  */
 
 public class DateManager {
@@ -41,20 +44,20 @@ public class DateManager {
     public boolean deleteJourney(Journey journey) {
         DateYMD dateYM = DateManager.getYMDFormat(journey.getDate());
         for (int i = 0; i < getJourneyDateList().size(); i++) {
-           if(dateYM.getDay() == getJourneyDateList().get(i).getDay()&&dateYM.getMonth()==getJourneyDateList().get(i).getMonth()
-                   && dateYM.getYear()==getJourneyDateList().get(i).getYear()){
-               for(int j = 0;j<journeyDateList.get(i).getJourneys().getSize();j++){
-                   Journey journey1 = journeyDateList.get(i).getJourney(j);
-                   if(journey.equals(journey1)){
-                       journeyDateList.get(i).getJourneys().delete(j);
-                       for(int g =0;g<journeyDateList.get(i).getJourneys().getSize();g++){
-                           Log.i("list123",journeyDateList.get(i).getJourney(g).getCarbonEmitted()+" ");
-                       }
-                       Log.i("xx","deleted ");
-                       return  true;
-                   }
-               }
-           }
+            if (dateYM.getDay() == getJourneyDateList().get(i).getDay() && dateYM.getMonth() == getJourneyDateList().get(i).getMonth()
+                    && dateYM.getYear() == getJourneyDateList().get(i).getYear()) {
+                for (int j = 0; j < journeyDateList.get(i).getJourneys().getSize(); j++) {
+                    Journey journey1 = journeyDateList.get(i).getJourney(j);
+                    if (journey.equals(journey1)) {
+                        journeyDateList.get(i).getJourneys().delete(j);
+                        for (int g = 0; g < journeyDateList.get(i).getJourneys().getSize(); g++) {
+                            Log.i("list123", journeyDateList.get(i).getJourney(g).getCarbonEmitted() + " ");
+                        }
+                        Log.i("xx", "deleted ");
+                        return true;
+                    }
+                }
+            }
         }
 
         return false;
@@ -86,7 +89,7 @@ public class DateManager {
             smallestDate.setMonth(smallestDate.getMonth() - 1);
             if (smallestDate.getMonth() <= 0) {
                 smallestDate.setMonth(12);
-                smallestDate.setYear(smallestDate.getYear()-1);
+                smallestDate.setYear(smallestDate.getYear() - 1);
             }
             smallestDate.setDay(smallestDate.getDay() - 28 + 30);
         } else {
@@ -95,20 +98,21 @@ public class DateManager {
 
         return smallestDate;
     }
-    public static List<DateYMD> datefilterfor28Days(DateYMD smallestDate){
-        Log.i("smalle",smallestDate.getDay()+" "+smallestDate.getMonth());
+
+    public static List<DateYMD> datefilterfor28Days(DateYMD smallestDate) {
+        Log.i("smalle", smallestDate.getDay() + " " + smallestDate.getMonth());
 
         List<DateYMD> dateYMDList = new ArrayList<>();
         DateYMD currentDate = DateManager.getYMDFormat(new Date());
-        Log.i("smalles",currentDate.getDay()+" "+currentDate.getMonth());
+        Log.i("smalles", currentDate.getDay() + " " + currentDate.getMonth());
 
-        int x =0;
-        for(int i = 0; i <28;i++){
-            if(smallestDate.getYear() == currentDate.getYear()){
-                if(smallestDate.getMonth() == currentDate.getMonth()){
-                    DateYMD dateYMD = new DateYMD(smallestDate.getYear(),smallestDate.getMonth(),smallestDate.getDay());
-                    dateYMD.setDay(dateYMD.getDay()+i);
-                  Log.i("qwer",dateYMD.getDay()+" "+dateYMD.getMonth()+" "+dateYMD.getYear());
+        int x = 0;
+        for (int i = 0; i < 28; i++) {
+            if (smallestDate.getYear() == currentDate.getYear()) {
+                if (smallestDate.getMonth() == currentDate.getMonth()) {
+                    DateYMD dateYMD = new DateYMD(smallestDate.getYear(), smallestDate.getMonth(), smallestDate.getDay());
+                    dateYMD.setDay(dateYMD.getDay() + i);
+                    Log.i("qwer", dateYMD.getDay() + " " + dateYMD.getMonth() + " " + dateYMD.getYear());
                     dateYMDList.add(dateYMD);
                 } else {
                     DateYMD dateYMD = new DateYMD(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay());
@@ -116,68 +120,67 @@ public class DateManager {
                     if (dateYMD.getMonth() <= 0) {
                         dateYMD.setYear(dateYMD.getYear() - 1);
                     }
-                    dateYMD.setDay(dateYMD.getDay()+2+i);
-                    if(dateYMD.getDay() >30){
+                    dateYMD.setDay(dateYMD.getDay() + 2 + i);
+                    if (dateYMD.getDay() > 30) {
                         x++;
                         dateYMD.setDay(x);
-                        dateYMD.setMonth(dateYMD.getMonth()+1);
+                        dateYMD.setMonth(dateYMD.getMonth() + 1);
                     }
-                    Log.i("qwer1",dateYMD.getDay()+" "+dateYMD.getMonth()+" "+dateYMD.getYear());
+                    Log.i("qwer1", dateYMD.getDay() + " " + dateYMD.getMonth() + " " + dateYMD.getYear());
                     dateYMDList.add(dateYMD);
                 }
 
-            }
-            else{
-                DateYMD dateYMD = new DateYMD(currentDate.getYear()-1,currentDate.getMonth(),currentDate.getDay());
+            } else {
+                DateYMD dateYMD = new DateYMD(currentDate.getYear() - 1, currentDate.getMonth(), currentDate.getDay());
                 dateYMD.setMonth(12);
-                dateYMD.setDay(dateYMD.getDay()+2-i);
-                if(dateYMD.getDay() >30){
+                dateYMD.setDay(dateYMD.getDay() + 2 - i);
+                if (dateYMD.getDay() > 30) {
                     dateYMD.setDay(1);
-                    dateYMD.setMonth(dateYMD.getMonth()+1);
+                    dateYMD.setMonth(dateYMD.getMonth() + 1);
                 }
-                Log.i("qwer2",dateYMD.getDay()+" "+dateYMD.getMonth()+" "+dateYMD.getYear());
+                Log.i("qwer2", dateYMD.getDay() + " " + dateYMD.getMonth() + " " + dateYMD.getYear());
                 dateYMDList.add(dateYMD);
             }
         }
         return dateYMDList;
     }
-    public static DateYMD getSmallestDateMonth(DateYMD currentDate){
+
+    public static DateYMD getSmallestDateMonth(DateYMD currentDate) {
         DateYMD smallestDate = currentDate;
-            smallestDate.setMonth(smallestDate.getMonth() - 1);
-            if (smallestDate.getMonth() <= 0) {
-                smallestDate.setMonth(12);
-                smallestDate.setYear(smallestDate.getYear()-1);
-            }
+        smallestDate.setMonth(smallestDate.getMonth() - 1);
+        if (smallestDate.getMonth() <= 0) {
+            smallestDate.setMonth(12);
+            smallestDate.setYear(smallestDate.getYear() - 1);
+        }
         return smallestDate;
     }
 
 
-    public static List<DateYMD> datefilterforMonth( DateYMD currentDate,boolean isItForYearGraph){
+    public static List<DateYMD> datefilterforMonth(DateYMD currentDate, boolean isItForYearGraph) {
         List<DateYMD> dateYMDList = new ArrayList<>();
-        Log.i("current", currentDate.getDay()+" "+currentDate.getMonth()+" "+currentDate.getYear() +" ");
-        int x=0;
-        for(int i =0; i<30;i++){
-            DateYMD dateYMD = new DateYMD(currentDate.getYear(),currentDate.getMonth(),currentDate.getDay());
-            dateYMD.setDay(dateYMD.getDay()-i);
-            if(dateYMD.getDay()<=0){
-             if(isItForYearGraph) {
-                 break;
-             }
-              else {
-                dateYMD.setMonth(dateYMD.getMonth()-1);
-                if(dateYMD.getMonth()<=0){
-                    dateYMD.setMonth(12);
-                    dateYMD.setYear(dateYMD.getYear()-1);
-                }
-                dateYMD.setDay(30-x);
-                x++;
+        Log.i("current", currentDate.getDay() + " " + currentDate.getMonth() + " " + currentDate.getYear() + " ");
+        int x = 0;
+        for (int i = 0; i < 30; i++) {
+            DateYMD dateYMD = new DateYMD(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay());
+            dateYMD.setDay(dateYMD.getDay() - i);
+            if (dateYMD.getDay() <= 0) {
+                if (isItForYearGraph) {
+                    break;
+                } else {
+                    dateYMD.setMonth(dateYMD.getMonth() - 1);
+                    if (dateYMD.getMonth() <= 0) {
+                        dateYMD.setMonth(12);
+                        dateYMD.setYear(dateYMD.getYear() - 1);
+                    }
+                    dateYMD.setDay(30 - x);
+                    x++;
 
-             }
+                }
             }
             dateYMDList.add(dateYMD);
         }
-        for(int i =0; i< dateYMDList.size();i++){
-            Log.i("date123", dateYMDList.get(i).getDay()+" "+dateYMDList.get(i).getMonth()+" "+dateYMDList.get(i).getYear()+" "+i);
+        for (int i = 0; i < dateYMDList.size(); i++) {
+            Log.i("date123", dateYMDList.get(i).getDay() + " " + dateYMDList.get(i).getMonth() + " " + dateYMDList.get(i).getYear() + " " + i);
         }
 
 

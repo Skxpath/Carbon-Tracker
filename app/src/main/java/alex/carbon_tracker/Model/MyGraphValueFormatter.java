@@ -7,18 +7,18 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.text.DecimalFormat;
 
 /**
- * Created by Sachin on 2017-04-01.
+ * Formats points on graphs
  */
 
-public class MyGraphValueFormater implements IValueFormatter {
+public class MyGraphValueFormatter implements IValueFormatter {
     private DecimalFormat df;
 
-    public MyGraphValueFormater() {
+    public MyGraphValueFormatter() {
         df = new DecimalFormat("###,###,###.##");
     }
 
     @Override
     public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-        return df.format(value) + "KG";
+        return df.format(value);
     }
 }
