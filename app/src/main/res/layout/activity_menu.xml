@@ -12,14 +12,6 @@
     android:background="@mipmap/background2"
     tools:context="alex.carbon_tracker.UI.MenuActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/logo3"
-        android:id="@+id/imageView6"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:layout_width="wrap_content"
         android:id="@+id/textView19"
@@ -34,6 +26,25 @@
         android:layout_alignParentStart="true"
         android:textColor="@color/colorPrimaryDark"
         android:layout_height="100dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/logo3"
+        android:id="@+id/imageView6"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="@string/aboutButton"
+        android:layout_height="50dp"
+        android:id="@+id/aboutButton"
+        android:background="@drawable/button_shape"
+        android:layout_width="100dp"
+        android:layout_marginBottom="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_above="@+id/textView19"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

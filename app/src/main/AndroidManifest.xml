@@ -80,8 +80,9 @@
         <activity
             android:name=".UI.AddUtilityBillPart2"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.SettingsActivity" />
         <activity android:name=".UI.PieGraphMonthYear"></activity>
+        <activity android:name=".UI.SettingsActivity" />
+        <activity android:name=".UI.HelpPageActivity"></activity>
     </application>
 
 </manifest>

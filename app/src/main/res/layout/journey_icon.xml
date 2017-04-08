@@ -6,7 +6,6 @@
 
     <ImageView
         android:layout_height="164dp"
-        app:srcCompat="@drawable/automobile"
         android:id="@+id/iconForList"
         android:layout_width="100dp"
         android:layout_weight="0.07" />
