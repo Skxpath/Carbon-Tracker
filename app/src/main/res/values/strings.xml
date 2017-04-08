@@ -69,6 +69,7 @@
     <string name="co2EmissionInKG">CO2 Emission (KG)</string>
     <string name="targetCo2Emission">Target CO2 Emission</string>
     <string name="avgCo2EmissionperDay">Avg Co2 Emision Per Day</string>
+    <string name="carIconText">Car Icon</string>
     <string name="settingsChangeUnits">Change Carbon Emission Units</string>
     <string name="SettingsButton">Settings</string>
     <string name="CO2EmissionsInTD">CO2 Emissions in Tree-days</string>

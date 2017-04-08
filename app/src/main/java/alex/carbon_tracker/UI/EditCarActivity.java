@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
     private CarbonTrackerModel carbonTrackerModel;
     private JourneyManager journeyManager;
     private UserVehicleManager userVehicleManager;
-
+    List<Integer> imagesID = new ArrayList<>();
     private String carMakeFromIntent = "xx";
     private String carModelFromIntent = "";
     private int carYearFromIntent = 0;
@@ -52,7 +53,7 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
     private String carTransmission;
     private String carFuelType;
     private double getCarFuelTypeNumber;
-
+    private int carIconID =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +67,27 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
         setupOkButton();
         setupCarMakeDropDown();
         setupCarNickName();
+        imagesID.add(R.drawable.automobile);
+        imagesID.add(R.drawable.batmobile);
+        imagesID.add(R.drawable.car_grey);
+        imagesID.add(R.drawable.truck);
+        imagesID.add(R.drawable.van);
+        setUpCarIconDropDown();
+    }
+    private void setUpCarIconDropDown() {
+
+        List<String> carNames = new ArrayList<>();
+        carNames.add("AutoMobile");
+        carNames.add("Bat Mobile");
+        carNames.add("Grey Car");
+        carNames.add("Truck");
+        carNames.add("Van");
+        Spinner carIconSpinner = (Spinner)findViewById(R.id.spinner3);
+        carIconSpinner.setOnItemSelectedListener(this);
+        ArrayAdapter<String> adapt = new ArrayAdapter<String>(EditCarActivity.this, android.R.layout.simple_spinner_item, carNames);
+        adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        carIconSpinner.setAdapter(adapt);
+        adapt.notifyDataSetChanged();
     }
 
     @Override
@@ -88,7 +110,7 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
                     && Double.compare(fuelNumber, getCarFuelTypeNumber) == 0) {
                 setupNewCarNickName();
                 UserVehicle newUserVehicle = new UserVehicle(carMake, carModel, carYear, carNickname, carTransmission, carFuelType,
-                        newVehicle.getCityDrive(), newVehicle.getHighwayDrive(), getCarFuelTypeNumber);
+                        newVehicle.getCityDrive(), newVehicle.getHighwayDrive(), getCarFuelTypeNumber,carIconID);
                 UserVehicle originalVehicle = userVehicleManager.getUserVehicle(getIntent().getIntExtra("position", 0));
 
 
@@ -117,11 +139,7 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
                         double CO2Emissions = CarbonCalculator.calculate(gasType, distanceTravelledCity, distanceTravelledHighway, milesPerGallonCity, milesPerGallonHighway);
                         journey.setCarbonEmitted(CO2Emissions);
                     }
-
-
                 }
-
-
                 break;
             }
         }
@@ -339,8 +357,13 @@ public class EditCarActivity extends AppCompatActivity implements AdapterView.On
             carTransmission = strings[0];
             carFuelType = strings[1];
             getCarFuelTypeNumber = Double.parseDouble(strings[2]);
-            Toast.makeText(this, carTransmission, Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, carFuelType, Toast.LENGTH_SHORT).show();
+        }
+
+        else if (adapterView.getId() == findViewById(R.id.spinner3).getId()) {
+            ImageView img = (ImageView)findViewById(R.id.carIconImageView);
+            img.setImageResource(imagesID.get(i));
+            img.refreshDrawableState();
+            carIconID = imagesID.get(i);
         }
     }
 

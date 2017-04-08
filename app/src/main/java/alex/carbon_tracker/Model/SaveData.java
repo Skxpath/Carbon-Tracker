@@ -22,14 +22,14 @@ public class SaveData {
         SharedPreferences.Editor editor = pref.edit();
         Gson gsonModel = new Gson();
         String dummy = gsonModel.toJson(CarbonTrackerModel.getInstance());
-        editor.putString("model25", dummy);
+        editor.putString("model17", dummy);
         editor.commit();
     }
 
     public static CarbonTrackerModel getSharePreference(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("app", MODE_PRIVATE);
         Gson gson = new Gson();
-        String carbonModel = preferences.getString("model25", null);
+        String carbonModel = preferences.getString("model17", null);
         Type type = new TypeToken<CarbonTrackerModel>() {
         }.getType();
         return gson.fromJson(carbonModel, type);
