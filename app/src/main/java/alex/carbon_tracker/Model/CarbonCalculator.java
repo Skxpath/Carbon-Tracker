@@ -17,6 +17,7 @@ public class CarbonCalculator {
         double CO2ProducedCity = CO2InKGperDistanceInKm * distanceTravelledCity * GRAMS_TO_KILOGRAMS;
         double CO2ProducedHighway = CO2InKGperDistanceInKm * distanceTravelledHighway * GRAMS_TO_KILOGRAMS;
 
+
         return CO2ProducedCity + CO2ProducedHighway;
     }
 
