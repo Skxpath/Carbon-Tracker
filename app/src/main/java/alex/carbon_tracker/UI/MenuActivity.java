@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import alex.carbon_tracker.Model.CarbonTrackerModel;
@@ -32,13 +34,27 @@ public class MenuActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
+
        /* setupButton(journeyListID);
         setupButton(utilityButtonID);
         setupButton(graphListID);
         setupButton(newTipID);
         setupButton(settingsID);*/
 
+        setuphelpbutton();
         updateTipTextview();
+    }
+
+    public void setuphelpbutton() {
+        int helpButtonID = findViewById(R.id.aboutButton).getId();
+        final Button helpButton = (Button) findViewById(R.id.aboutButton);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = HelpPageActivity.makeIntent(MenuActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -78,6 +94,8 @@ public class MenuActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
    /* private void setupButton(final int buttonID) {
         final Button button = (Button) findViewById(buttonID);

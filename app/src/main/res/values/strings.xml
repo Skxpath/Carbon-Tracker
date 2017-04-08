@@ -72,6 +72,7 @@
     <string name="settingsChangeUnits">Change Carbon Emission Units</string>
     <string name="SettingsButton">Settings</string>
     <string name="CO2EmissionsInTD">CO2 Emissions in Tree-days</string>
+    <string name="linkinhelppage" ><a href="https://www.sfu.ca/computing.html">Link</a></string>
 
 
 </resources>
