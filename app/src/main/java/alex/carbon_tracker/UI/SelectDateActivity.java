@@ -39,6 +39,7 @@ public class SelectDateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_date);
 
 
+
         setupOnClickCalendar(R.id.calendarViewJourneyDate);
         setupSubmitBtn();
         setupDateButton();
