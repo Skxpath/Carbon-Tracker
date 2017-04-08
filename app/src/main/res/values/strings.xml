@@ -73,6 +73,7 @@
     <string name="settingsChangeUnits">Change Carbon Emission Units</string>
     <string name="SettingsButton">Settings</string>
     <string name="CO2EmissionsInTD">CO2 Emissions in Tree-days</string>
+    <string name="barchartinfotext">Tap on the Month to view Details</string>
 
 
 </resources>

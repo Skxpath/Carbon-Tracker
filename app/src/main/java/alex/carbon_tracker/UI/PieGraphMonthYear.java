@@ -41,13 +41,20 @@ public class PieGraphMonthYear extends AppCompatActivity {
     private Settings settings = carbonTrackerModel.getSettings();
     private CarbonUnitsEnum units = settings.getCarbonUnit();
     private String unitString;
+    List<Journey> journeysWithVehicle = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_chart);
         setUnits();
-        setupPieChart();
+        Intent intent = getIntent();
+        if(intent.getBooleanExtra("monthGraph",false)){
+            setupPieChart();
+        }
+        else {
+
+        }
 
         Log.d("HERE1",   "123123");
         Log.d("HERE2",  "12312");
@@ -114,9 +121,16 @@ public class PieGraphMonthYear extends AppCompatActivity {
 
         pieEntryNatGas = createNewPieEntry(totalNaturalGas, "Natural Gas");
         pieEntryElec = createNewPieEntry(totalElectricity, "Electricity");
-
+        PieEntry pieEntryOtherTransportation = new PieEntry(getTransportationFromJourney(),"OtherTransportation");
         pieEntries.add(pieEntryNatGas);
         pieEntries.add(pieEntryElec);
+        pieEntries.add(pieEntryOtherTransportation);
+
+        for(int i =0;i<journeysWithVehicle.size();i++){
+            PieEntry pieEntry = new PieEntry((float) journeysWithVehicle.get(i).getCarbonEmitted(),
+                    journeysWithVehicle.get(i).getUserVehicle().getNickname().toString());
+            pieEntries.add(pieEntry);
+        }
 
         PieDataSet dataSet = new PieDataSet(pieEntries, "");
 
@@ -136,100 +150,19 @@ public class PieGraphMonthYear extends AppCompatActivity {
         chart.setEntryLabelTextSize(13);
         chart.invalidate();
     }
-
-    private void setupPieGraphForMonth() {
-
-        DateYMD smallestDate = DateManager.getSmallestDateFor28Days();
-        final ArrayList<Entry> entries = new ArrayList<>();
-        final ArrayList<Integer> monthforEntry = new ArrayList<>();
-        List<DateYMD> allBetweenDates = DateManager.datefilterfor28Days(smallestDate);
-        List<DateYMD> allJourneyDates = new ArrayList<>();
-        HashSet hashset = new HashSet();
-        for (int i = 0; i < carbonTrackerModel.getJourneyManager().getSize(); i++) {
-            DateYMD date = DateManager.getYMDFormat(carbonTrackerModel.getJourneyManager().getDate());
-            if (hashset.add(date)) {
-                allJourneyDates.add(date);
-            }
-        }
-
-        for (int j = 0; j < allBetweenDates.size(); j++) {
-            float co2Em = 0;
-            for (int k = 0; k < carbonTrackerModel.getJourneyManager().getSize(); k++) {
-                DateYMD d = DateManager.getYMDFormat(carbonTrackerModel.getJourneyManager().getJourney(k).getDate());
-                if (d.getDay() == allBetweenDates.get(j).getDay() &&
-                        d.getMonth() == allBetweenDates.get(j).getMonth()
-                        && d.getYear() == allBetweenDates.get(j).getYear()) {
-                    Journey journey = journeyManager.getJourney(k);
-                    double CO2Journey = journey.getCarbonEmitted();
-                    if (units == TREE_DAYS) {
-                        CO2Journey = UnitConversion.convertDoubleToTreeUnits(CO2Journey);
-                    }
-                    co2Em += CO2Journey;
+        private  float getTransportationFromJourney(){
+            float co2EM =0;
+            for(int i =0;i<journeyManager.getSize();i++){
+                Journey journey = journeyManager.getJourney(i);
+                if(journey.hasVehicle()){
+                    journeysWithVehicle.add(journey);
+                }
+                else{
+                    co2EM+= journey.getCarbonEmitted();
                 }
             }
-
-            Entry entry = new Entry(allBetweenDates.get(j).getDay() + allBetweenDates.get(j).getMonth() * 30, co2Em);
-            entries.add(entry);
-            monthforEntry.add(allBetweenDates.get(j).getMonth());
-
+            return co2EM;
         }
-
-
-//        LineChart lineChart = (LineChart) findViewById(R.id.chart);
-//
-//        String lineDataString = "CO2 in " + unitString;
-//        LineDataSet dataset = new LineDataSet(entries, lineDataString);
-//
-//        dataset.setDrawCircleHole(true);
-//        dataset.setDrawFilled(true);
-//
-//        dataset.setValueTextSize(5f);
-//        dataset.setCircleColorHole(Color.BLACK);
-//        LineData data = new LineData(dataset);
-//        data.setValueFormatter(new MyGraphValueFormatter());
-//        lineChart.setBackgroundColor(Color.rgb(43, 79, 51));
-//        dataset.setColors(Color.BLUE); //
-//        lineChart.setData(data);
-//        lineChart.invalidate();
-//        lineChart.setMinimumHeight(0);
-//
-//
-//        LimitLine limitLineForAvgCo2 = new LimitLine((float) CO2PerPerson / 365, getString(R.string.avgCo2EmissionperDay));
-//        limitLineForAvgCo2.setTextSize(10f);
-//        limitLineForAvgCo2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-//        limitLineForAvgCo2.setLineWidth(3f);
-//
-//        LimitLine targetLimitLine = new LimitLine(((float) CO2PerPerson / 365) * 0.7f, getString(R.string.targetCo2Emission));
-//        targetLimitLine.setTextSize(10f);
-//        targetLimitLine.setLineColor(Color.GREEN);
-//        targetLimitLine.setLineWidth(3f);
-//        targetLimitLine.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_BOTTOM);
-//
-//
-//        YAxis yAxis = lineChart.getAxisLeft();
-//        yAxis.addLimitLine(limitLineForAvgCo2);
-//        yAxis.addLimitLine(targetLimitLine);
-//        lineChart.notifyDataSetChanged();
-//        XAxis xAxis = lineChart.getXAxis();
-//        xAxis.setValueFormatter(new Xaxisformatter(monthforEntry, entries, true, null));
-//        lineChart.getAxisRight().setEnabled(false);
-//        lineChart.animateY(3000);
-//        TextView text = (TextView) findViewById(R.id.xAxisGraph);
-//        text.setText(R.string.xAxisLabelForMonthGraph);
-//        lineChart.getDescription().setText("");
-//        lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-//            @Override
-//            public void onValueSelected(Entry e, Highlight h) {
-//                setupInfo(e, entries, monthforEntry, null, true, 0);
-//            }
-//
-//            @Override
-//            public void onNothingSelected() {
-//
-//            }
-//        });
-    }
-
 
     private void setUnits() {
         if (units == KILOGRAMS) {
