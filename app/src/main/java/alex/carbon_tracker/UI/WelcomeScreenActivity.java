@@ -49,7 +49,10 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         ImageView welcomeImg = (ImageView) findViewById(R.id.smokeImgView);
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.welcome_anim);
         welcomeImg.startAnimation(myFadeInAnimation);
-
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.mipmap.carbontrackerlogo5);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         displayNotifications();
 
         myFadeInAnimation.setAnimationListener(new Animation.AnimationListener() {
