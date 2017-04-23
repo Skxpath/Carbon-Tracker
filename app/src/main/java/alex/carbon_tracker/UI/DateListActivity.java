@@ -48,8 +48,8 @@ public class DateListActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_list);
-        setupLineGraphButton(R.id.lastYearGraphButton);
-        setupLineGraphButton(R.id.lastMonthGraphButton);
+        setupLastMonthButton(R.id.lastYearGraphButton);
+        setupLastMonthButton(R.id.lastMonthGraphButton);
         setupPieGraphButton(R.id.buttonPieMonth);
         setupPieGraphButton(R.id.buttonPieYear);
         createDateList(journeyManager);
@@ -84,6 +84,8 @@ public class DateListActivity extends AppCompatActivity {
     }
 
     private void setupLineGraphButton(final int id) {
+
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
